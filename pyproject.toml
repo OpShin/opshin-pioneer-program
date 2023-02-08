@@ -14,8 +14,9 @@ eopsin-lang = "^0.7.10"
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
 pre-commit = "^3.0.4"
+isort = "^5.12.0"
+autoflake = "^2.0.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
