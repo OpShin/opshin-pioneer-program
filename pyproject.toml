@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "python-cardano"
+version = "0.1.0"
+description = ""
+authors = ["Julius Frost <33183774+juliusfrost@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "python_cardano"}]
+
+[tool.poetry.dependencies]
+python = "~3.8"
+eopsin-lang = "^0.7.10"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+pre-commit = "^3.0.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
