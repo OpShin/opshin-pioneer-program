@@ -38,12 +38,13 @@ def test_homework2(r1: bool, r2: bool, result: bool):
 
 
 homework_dir = Path(__file__).parent.parent.joinpath("homework")
-script_paths = [
-    homework_dir.joinpath("homework1.py"),
-    homework_dir.joinpath("homework1_solved.py"),
-    homework_dir.joinpath("homework2.py"),
-    homework_dir.joinpath("homework2_solved.py"),
+python_files = [
+    "homework1.py",
+    "homework1_solved.py",
+    "homework2.py",
+    "homework2_solved.py",
 ]
+script_paths = [homework_dir.joinpath(f) for f in python_files]
 
 
 @pytest.mark.parametrize("path", script_paths)

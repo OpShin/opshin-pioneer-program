@@ -4,13 +4,14 @@ import pytest
 from eopsin import compiler
 
 lecture_dir = Path(__file__).parent.parent.joinpath("lecture")
-script_paths = [
-    lecture_dir.joinpath("burn.py"),
-    lecture_dir.joinpath("custom_types.py"),
-    lecture_dir.joinpath("fourty_two.py"),
-    lecture_dir.joinpath("fourty_two_typed.py"),
-    lecture_dir.joinpath("gift.py"),
+python_files = [
+    "burn.py",
+    "custom_types.py",
+    "fourty_two.py",
+    "fourty_two_typed.py",
+    "gift.py",
 ]
+script_paths = [lecture_dir.joinpath(f) for f in python_files]
 
 
 @pytest.mark.parametrize("path", script_paths)
