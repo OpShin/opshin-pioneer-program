@@ -3,11 +3,11 @@ from pathlib import Path
 
 import pytest
 
-from code.week02.homework import homework1, homework2
+from src.week02.homework import homework1, homework2
 
 
-# from code.week02.homework import homework1_solved as homework1
-# from code.week02.homework import homework2_solved as homework2
+# from src.week02.homework import homework1_solved as homework1
+# from src.week02.homework import homework2_solved as homework2
 
 
 @pytest.mark.parametrize(
