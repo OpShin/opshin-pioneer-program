@@ -9,10 +9,6 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-added-large-files
-  - repo: https://github.com/PyCQA/autoflake
-    rev: v2.0.1
-    hooks:
-      - id: autoflake
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
     hooks:
