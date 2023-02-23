@@ -1,7 +1,7 @@
-import subprocess
 from pathlib import Path
 
 import pytest
+from eopsin import compiler
 
 from src.week02.homework import homework1, homework2
 
@@ -48,4 +48,8 @@ script_paths = [
 
 @pytest.mark.parametrize("path", script_paths)
 def test_homework_compile(path):
-    subprocess.run(["eopsin", "compile", str(path)], check=True)
+    with open(path, "r") as f:
+        source_code = f.read()
+    source_ast = compiler.parse(source_code)
+    code = compiler.compile(source_ast)
+    print(code.dumps())

@@ -1,7 +1,7 @@
-import subprocess
 from pathlib import Path
 
 import pytest
+from eopsin import compiler
 
 lecture_dir = Path(__file__).parent.parent.joinpath("lecture")
 script_paths = [
@@ -15,4 +15,8 @@ script_paths = [
 
 @pytest.mark.parametrize("path", script_paths)
 def test_lecture_compile(path):
-    subprocess.run(["eopsin", "compile", str(path)], check=True)
+    with open(path, "r") as f:
+        source_code = f.read()
+    source_ast = compiler.parse(source_code)
+    code = compiler.compile(source_ast)
+    print(code.dumps())
