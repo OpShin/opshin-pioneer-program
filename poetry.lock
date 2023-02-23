@@ -707,24 +707,6 @@ files = [
 ]
 
 [[package]]
-name = "isort"
-version = "5.12.0"
-description = "A Python utility / library to sort Python imports."
-category = "dev"
-optional = false
-python-versions = ">=3.8.0"
-files = [
-    {file = "isort-5.12.0-py3-none-any.whl", hash = "sha256:f84c2818376e66cf843d497486ea8fed8700b340f308f076c6fb1229dff318b6"},
-    {file = "isort-5.12.0.tar.gz", hash = "sha256:8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504"},
-]
-
-[package.extras]
-colors = ["colorama (>=0.4.3)"]
-pipfile-deprecated-finder = ["pip-shims (>=0.5.2)", "pipreqs", "requirementslib"]
-plugins = ["setuptools"]
-requirements-deprecated-finder = ["pip-api", "pipreqs"]
-
-[[package]]
 name = "mnemonic"
 version = "0.20"
 description = "Implementation of Bitcoin BIP-0039"
@@ -1233,4 +1215,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.8"
-content-hash = "7b609eaf0d286ed74df2dbe9c4d1d5f779fae9c8581b186b5e46acbed21e0240"
+content-hash = "1c62d1f6747b93b032d6e175396763177a837650574c89de9f5b8a39f1b27aa6"
