@@ -44,7 +44,7 @@ python_files = [
     "homework2.py",
     "homework2_solved.py",
 ]
-script_paths = [homework_dir.joinpath(f) for f in python_files]
+script_paths = [str(homework_dir.joinpath(f)) for f in python_files]
 
 
 @pytest.mark.parametrize("path", script_paths)
