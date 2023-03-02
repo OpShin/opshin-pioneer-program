@@ -8,7 +8,7 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "~3.8"
-eopsin-lang = "^0.9.0"
+eopsin-lang = "^0.9.1"
 pycardano = "*"
 blockfrost-python = "*"
 

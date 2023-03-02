@@ -508,14 +508,14 @@ files = [
 
 [[package]]
 name = "eopsin-lang"
-version = "0.9.0"
+version = "0.9.1"
 description = "A simple pythonic programming language for Smart Contracts on Cardano"
 category = "main"
 optional = false
 python-versions = ">=3.8, <3.9"
 files = [
-    {file = "eopsin-lang-0.9.0.tar.gz", hash = "sha256:41804fd95609b4814df1aff70c910a1bd5cb900b2e084f612fa87d93e257148d"},
-    {file = "eopsin_lang-0.9.0-py3-none-any.whl", hash = "sha256:b6c374f6037ef21aae7a41c1d2995944ea6aa38034c47fe8f0b6cd4aaab76146"},
+    {file = "eopsin-lang-0.9.1.tar.gz", hash = "sha256:6262f2fb13977b0581882e4295544294133f2465686001fa6d220836efb4125c"},
+    {file = "eopsin_lang-0.9.1-py3-none-any.whl", hash = "sha256:700417dfda52da0b7579b23a2d62c991f78103e83f7a0cb60367bb6b05429b18"},
 ]
 
 [package.dependencies]
@@ -1231,4 +1231,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.8"
-content-hash = "ef6f6691bf77ba4b47d1fffce4c690463cc34c38b04ae391a6b1477b21ed1348"
+content-hash = "24f87231e70613724f4ea427aae284b03863acd6ec218579018f5ab13372fb7f"
