@@ -11,6 +11,7 @@ python = "~3.8"
 eopsin-lang = "^0.9.1"
 pycardano = "*"
 blockfrost-python = "*"
+click = "^8.1.3"
 
 
 [tool.poetry.group.dev.dependencies]
