@@ -1,9 +1,8 @@
 import subprocess
 from pathlib import Path
 
+from src.week02 import assets_dir
 from src.week02.tests.test_lecture import script_paths
-
-assets_dir = Path(__file__).parent.parent.joinpath("assets")
 
 
 def main():

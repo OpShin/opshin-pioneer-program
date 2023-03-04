@@ -1,9 +1,8 @@
-from pathlib import Path
-
 import pytest
 from eopsin import compiler
 
-lecture_dir = Path(__file__).parent.parent.joinpath("lecture")
+from src.week02 import lecture_dir
+
 python_files = [
     "burn.py",
     "custom_types.py",

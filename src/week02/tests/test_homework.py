@@ -1,8 +1,7 @@
-from pathlib import Path
-
 import pytest
 from eopsin import compiler
 
+from src.week02 import homework_dir
 from src.week02.homework import homework1, homework2
 
 
@@ -37,7 +36,6 @@ def test_homework2(r1: bool, r2: bool, result: bool):
     assert homework2.validator(None, redeemer, None) == result
 
 
-homework_dir = Path(__file__).parent.parent.joinpath("homework")
 python_files = [
     "homework1.py",
     "homework1_solved.py",
