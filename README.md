@@ -14,7 +14,15 @@ In Windows, you can do this by copying the `python.exe` file to `python3.8.exe` 
 3. Install python poetry.
 Follow the official documentation [here](https://python-poetry.org/docs/#installation).
 
-4. Install Docker.
+4. Install a python virtual environment with poetry:
+```bash
+# install python dependencies
+poetry install
+# run a shell with the virtual environment activated
+poetry shell
+```
+
+5. Install Docker.
 Follow the official documentation [here](https://docs.docker.com/get-docker/).
 
 ### Cardano Node
