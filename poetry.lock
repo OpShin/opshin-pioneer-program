@@ -510,19 +510,19 @@ files = [
 
 [[package]]
 name = "eopsin-lang"
-version = "0.9.1"
+version = "0.9.4"
 description = "A simple pythonic programming language for Smart Contracts on Cardano"
 category = "main"
 optional = false
 python-versions = ">=3.8, <3.9"
 files = [
-    {file = "eopsin-lang-0.9.1.tar.gz", hash = "sha256:6262f2fb13977b0581882e4295544294133f2465686001fa6d220836efb4125c"},
-    {file = "eopsin_lang-0.9.1-py3-none-any.whl", hash = "sha256:700417dfda52da0b7579b23a2d62c991f78103e83f7a0cb60367bb6b05429b18"},
+    {file = "eopsin-lang-0.9.4.tar.gz", hash = "sha256:ccec321fdeec42d27d47a7a0d8f0d948e41c99de3ef172ebaae2fa0b4fd5492e"},
+    {file = "eopsin_lang-0.9.4-py3-none-any.whl", hash = "sha256:41750663f183c4f5a9b1573c2529c778ce70e0dd155d6814e3e2af3e9c90adec"},
 ]
 
 [package.dependencies]
 frozenlist = "1.3.3"
-pluthon = "0.2.14"
+pluthon = "0.2.15"
 pyaiken = "0.4.0"
 pycardano = "0.7.2"
 uplc = "0.5.6"
@@ -820,14 +820,14 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pluthon"
-version = "0.2.14"
+version = "0.2.15"
 description = "Pluto-like programming language for Cardano Smart Contracts in Python"
 category = "main"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "pluthon-0.2.14-py3-none-any.whl", hash = "sha256:f2c835d9f0fde66d9d6dd83514648844f2c31580fdb8e064c6d4a49ae55e94f5"},
-    {file = "pluthon-0.2.14.tar.gz", hash = "sha256:e3031422ec193b2a01e159f717e6a196c724b7adfd360140ca341240af2c3eae"},
+    {file = "pluthon-0.2.15-py3-none-any.whl", hash = "sha256:9ea922f422a551157a8e134b0551f3311348de5a17a0c58d99771b9bbd1577c0"},
+    {file = "pluthon-0.2.15.tar.gz", hash = "sha256:4dc3eee23e20047bab07ea5d1d37bb1ffda6cfb6883bb4ce70bc0bec40561ff1"},
 ]
 
 [package.dependencies]
@@ -1087,14 +1087,14 @@ appdirs = "*"
 
 [[package]]
 name = "setuptools"
-version = "67.4.0"
+version = "67.5.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "setuptools-67.4.0-py3-none-any.whl", hash = "sha256:f106dee1b506dee5102cc3f3e9e68137bbad6d47b616be7991714b0c62204251"},
-    {file = "setuptools-67.4.0.tar.gz", hash = "sha256:e5fd0a713141a4a105412233c63dc4e17ba0090c8e8334594ac790ec97792330"},
+    {file = "setuptools-67.5.0-py3-none-any.whl", hash = "sha256:9f0004c0daa3d41ef4465934a89498da3eef994039f48845d6eb8202aa13b2e9"},
+    {file = "setuptools-67.5.0.tar.gz", hash = "sha256:113ff8d482b826d2f3b99f26adb1fe505e526a94a08e68cdf392d1dff9ce0595"},
 ]
 
 [package.extras]
@@ -1233,4 +1233,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.8"
-content-hash = "6532c71464ba285fb71247fcdffd5f322a37ef12ec7db48d90cc777d4bf625b2"
+content-hash = "e8d7436be26dc47717265f3cf578277c570088ca00e45d492c318e321a8c9c0d"
