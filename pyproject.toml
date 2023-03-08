@@ -12,6 +12,7 @@ eopsin-lang = "^0.9.5"
 pycardano = "*"
 blockfrost-python = "*"
 click = "^8.1.3"
+hypothesis = "^6.68.2"
 
 
 [tool.poetry.group.dev.dependencies]
