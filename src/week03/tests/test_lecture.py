@@ -16,7 +16,7 @@ from eopsin.prelude import (
 from hypothesis import given, strategies as st
 
 from src.week03 import lecture_dir
-from src.week03.lecture import parameterized_vesting, vesting
+from src.week03.lecture import parameterized_vesting, range, vesting
 
 
 def get_bool(b):
@@ -37,10 +37,10 @@ def get_posix_time_type(lower):
     ["time", "lower", "upper", "lower_closed", "upper_closed", "result"],
     [
         (1, 0, 2, True, True, True),
-        (0, 0, 0, False, False, True),
-        (0, 0, 0, True, True, False),
+        (0, 0, 0, False, False, False),
+        (0, 0, 0, True, True, True),
         (-1, 0, 2, True, True, False),
-        (0, 0, 2, False, True, True),
+        (0, 0, 2, True, False, True),
         (0, -math.inf, math.inf, True, True, True),
     ],
 )
@@ -49,27 +49,25 @@ def test_contains_example(time, lower, upper, lower_closed, upper_closed, result
         LowerBoundPOSIXTime(get_posix_time_type(lower), get_bool(lower_closed)),
         UpperBoundPOSIXTime(get_posix_time_type(upper), get_bool(upper_closed)),
     )
-    assert vesting.contains(time, time_range) == result
-    assert parameterized_vesting.contains(time, time_range) == result
+    assert range.contains(time, time_range) == result
 
 
 @given(st.integers(), st.integers(), st.integers(), st.booleans(), st.booleans())
 def test_contains_hypothesis(time, lower, upper, lower_closed, upper_closed):
     if lower_closed:
-        lower_comparison = lower < time
-    else:
         lower_comparison = lower <= time
-    if upper_closed:
-        upper_comparison = time < upper
     else:
+        lower_comparison = lower < time
+    if upper_closed:
         upper_comparison = time <= upper
+    else:
+        upper_comparison = time < upper
     result = lower_comparison and upper_comparison
     time_range = POSIXTimeRange(
         LowerBoundPOSIXTime(get_posix_time_type(lower), get_bool(lower_closed)),
         UpperBoundPOSIXTime(get_posix_time_type(upper), get_bool(upper_closed)),
     )
-    assert vesting.contains(time, time_range) == result
-    assert parameterized_vesting.contains(time, time_range) == result
+    assert range.contains(time, time_range) == result
 
 
 @given(
@@ -103,20 +101,19 @@ def test_contains_hypothesis_inf(
     if not upper_pos_sign:
         upper = -upper_inf
     if lower_closed:
-        lower_comparison = lower < time
-    else:
         lower_comparison = lower <= time
-    if upper_closed:
-        upper_comparison = time < upper
     else:
+        lower_comparison = lower < time
+    if upper_closed:
         upper_comparison = time <= upper
+    else:
+        upper_comparison = time < upper
     result = lower_comparison and upper_comparison
     time_range = POSIXTimeRange(
         LowerBoundPOSIXTime(get_posix_time_type(lower), get_bool(lower_closed)),
         UpperBoundPOSIXTime(get_posix_time_type(upper), get_bool(upper_closed)),
     )
-    assert vesting.contains(time, time_range) == result
-    assert parameterized_vesting.contains(time, time_range) == result
+    assert range.contains(time, time_range) == result
 
 
 python_files = [
