@@ -17,7 +17,6 @@ def deadline_reached(params: VestingParams, context: ScriptContext) -> bool:
     return contains(deadline, valid_range)
 
 
-def validator(datum: VestingParams, redeemer: None, context: ScriptContext) -> bool:
+def validator(datum: VestingParams, redeemer: None, context: ScriptContext) -> None:
     assert signed_by_beneficiary(datum, context), "beneficiary's signature missing"
     assert deadline_reached(datum, context), "deadline not reached"
-    return True
