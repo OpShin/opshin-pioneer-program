@@ -19,20 +19,28 @@ from src.week02 import assets_dir
 
 @click.command()
 @click.argument("name")
-def main(name):
+@click.option(
+    "--script",
+    type=click.Choice(
+        ["burn", "custom_types", "fourty_two", "fourty_two_typed", "gift"]
+    ),
+    default="gift",
+    help="Which lecture script address to attempt to spend.",
+)
+def main(name: str, script: str):
     # Load chain context
     context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
 
     # Load script info
-    with open(assets_dir.joinpath("gift", "script.plutus"), "r") as f:
+    with open(assets_dir.joinpath(script, "script.plutus"), "r") as f:
         script_plutus = json.load(f)
         script_hex = script_plutus["cborHex"]
-    with open(assets_dir.joinpath("gift", "script.cbor"), "r") as f:
+    with open(assets_dir.joinpath(script, "script.cbor"), "r") as f:
         assert script_hex == f.read()
-    gift_script = PlutusV2Script(bytes.fromhex(script_hex))
-    script_hash = plutus_script_hash(gift_script)
+    plutus_script = PlutusV2Script(bytes.fromhex(script_hex))
+    script_hash = plutus_script_hash(plutus_script)
     script_address = Address(script_hash, network=Network.TESTNET)
-    with open(assets_dir.joinpath("gift", "testnet.addr")) as f:
+    with open(assets_dir.joinpath(script, "testnet.addr")) as f:
         assert script_address == Address.from_primitive(f.read())
 
     # Get payment address
@@ -57,10 +65,16 @@ def main(name):
 
     # Build the transaction
     # no output is specified since everything minus fees is sent to change address
+    if script in ["fourty_two", "fourty_two_typed"]:
+        redeemer = Redeemer(RedeemerTag.SPEND, 42)
+    elif script == "custom_types":
+        from src.week02.lecture.custom_types import MySillyRedeemer
+
+        redeemer = Redeemer(RedeemerTag.SPEND, MySillyRedeemer(42))
+    else:
+        redeemer = Redeemer(RedeemerTag.SPEND, 0)
     builder = TransactionBuilder(context)
-    builder.add_script_input(
-        utxo_to_spend, script=gift_script, redeemer=Redeemer(RedeemerTag.SPEND, 0)
-    )
+    builder.add_script_input(utxo_to_spend, script=plutus_script, redeemer=redeemer)
     builder.collaterals.append(non_nft_utxo)
 
     # Sign the transaction
