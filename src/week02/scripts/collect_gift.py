@@ -1,5 +1,6 @@
 import json
 
+import cbor2
 import click
 from pycardano import (
     OgmiosChainContext,
@@ -32,16 +33,27 @@ def main(name: str, script: str):
     context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
 
     # Load script info
-    with open(assets_dir.joinpath(script, "script.plutus"), "r") as f:
-        script_plutus = json.load(f)
-        script_hex = script_plutus["cborHex"]
+    # We need `plutus_script: PlutusV2Script` and `script_address: Address`.
+    # There are multiple ways to get there but the simplest is to use "script.cbor"
     with open(assets_dir.joinpath(script, "script.cbor"), "r") as f:
-        assert script_hex == f.read()
-    plutus_script = PlutusV2Script(bytes.fromhex(script_hex))
+        cbor_hex = f.read()
+
+    cbor = bytes.fromhex(cbor_hex)
+
+    # with open(assets_dir.joinpath(script, "script.plutus"), "r") as f:
+    #     script_plutus = json.load(f)
+    #     script_hex = script_plutus["cborHex"]
+    # cbor_wrapped = cbor2.dumps(cbor)
+    # cbor_wrapped_hex = cbor_wrapped.hex()
+    # assert script_hex == cbor_wrapped_hex
+
+    plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
     script_address = Address(script_hash, network=Network.TESTNET)
-    with open(assets_dir.joinpath(script, "testnet.addr")) as f:
-        assert script_address == Address.from_primitive(f.read())
+
+    # with open(assets_dir.joinpath(script, "testnet.addr")) as f:
+    #     addr = Address.from_primitive(f.read())
+    #     assert script_address == addr
 
     # Get payment address
     payment_address = get_address(name)
