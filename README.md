@@ -1,6 +1,7 @@
-# Eopsin Pioneer Program
+<h1 align="center"> 🐍 Eopsin Pioneer Program 🐍 </h1>
 
-This repository implements many scripts from the Plutus Pioneers Program in Python using [eopsin](https://github.com/ImperatorLang/eopsin) and [pycardano](https://github.com/Python-Cardano/pycardano).
+This repository implements many educational Cardano Smart Contracts in Python using [eopsin](https://github.com/ImperatorLang/eopsin) and [pycardano](https://github.com/Python-Cardano/pycardano).
+It also comes with off-chain code using [PyCardano](https://github.com/Python-Cardano/pycardano) and a host of test cases to ensure high quality of the resulting contracts.
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
 
 ## Installation
