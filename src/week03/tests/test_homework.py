@@ -5,7 +5,9 @@ from src.week03 import homework_dir
 
 python_files = [
     "homework1.py",
+    "homework1_solved.py",
     "homework2.py",
+    "homework2_solved.py",
 ]
 script_paths = [str(homework_dir.joinpath(f)) for f in python_files]
 
