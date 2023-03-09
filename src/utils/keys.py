@@ -2,7 +2,7 @@ from pathlib import Path
 
 from pycardano import PaymentVerificationKey, PaymentSigningKey, Address, Network
 
-keys_dir = Path(__file__).joinpath("../../keys")
+keys_dir = Path(__file__).joinpath("../../../keys")
 
 
 def get_address(name):
