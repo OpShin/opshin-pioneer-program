@@ -1,4 +1,4 @@
-from src.week03.lecture.range import *
+from src.week03.lecture.interval import *
 
 
 @dataclass()
@@ -14,7 +14,7 @@ def signed_by_beneficiary(params: VestingParams, context: ScriptContext) -> bool
 def deadline_reached(params: VestingParams, context: ScriptContext) -> bool:
     deadline: POSIXTime = params.deadline
     valid_range: POSIXTimeRange = context.tx_info.valid_range
-    return contains(deadline, valid_range)
+    return contains(get_from(deadline, TrueData()), valid_range)
 
 
 def validator(datum: VestingParams, redeemer: None, context: ScriptContext) -> None:

@@ -1,4 +1,4 @@
-from src.week03.lecture.range import *
+from src.week03.lecture.interval import *
 
 
 @dataclass()
@@ -13,6 +13,8 @@ class VestingDatum(PlutusData):
 def validator(datum: VestingDatum, redeemer: None, context: ScriptContext) -> None:
     signed1 = datum.beneficiary1 in context.tx_info.signatories
     signed2 = datum.beneficiary2 in context.tx_info.signatories
-    deadline1 = in_lower_bound(datum.deadline, context.tx_info.valid_range.lower_bound)
+    deadline1 = contains(
+        get_to(datum.deadline, TrueData()), context.tx_info.valid_range
+    )
     deadline2 = not deadline1
     assert (signed1 and deadline1) or (signed2 and deadline2)
