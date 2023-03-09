@@ -14,13 +14,26 @@ from src.week02 import assets_dir
 
 @click.command()
 @click.argument("name")
-@click.option("--amount", type=int, default=3000000)
-def main(name, amount):
+@click.option(
+    "--amount",
+    type=int,
+    default=3000000,
+    help="Amount of lovelace to send to the script address.",
+)
+@click.option(
+    "--script",
+    type=click.Choice(
+        ["burn", "custom_types", "fourty_two", "fourty_two_typed", "gift"]
+    ),
+    default="gift",
+    help="Which lecture script address to send funds to.",
+)
+def main(name: str, amount: int, script: str):
     # Load chain context
     context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
 
     # Load script info
-    with open(assets_dir.joinpath("gift", "testnet.addr")) as f:
+    with open(assets_dir.joinpath(script, "testnet.addr")) as f:
         script_address = Address.from_primitive(f.read())
 
     # Get payment address
