@@ -88,7 +88,7 @@ def contains(a: POSIXTimeRange, b: POSIXTimeRange) -> bool:
     return (lower == 1 or lower == 0) and (upper == 0 or upper == -1)
 
 
-def get_range(
+def make_range(
     lower_bound: POSIXTime,
     upper_bound: POSIXTime,
     lower_closed: BoolData,
@@ -100,14 +100,14 @@ def get_range(
     )
 
 
-def get_from(lower_bound: POSIXTime, lower_closed: BoolData) -> POSIXTimeRange:
+def make_from(lower_bound: POSIXTime, lower_closed: BoolData) -> POSIXTimeRange:
     return POSIXTimeRange(
         LowerBoundPOSIXTime(FinitePOSIXTime(lower_bound), lower_closed),
         UpperBoundPOSIXTime(PosInfPOSIXTime(), TrueData()),
     )
 
 
-def get_to(upper_bound: POSIXTime, upper_closed: BoolData) -> POSIXTimeRange:
+def make_to(upper_bound: POSIXTime, upper_closed: BoolData) -> POSIXTimeRange:
     return POSIXTimeRange(
         LowerBoundPOSIXTime(NegInfPOSIXTime(), TrueData()),
         UpperBoundPOSIXTime(FinitePOSIXTime(upper_bound), upper_closed),
