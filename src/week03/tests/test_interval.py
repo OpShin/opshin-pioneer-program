@@ -23,9 +23,14 @@ def test_ordering_compare_extended(
 ) -> None:
     left = compare_extended(a, b)
     right = compare_extended(b, c)
-    hypothesis.assume(left == right)
     outer = compare_extended(a, c)
-    assert outer == right, (left, outer, right)
+    # The 6 permutations will match one of 3 combinations
+    if left == right:
+        assert outer == right, (left, outer, right)
+    elif -left == outer:
+        assert right == outer, (left, outer, right)
+    elif right == -outer:
+        assert left == outer, (left, outer, right)
 
 
 @given(a=compare_extended_operands, b=compare_extended_operands)
@@ -53,9 +58,14 @@ def test_ordering_compare_lower_bound(
 ) -> None:
     left = compare_lower_bound(a, b)
     right = compare_lower_bound(b, c)
-    hypothesis.assume(left == right)
     outer = compare_lower_bound(a, c)
-    assert outer == right, (left, outer, right)
+    # The 6 permutations will match one of 3 combinations
+    if left == right:
+        assert outer == right, (left, outer, right)
+    elif -left == outer:
+        assert right == outer, (left, outer, right)
+    elif right == -outer:
+        assert left == outer, (left, outer, right)
 
 
 @given(a=compare_lower_bound_operands, b=compare_lower_bound_operands)
@@ -83,9 +93,14 @@ def test_ordering_compare_upper_bound(
 ) -> None:
     left = compare_upper_bound(a, b)
     right = compare_upper_bound(b, c)
-    hypothesis.assume(left == right)
     outer = compare_upper_bound(a, c)
-    assert outer == right, (left, outer, right)
+    # The 6 permutations will match one of 3 combinations
+    if left == right:
+        assert outer == right, (left, outer, right)
+    elif -left == outer:
+        assert right == outer, (left, outer, right)
+    elif right == -outer:
+        assert left == outer, (left, outer, right)
 
 
 @given(a=compare_upper_bound_operands, b=compare_upper_bound_operands)
