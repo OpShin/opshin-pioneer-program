@@ -8,5 +8,5 @@ class MyRedeemer(PlutusData):
 
 
 # Create a validator that unlocks the funds if MyRedemeer's flags are different
-def validator(v: None, r: MyRedeemer, c: ScriptContext) -> bool:
-    return not r.flag1 == r.flag2
+def validator(v: None, r: MyRedeemer, c: ScriptContext) -> None:
+    assert not r.flag1 == r.flag2

@@ -22,7 +22,12 @@ if "TEST_SOLVED" in os.environ:
     ],
 )
 def test_homework1(r1: bool, r2: bool, result: bool):
-    assert homework1.validator(None, [r1, r2], None) == result
+    validate = True
+    try:
+        homework1.validator(None, [r1, r2], None)
+    except AssertionError:
+        validate = False
+    assert validate == result
 
 
 @pytest.mark.parametrize(
@@ -36,7 +41,12 @@ def test_homework1(r1: bool, r2: bool, result: bool):
 )
 def test_homework2(r1: bool, r2: bool, result: bool):
     redeemer = homework2.MyRedeemer(flag1=r1, flag2=r2)
-    assert homework2.validator(None, redeemer, None) == result
+    validate = True
+    try:
+        homework2.validator(None, redeemer, None)
+    except AssertionError:
+        validate = False
+    assert validate == result
 
 
 python_files = [
