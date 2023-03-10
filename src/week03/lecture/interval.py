@@ -1,6 +1,19 @@
 from eopsin.prelude import *
 
 
+def compare(a: int, b: int) -> int:
+    # a < b: 1
+    # a == b: 0
+    # a > b: -1
+    if a < b:
+        result = 1
+    elif a == b:
+        result = 0
+    else:
+        result = -1
+    return result
+
+
 def compare_extended(a: ExtendedPOSIXTime, b: ExtendedPOSIXTime) -> int:
     # a < b: 1
     # a == b: 0
@@ -22,12 +35,7 @@ def compare_extended(a: ExtendedPOSIXTime, b: ExtendedPOSIXTime) -> int:
         elif isinstance(b, PosInfPOSIXTime):
             result = 1
         elif isinstance(b, FinitePOSIXTime):
-            if a.time < b.time:
-                result = 1
-            elif a.time == b.time:
-                result = 0
-            else:
-                result = -1
+            result = compare(a.time, b.time)
     return result
 
 
@@ -47,12 +55,7 @@ def compare_upper_bound(a: UpperBoundPOSIXTime, b: UpperBoundPOSIXTime) -> int:
             b_val = 1
         else:
             b_val = 0
-        if a_val < b_val:
-            result = 1
-        elif a_val == b_val:
-            result = 0
-        else:
-            result = -1
+        result = compare(a_val, b_val)
     return result
 
 
@@ -72,12 +75,7 @@ def compare_lower_bound(a: LowerBoundPOSIXTime, b: LowerBoundPOSIXTime) -> int:
             b_val = 1
         else:
             b_val = 0
-        if a_val > b_val:
-            result = 1
-        elif a_val == b_val:
-            result = 0
-        else:
-            result = -1
+        result = compare(b_val, a_val)
     return result
 
 
