@@ -187,6 +187,17 @@ def test_fuzz_make_to(
     make_to(upper_bound=upper_bound, upper_closed=upper_closed)
 
 
+@given(
+    time=st.one_of(
+        st.builds(FinitePOSIXTime),
+        st.builds(NegInfPOSIXTime),
+        st.builds(PosInfPOSIXTime),
+    )
+)
+def test_fuzz_compare_extended_helper(time: ExtendedPOSIXTime) -> None:
+    compare_extended_helper(time)
+
+
 @given(b=st.booleans())
 def test_get_bool(b: bool) -> None:
     if b:

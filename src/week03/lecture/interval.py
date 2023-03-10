@@ -14,28 +14,29 @@ def compare(a: int, b: int) -> int:
     return result
 
 
+def compare_extended_helper(time: ExtendedPOSIXTime) -> int:
+    result = 0
+    if isinstance(time, NegInfPOSIXTime):
+        result = -1
+    elif isinstance(time, FinitePOSIXTime):
+        result = 0
+    elif isinstance(time, PosInfPOSIXTime):
+        result = 1
+    return result
+
+
 def compare_extended(a: ExtendedPOSIXTime, b: ExtendedPOSIXTime) -> int:
     # a < b: 1
     # a == b: 0
     # a > b: -1
-    result = 0
-    if isinstance(a, NegInfPOSIXTime):
-        if isinstance(b, NegInfPOSIXTime):
-            result = 0
-        else:
-            result = 1
-    elif isinstance(a, PosInfPOSIXTime):
-        if isinstance(b, PosInfPOSIXTime):
-            result = 0
-        else:
-            result = -1
-    elif isinstance(a, FinitePOSIXTime):
-        if isinstance(b, NegInfPOSIXTime):
-            result = -1
-        elif isinstance(b, PosInfPOSIXTime):
-            result = 1
-        elif isinstance(b, FinitePOSIXTime):
-            result = compare(a.time, b.time)
+    a_val = compare_extended_helper(a)
+    b_val = compare_extended_helper(b)
+    if a_val == 0 and b_val == 0:
+        a_finite: FinitePOSIXTime = a
+        b_finite: FinitePOSIXTime = b
+        result = compare(a_finite.time, b_finite.time)
+    else:
+        result = compare(a_val, b_val)
     return result
 
 
