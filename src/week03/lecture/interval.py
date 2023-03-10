@@ -39,22 +39,22 @@ def compare_extended(a: ExtendedPOSIXTime, b: ExtendedPOSIXTime) -> int:
     return result
 
 
+def get_bool(b: BoolData) -> bool:
+    if isinstance(b, TrueData):
+        result = True
+    else:
+        result = False
+    return result
+
+
 def compare_upper_bound(a: UpperBoundPOSIXTime, b: UpperBoundPOSIXTime) -> int:
     # a < b: 1
     # a == b: 0
     # a > b: -1
-    a_closed = a.closed
-    b_closed = b.closed
     result = compare_extended(a.limit, b.limit)
     if result == 0:
-        if isinstance(a_closed, TrueData):
-            a_val = 1
-        else:
-            a_val = 0
-        if isinstance(b_closed, TrueData):
-            b_val = 1
-        else:
-            b_val = 0
+        a_val = 1 if get_bool(a.closed) else 0
+        b_val = 1 if get_bool(b.closed) else 0
         result = compare(a_val, b_val)
     return result
 
@@ -63,18 +63,10 @@ def compare_lower_bound(a: LowerBoundPOSIXTime, b: LowerBoundPOSIXTime) -> int:
     # a < b: 1
     # a == b: 0
     # a > b: -1
-    a_closed = a.closed
-    b_closed = b.closed
     result = compare_extended(a.limit, b.limit)
     if result == 0:
-        if isinstance(a_closed, TrueData):
-            a_val = 1
-        else:
-            a_val = 0
-        if isinstance(b_closed, TrueData):
-            b_val = 1
-        else:
-            b_val = 0
+        a_val = 1 if get_bool(a.closed) else 0
+        b_val = 1 if get_bool(b.closed) else 0
         result = compare(b_val, a_val)
     return result
 
