@@ -1,10 +1,28 @@
-# This test code was written by the `hypothesis.extra.ghostwriter` module
-# and is provided under the Creative Commons Zero public domain dedication.
-
-import hypothesis
 from hypothesis import given, strategies as st
 
 from src.week03.lecture.interval import *
+
+
+@given(a=st.integers(), b=st.integers(), c=st.integers())
+def test_ordering_compare(a: int, b: int, c: int) -> None:
+    left = compare(a, b)
+    right = compare(b, c)
+    outer = compare(a, c)
+    # The 6 permutations will match one of 3 combinations
+    if left == right:
+        assert outer == right, (left, outer, right)
+    elif -left == outer:
+        assert right == outer, (left, outer, right)
+    elif right == -outer:
+        assert left == outer, (left, outer, right)
+
+
+@given(a=st.integers(), b=st.integers())
+def test_commutative_compare_extended(a: int, b: int) -> None:
+    left = compare(a, b)
+    right = compare(b, a)
+    assert left == -right, (left, right)
+
 
 compare_extended_operands = st.one_of(
     st.builds(FinitePOSIXTime), st.builds(NegInfPOSIXTime), st.builds(PosInfPOSIXTime)
@@ -167,3 +185,23 @@ def test_fuzz_make_to(
     upper_closed: BoolData,
 ) -> None:
     make_to(upper_bound=upper_bound, upper_closed=upper_closed)
+
+
+@given(
+    time=st.one_of(
+        st.builds(FinitePOSIXTime),
+        st.builds(NegInfPOSIXTime),
+        st.builds(PosInfPOSIXTime),
+    )
+)
+def test_fuzz_compare_extended_helper(time: ExtendedPOSIXTime) -> None:
+    compare_extended_helper(time)
+
+
+@given(b=st.booleans())
+def test_get_bool(b: bool) -> None:
+    if b:
+        bool_data = TrueData()
+    else:
+        bool_data = FalseData()
+    assert get_bool(bool_data) == b
