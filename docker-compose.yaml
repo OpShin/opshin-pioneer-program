@@ -39,6 +39,25 @@ services:
     ports:
       - ${OGMIOS_PORT:-1337}:1337
 
+  kupo:
+    image: cardanosolutions/kupo
+    command: [
+      "--node-socket", "/ipc/node.socket",
+      "--node-config", "/config/config.json",
+      "--host", "0.0.0.0",
+      "--port", "${KUPO_PORT:-1442}",
+      "--since", "origin",
+      "--prune-utxo",
+      "--workdir", "/db",
+    ]
+    volumes:
+      - ./config/network/${NETWORK:-preview}:/config
+      - node-ipc:/ipc
+      - kupo:/db
+    ports:
+      - ${KUPO_PORT:-1442}:1442
+
 volumes:
   node-db:
   node-ipc:
+  kupo:
