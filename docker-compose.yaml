@@ -23,10 +23,6 @@ services:
 
   ogmios:
     image: cardanosolutions/ogmios:latest-${NETWORK:-preview}
-    build:
-      context: .
-      target: ogmios
-      cache_from: [ "cardanosolutions/ogmios:latest" ]
     restart: on-failure
     command: [
       "--host", "0.0.0.0",
@@ -41,6 +37,7 @@ services:
 
   kupo:
     image: cardanosolutions/kupo
+    restart: on-failure
     command: [
       "--node-socket", "/ipc/node.socket",
       "--node-config", "/config/config.json",
@@ -56,6 +53,12 @@ services:
       - kupo:/db
     ports:
       - ${KUPO_PORT:-1442}:1442
+
+  nginx:
+    build: .
+    container_name: nginx
+    ports:
+      - "1443:80"
 
 volumes:
   node-db:
