@@ -80,6 +80,10 @@ def main(name: str, script):
     # This tells pycardano to add vkey_hash to the witness set when calculating the transaction cost
     vkey_hash: VerificationKeyHash = payment_address.payment_part
     builder.required_signers = [vkey_hash]
+    # we must specify at least the start of the tx valid range in slots
+    builder.validity_start = context.last_block_slot
+    # This specifies the end of tx valid range in slots
+    builder.ttl = builder.validity_start + 100
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(name)
