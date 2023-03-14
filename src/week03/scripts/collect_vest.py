@@ -1,3 +1,5 @@
+import time
+
 import click
 from pycardano import (
     OgmiosChainContext,
@@ -9,82 +11,79 @@ from pycardano import (
     plutus_script_hash,
     Redeemer,
     RedeemerTag,
+    VerificationKeyHash,
 )
 
 from src.utils import get_address, get_signing_info
-from src.week02 import assets_dir
+from src.week03 import assets_dir
+from src.week03.lecture.vesting import VestingParams
 
 
 @click.command()
 @click.argument("name")
 @click.option(
     "--script",
-    type=click.Choice(
-        ["burn", "custom_types", "fourty_two", "fourty_two_typed", "gift"]
-    ),
-    default="gift",
-    help="Which lecture script address to attempt to spend.",
+    type=str,
+    default="vesting",
+    help="Which script address to attempt to spend",
 )
-def main(name: str, script: str):
+def main(name: str, script):
     # Load chain context
     context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
 
     # Load script info
-    # We need `plutus_script: PlutusV2Script` and `script_address: Address`.
-    # There are multiple ways to get there but the simplest is to use "script.cbor"
     with open(assets_dir.joinpath(script, "script.cbor"), "r") as f:
         cbor_hex = f.read()
 
     cbor = bytes.fromhex(cbor_hex)
 
-    # with open(assets_dir.joinpath(script, "script.plutus"), "r") as f:
-    #     script_plutus = json.load(f)
-    #     script_hex = script_plutus["cborHex"]
-    # cbor_wrapped = cbor2.dumps(cbor)
-    # cbor_wrapped_hex = cbor_wrapped.hex()
-    # assert script_hex == cbor_wrapped_hex
-
     plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
     script_address = Address(script_hash, network=Network.TESTNET)
-
-    # with open(assets_dir.joinpath(script, "testnet.addr")) as f:
-    #     addr = Address.from_primitive(f.read())
-    #     assert script_address == addr
 
     # Get payment address
     payment_address = get_address(name)
 
     # Find a script UTxO
     utxo_to_spend = None
+    params = None
     for utxo in context.utxos(str(script_address)):
         if utxo.output.datum:
-            utxo_to_spend = utxo
-            break
+            try:
+                params = VestingParams.from_cbor(utxo.output.datum.cbor)
+                if (
+                    params.beneficiary == bytes(payment_address.payment_part)
+                    and params.deadline < time.time() * 1000
+                ):
+                    utxo_to_spend = utxo
+                    break
+            except Exception:
+                pass
     assert isinstance(utxo_to_spend, UTxO), "No script UTxOs found!"
 
     # Find a collateral UTxO
     non_nft_utxo = None
     for utxo in context.utxos(str(payment_address)):
         # multi_asset should be empty for collateral utxo
-        if not utxo.output.amount.multi_asset:
+        if not utxo.output.amount.multi_asset and utxo.output.amount.coin > 5000000:
             non_nft_utxo = utxo
             break
     assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
 
-    # Build the transaction
-    # no output is specified since everything minus fees is sent to change address
-    if script in ["fourty_two", "fourty_two_typed"]:
-        redeemer = Redeemer(RedeemerTag.SPEND, 42)
-    elif script == "custom_types":
-        from src.week02.lecture.custom_types import MySillyRedeemer
+    # Make redeemer
+    redeemer = Redeemer(RedeemerTag.SPEND, 0)
 
-        redeemer = Redeemer(RedeemerTag.SPEND, MySillyRedeemer(42))
-    else:
-        redeemer = Redeemer(RedeemerTag.SPEND, 0)
+    # Build the transaction
     builder = TransactionBuilder(context)
     builder.add_script_input(utxo_to_spend, script=plutus_script, redeemer=redeemer)
     builder.collaterals.append(non_nft_utxo)
+    # This tells pycardano to add vkey_hash to the witness set when calculating the transaction cost
+    vkey_hash: VerificationKeyHash = payment_address.payment_part
+    builder.required_signers = [vkey_hash]
+    # we must specify at least the start of the tx valid range in slots
+    builder.validity_start = context.last_block_slot
+    # This specifies the end of tx valid range in slots
+    builder.ttl = builder.validity_start + 100
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(name)
