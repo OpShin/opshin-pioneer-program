@@ -1,6 +1,3 @@
-import json
-
-import cbor2
 import click
 from pycardano import (
     OgmiosChainContext,

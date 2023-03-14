@@ -1,3 +1,5 @@
+import time
+
 import click
 from pycardano import (
     OgmiosChainContext,
@@ -49,7 +51,10 @@ def main(name: str, script):
         if utxo.output.datum:
             try:
                 params = VestingParams.from_cbor(utxo.output.datum.cbor)
-                if params.beneficiary == bytes(payment_address.payment_part):
+                if (
+                    params.beneficiary == bytes(payment_address.payment_part)
+                    and params.deadline < time.time() * 1000
+                ):
                     utxo_to_spend = utxo
                     break
             except Exception:
@@ -60,7 +65,7 @@ def main(name: str, script):
     non_nft_utxo = None
     for utxo in context.utxos(str(payment_address)):
         # multi_asset should be empty for collateral utxo
-        if not utxo.output.amount.multi_asset:
+        if not utxo.output.amount.multi_asset and utxo.output.amount.coin > 5000000:
             non_nft_utxo = utxo
             break
     assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
