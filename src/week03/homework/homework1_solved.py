@@ -16,5 +16,7 @@ def validator(datum: VestingDatum, redeemer: None, context: ScriptContext) -> No
     deadline1 = contains(
         make_to(datum.deadline, TrueData()), context.tx_info.valid_range
     )
-    deadline2 = not deadline1
+    deadline2 = contains(
+        make_from(datum.deadline, FalseData()), context.tx_info.valid_range
+    )
     assert (signed1 and deadline1) or (signed2 and deadline2)
