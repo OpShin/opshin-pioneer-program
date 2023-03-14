@@ -2,10 +2,10 @@ from pathlib import Path
 
 from pycardano import PaymentVerificationKey, PaymentSigningKey, Address, Network
 
-keys_dir = Path(__file__).joinpath("../../../keys")
+keys_dir = Path(__file__).parent.parent.parent.joinpath("keys")
 
 
-def get_address(name):
+def get_address(name) -> Address:
     with open(keys_dir.joinpath(f"{name}.addr")) as f:
         address = Address.from_primitive(f.read())
     return address
