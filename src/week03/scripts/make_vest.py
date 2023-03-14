@@ -48,7 +48,7 @@ def main(name: str, beneficiary: str, amount: int, wait_time: int):
     # Create the vesting datum
     datum = VestingParams(
         beneficiary=bytes(vkey_hash),
-        deadline=int(time.time() + wait_time) * 100,  # must be in milliseconds
+        deadline=int(time.time() + wait_time) * 1000,  # must be in milliseconds
     )
 
     # Build the transaction
