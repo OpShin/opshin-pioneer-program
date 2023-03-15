@@ -1,4 +1,4 @@
-from src.week03.lecture.interval import *
+from eopsin.ledger.interval import *
 
 
 # This should validate if the transaction has a signature from the parameterized beneficiary
