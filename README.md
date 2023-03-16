@@ -1,5 +1,5 @@
 <div align="center">
-<img  src="https://github.com/OpShin/eopsin-pioneer-program/blob/main/eopsin-pioneer-program.png" width="240" />
+<img  src="https://github.com/OpShin/eopsin-pioneer-program/blob/main/eopsin-pioneer-program.png" width="200" />
 <h1 > Eopsin Pioneer Program </h1>
 <img src="https://img.shields.io/badge/cohort-4-red">
 <img src="https://img.shields.io/badge/language-python-3670A0">
