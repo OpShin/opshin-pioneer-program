@@ -1,4 +1,4 @@
-from eopsin.prelude import *
+from opshin.prelude import *
 
 # `Tuple` is not supported yet
 # This should validate if and only if the two Booleans in the redeemer are True!

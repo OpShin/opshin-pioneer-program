@@ -1,4 +1,4 @@
-from eopsin.ledger.interval import *
+from opshin.ledger.interval import *
 
 
 @dataclass()

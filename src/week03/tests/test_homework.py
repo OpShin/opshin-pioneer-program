@@ -2,9 +2,9 @@ import os
 from typing import List
 
 import pytest
-from eopsin import compiler
-from eopsin.ledger.interval import make_range
-from eopsin.prelude import POSIXTimeRange, TrueData, PubKeyHash, TxInfo, ScriptContext
+from opshin import compiler
+from opshin.ledger.interval import make_range
+from opshin.prelude import POSIXTimeRange, TrueData, PubKeyHash, TxInfo, ScriptContext
 
 from src.week03 import homework_dir
 from src.week03.homework import homework1, homework2

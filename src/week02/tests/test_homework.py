@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from eopsin import compiler
+from opshin import compiler
 
 from src.week02 import homework_dir
 from src.week02.homework import homework1, homework2
