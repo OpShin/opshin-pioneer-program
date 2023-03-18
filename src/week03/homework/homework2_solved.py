@@ -1,4 +1,4 @@
-from eopsin.ledger.interval import *
+from opshin.ledger.interval import *
 
 
 # This should validate if the transaction has a signature from the parameterized beneficiary

@@ -1,5 +1,5 @@
 import pytest
-from eopsin import compiler
+from opshin import compiler
 
 from src.week02 import lecture_dir
 

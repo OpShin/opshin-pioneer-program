@@ -13,5 +13,5 @@ assets_dir="$week_dir/assets"
 mkdir -p "$assets_dir"
 
 for script in "${scripts[@]}"; do
-  eopsin build "$week_dir/lecture/$script" -o "$assets_dir/${script%.*}"
+  opshin build "$week_dir/lecture/$script" -o "$assets_dir/${script%.*}"
 done

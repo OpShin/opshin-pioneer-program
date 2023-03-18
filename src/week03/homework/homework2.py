@@ -1,4 +1,4 @@
-from eopsin.prelude import *
+from opshin.prelude import *
 
 
 # This should validate if the transaction has a signature from the parameterized beneficiary

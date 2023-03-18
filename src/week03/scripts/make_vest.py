@@ -58,7 +58,7 @@ def main(name: str, beneficiary: str, amount: int, wait_time: int, parameterized
         script_path = lecture_dir.joinpath("parameterized_vesting.py")
         subprocess.run(
             [
-                "eopsin",
+                "opshin",
                 "-o",
                 str(save_path),
                 "build",
