@@ -7,7 +7,7 @@
 </div>
 <br/>
 
-This repository implements many educational Cardano Smart Contracts in Python using [opshin](https://github.com/ImperatorLang/opshin).
+This repository implements many educational Cardano Smart Contracts in Python using [opshin](https://github.com/OpShin/opshin).
 It also comes with off-chain code using [PyCardano](https://github.com/Python-Cardano/pycardano) and a host of test cases to ensure high quality of the resulting contracts.
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
 
