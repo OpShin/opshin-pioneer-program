@@ -2,9 +2,10 @@
 <img  src="https://github.com/OpShin/opshin-pioneer-program/blob/main/opshin-pioneer-program.png" width="200" />
 <h1 > Opshin Pioneer Program </h1>
 <img src="https://img.shields.io/badge/cohort-4-red">
-<img src="https://img.shields.io/badge/language-python-3670A0">
+<img src="https://img.shields.io/badge/language-python3-3670A0?logo=python&logoColor=959da5">
 <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml/badge.svg"/>
 </div>
+<br/>
 
 This repository implements many educational Cardano Smart Contracts in Python using [opshin](https://github.com/ImperatorLang/opshin).
 It also comes with off-chain code using [PyCardano](https://github.com/Python-Cardano/pycardano) and a host of test cases to ensure high quality of the resulting contracts.
