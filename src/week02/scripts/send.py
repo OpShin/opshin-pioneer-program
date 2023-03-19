@@ -1,12 +1,11 @@
 import click
 from pycardano import (
     OgmiosChainContext,
-    Network,
     TransactionBuilder,
     TransactionOutput,
 )
 
-from src.utils import get_address, get_signing_info
+from src.utils import get_address, get_signing_info, network, ogmios_url
 
 
 @click.command()
@@ -14,7 +13,7 @@ from src.utils import get_address, get_signing_info
 @click.argument("recipient")
 @click.option("--amount", type=int, default=5000000)
 def main(name, recipient, amount):
-    context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
+    context = OgmiosChainContext(ogmios_url, network=network)
 
     payment_address = get_address(name)
 

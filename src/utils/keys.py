@@ -1,6 +1,8 @@
 from pathlib import Path
 
-from pycardano import PaymentVerificationKey, PaymentSigningKey, Address, Network
+from pycardano import PaymentVerificationKey, PaymentSigningKey, Address
+
+from src.utils.network import network
 
 keys_dir = Path(__file__).parent.parent.parent.joinpath("keys")
 
@@ -11,7 +13,7 @@ def get_address(name) -> Address:
     return address
 
 
-def get_signing_info(name, network=Network.TESTNET):
+def get_signing_info(name):
     skey_path = str(keys_dir.joinpath(f"{name}.skey"))
     payment_skey = PaymentSigningKey.load(skey_path)
     payment_vkey = PaymentVerificationKey.from_signing_key(payment_skey)

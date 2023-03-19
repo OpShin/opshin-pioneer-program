@@ -1,7 +1,6 @@
 import click
 from pycardano import (
     OgmiosChainContext,
-    Network,
     Address,
     TransactionBuilder,
     UTxO,
@@ -11,7 +10,7 @@ from pycardano import (
     RedeemerTag,
 )
 
-from src.utils import get_address, get_signing_info
+from src.utils import get_address, get_signing_info, network, ogmios_url
 from src.week02 import assets_dir
 
 
@@ -27,7 +26,7 @@ from src.week02 import assets_dir
 )
 def main(name: str, script: str):
     # Load chain context
-    context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
+    context = OgmiosChainContext(ogmios_url, network=network)
 
     # Load script info
     # We need `plutus_script: PlutusV2Script` and `script_address: Address`.
@@ -46,7 +45,7 @@ def main(name: str, script: str):
 
     plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
-    script_address = Address(script_hash, network=Network.TESTNET)
+    script_address = Address(script_hash, network=network)
 
     # with open(assets_dir.joinpath(script, "testnet.addr")) as f:
     #     addr = Address.from_primitive(f.read())

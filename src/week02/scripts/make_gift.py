@@ -1,14 +1,13 @@
 import click
 from pycardano import (
     OgmiosChainContext,
-    Network,
     Address,
     TransactionBuilder,
     TransactionOutput,
     PlutusData,
 )
 
-from src.utils import get_address, get_signing_info
+from src.utils import get_address, get_signing_info, network, ogmios_url
 from src.week02 import assets_dir
 
 
@@ -30,7 +29,7 @@ from src.week02 import assets_dir
 )
 def main(name: str, amount: int, script: str):
     # Load chain context
-    context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
+    context = OgmiosChainContext(ogmios_url, network=network)
 
     # Load script info
     with open(assets_dir.joinpath(script, "testnet.addr")) as f:

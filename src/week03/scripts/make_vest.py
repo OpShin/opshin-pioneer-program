@@ -4,7 +4,6 @@ import time
 import click
 from pycardano import (
     OgmiosChainContext,
-    Network,
     Address,
     TransactionBuilder,
     TransactionOutput,
@@ -12,7 +11,7 @@ from pycardano import (
     PlutusData,
 )
 
-from src.utils import get_address, get_signing_info
+from src.utils import get_address, get_signing_info, network, ogmios_url
 from src.week03 import assets_dir, lecture_dir
 from src.week03.lecture.vesting import VestingParams
 
@@ -37,7 +36,7 @@ from src.week03.lecture.vesting import VestingParams
 )
 def main(name: str, beneficiary: str, amount: int, wait_time: int, parameterized: bool):
     # Load chain context
-    context = OgmiosChainContext("ws://localhost:1337", network=Network.TESTNET)
+    context = OgmiosChainContext(ogmios_url, network=network)
 
     # Get payment address
     payment_address = get_address(name)
