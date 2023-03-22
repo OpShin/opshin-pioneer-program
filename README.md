@@ -13,24 +13,27 @@ Most of the code is in a similar format to the [plutus-pioneer-program](https://
 
 ## Installation
 
-1. Install Python 3.8.
-Installer [download](https://www.python.org/downloads/release/python-3810/)
+1. Install Python 3.8, 3.9 or 3.10 (if it not already installed on your operating system).
+Python3.10 Installer [download](https://www.python.org/downloads/release/python-31010/).
 
-2. Ensure `python3.8 --version` works in your command line.
-In Windows, you can do this by copying the `python.exe` file to `python3.8.exe` in your `PATH` environment variable.
-
-3. Install python poetry.
+2. Install python poetry.
 Follow the official documentation [here](https://python-poetry.org/docs/#installation).
 
-4. Install a python virtual environment with poetry:
+3. Install a python virtual environment with poetry:
 ```bash
+# Optional. Use a specific python version
+# replace <version> with 3.8, 3.9, or 3.10
+# for this to work, python<version> must be accessible in your command line
+poetry env use <version>
+
 # install python dependencies
 poetry install
+
 # run a shell with the virtual environment activated
 poetry shell
 ```
 
-5. Install Docker.
+4. Install Docker.
 Follow the official documentation [here](https://docs.docker.com/get-docker/).
 
 ### Cardano Node
