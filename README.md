@@ -13,11 +13,11 @@ Most of the code is in a similar format to the [plutus-pioneer-program](https://
 
 ## Installation
 
-1. Install Python 3.8.
-Installer [download](https://www.python.org/downloads/release/python-3810/)
+1. Install Python 3.8, 3.9 or 3.10 (if it not already installed on your operating system).
+Python3.8 Installer [download](https://www.python.org/downloads/release/python-3810/)
 
-2. Ensure `python3.8 --version` works in your command line.
-In Windows, you can do this by copying the `python.exe` file to `python3.8.exe` in your `PATH` environment variable.
+2. Ensure `python3 --version` works in your command line and outputs one of the above versions.
+In Windows, you can do this by copying the `python.exe` file to `python3.exe` in your `PATH` environment variable.
 
 3. Install python poetry.
 Follow the official documentation [here](https://python-poetry.org/docs/#installation).
