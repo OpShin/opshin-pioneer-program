@@ -14,8 +14,6 @@ def assert_signed(pkh: PubKeyHash, context: ScriptContext) -> None:
     assert pkh in context.tx_info.signatories, "missing signature"
 
 
-def validator(
-    pkh: PubKeyHash, datum: None, redeemer: None, context: ScriptContext
-) -> None:
+def validator(pkh: PubKeyHash, redeemer: None, context: ScriptContext) -> None:
     assert_minting_purpose(context)
     assert_signed(pkh, context)

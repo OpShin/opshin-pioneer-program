@@ -24,11 +24,12 @@ def check_minted_amount(tn: TokenName, context: ScriptContext) -> bool:
                 for token_name in v.keys():
                     amount = v.get(token_name, 0)
                     valid = token_name == tn and amount == 1
+                    print(str(amount))
     return valid
 
 
 def validator(
-    oref: TxOutRef, tn: TokenName, datum: None, redeemer: None, context: ScriptContext
+    oref: TxOutRef, tn: TokenName, redeemer: None, context: ScriptContext
 ) -> None:
     assert_minting_purpose(context)
     assert has_utxo(context, oref), "UTxO not consumed"

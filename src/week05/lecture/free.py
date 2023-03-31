@@ -10,5 +10,5 @@ def assert_minting_purpose(context: ScriptContext) -> None:
     assert is_minting, "not minting purpose"
 
 
-def validator(datum: None, redeemer: None, context: ScriptContext) -> None:
+def validator(redeemer: None, context: ScriptContext) -> None:
     assert_minting_purpose(context)
