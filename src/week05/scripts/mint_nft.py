@@ -62,8 +62,8 @@ def main(
             str(save_path),
             "build",
             str(script_path),
-            tn_json,
             oref.to_json(),
+            tn_json,
         ],
         check=True,
     )
