@@ -6,6 +6,7 @@ from src.week05 import lecture_dir
 python_files = [
     "free.py",
     "nft.py",
+    "signed.py",
 ]
 script_paths = [str(lecture_dir.joinpath(f)) for f in python_files]
 
