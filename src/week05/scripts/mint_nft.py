@@ -44,7 +44,7 @@ def main(
         if utxo.output.amount.coin > 3000000:
             utxo_to_spend = utxo
             break
-    assert utxo_to_spend is not None, "Found not UTxO to spend!"
+    assert utxo_to_spend is not None, "UTxO not found to spend!"
 
     # Build script
     save_path = assets_dir.joinpath(f"nft_{token_name}")
@@ -75,7 +75,7 @@ def main(
     plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
 
-    # Built the transaction
+    # Build the transaction
     builder = TransactionBuilder(context)
     builder.add_minting_script(
         script=plutus_script, redeemer=Redeemer(RedeemerTag.MINT, 0)
