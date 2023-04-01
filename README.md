@@ -13,8 +13,8 @@ Most of the code is in a similar format to the [plutus-pioneer-program](https://
 
 ## Installation
 
-1. Install Python 3.8, 3.9 or 3.10 (if it not already installed on your operating system).
-Python3.10 Installer [download](https://www.python.org/downloads/release/python-31010/).
+1. Install Python 3.8, 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
+Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
 
 2. Install python poetry.
 Follow the official documentation [here](https://python-poetry.org/docs/#installation).
@@ -22,8 +22,9 @@ Follow the official documentation [here](https://python-poetry.org/docs/#install
 3. Install a python virtual environment with poetry:
 ```bash
 # Optional. Use a specific python version
-# replace <version> with 3.8, 3.9, or 3.10
+# replace <version> with 3.8, 3.9, 3.10, or 3.11
 # for this to work, python<version> must be accessible in your command line
+# alternatively provide the path to your python executable
 poetry env use <version>
 
 # install python dependencies
