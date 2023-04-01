@@ -53,3 +53,89 @@ docker run --rm -it \
   -v opshin-pioneer-program_node-ipc:/ipc \
   inputoutput/cardano-node
 ```
+
+## How to Follow the Pioneer Lectures and Code
+Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
+Some files may not be documented thoroughly so try to infer the purpose by referring the structure of the lectures.
+
+### [Lecture 1](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3xFHJJKdyfo9eB0Iw-OQDd)
+
+- [Welcome and Introduction](https://youtu.be/g4fBo4QPir0)
+- [Setting up Our Development Environment](https://youtu.be/-cmIqKCzzOU)
+- [Kuber Marketplace Demo](https://youtu.be/ZaB-7ZYBi3g)
+- [Hashing & Digital Signatures](https://youtu.be/f-WKPWbk9Jg)
+- [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
+- [Homework](https://youtu.be/Ey903I-R1KY)
+  - Follow the above installation instructions and get this repository set up locally.
+  - Test your node synchronization with `scripts/query_tip.sh`
+
+### [Lecture 2](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x1-oF7NDy0MhXxG7k5O6ZOA)
+
+- [Low-Level, Untyped Validation Scripts](https://youtu.be/3tcWCZV6L_w)
+  - Study and compare the gift contract in opshin to plutus.
+  - `src/week02/lecture/gift.py`
+- [Using the Cardano CLI to Interact with Plutus](https://youtu.be/2MbzKzoBiak)
+  - We use PyCardano to create off-chain scripts for our opshin contracts.
+    Run the following python scripts with `poetry run python <script-path>`.
+    The bash scripts using the dockerized Cardano CLI are also provided for reference.
+  - Look here for offchain code: `src/week02/scripts/`
+  - Look here for helper scripts (such as creating a test wallet): `scripts/`
+- [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
+  - Review the rest of the opshin scripts.
+  - `src/week02/lecture/fourty_two.py`
+  - `src/week02/lecture/fourty_two_typed.py`
+  - `src/week02/lecture/custom_types.py`
+  - `src/week02/lecture/burn.py`
+- [Summary](https://youtu.be/F5ewN65Mn4I)
+- [Homework](https://youtu.be/OR2IfD4oDjw)
+  - Complete the following homework files:
+  - `src/week02/homework/homework1.py`
+  - `src/week02/homework/homework2.py`
+  - You can test your solution with:
+  - `pytest src/week02/tests/test_homework.py`
+  - The solutions are availble at:
+  - `src/week02/homework/homework1_solved.py`
+  - `src/week02/homework/homework2_solved.py`
+
+### [Lecture 3](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2zXSjHRKLSc5Jn9vJFA3_O)
+
+- [Script Contexts](https://youtu.be/dcoYrIyEI4o)
+- [Handling Time](https://youtu.be/LPzwMqOnWvk)
+- [A Vesting Example](https://youtu.be/5D0O7q9UPJA)
+  - `src/week03/lecture/vesting.py`
+- [Parameterized Contracts](https://youtu.be/ZSKVu32c5eA)
+  - `src/week03/lecture/parameterized_vesting.py`
+- [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
+  - We implement the same in pycardano instead in `src/week03/scripts`.
+- [Reference Scripts](https://youtu.be/Rnyc5YXVXew)
+  - To be implemented...
+- [Homework](https://youtu.be/hdt4XqFeEyg)
+  - Complete the following homework files:
+  - `src/week03/homework/homework1.py`
+  - `src/week03/homework/homework2.py`
+  - Like before, you can run tests from `src/week03/tests`
+- [Summary](https://youtu.be/gxan_u2pStE)
+
+### [Lecture 4](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2j587Ox_nwEzmCO-elk8BG)
+This lecture is about alternative offchain solutions.
+We use pycardano, but you can compare and contrast alternatives.
+
+- [On-chain VS Off-chain](https://youtu.be/pTc_BJby5GU)
+- [Off-chain Code with Cardano CLI and GUI](https://youtu.be/gsgQ-xmzbpA)
+- [Off-chain Code with Kuber](https://youtu.be/fzib9ALlL2M)
+- [Off-chain Code with Lucid](https://youtu.be/BXz5V2rjbiE)
+- [Homework](https://youtu.be/2Qm2xgmtbk4)
+  - Implement the offchain code for the files in `src/week04/homework`.
+  - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
+  - There is no correct solution for this week as solutions can very widely.
+    So make sure to test your code!
+  - We will continue to implement off-chain code in pycardano for this repository.
+
+### [Lecture 5](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2T1lIR4XnDILKukj3rPapi)
+
+- [Introduction](https://youtu.be/HgXYsMFqnb4)
+- [Values](https://youtu.be/ThYByMLC0EI)
+- [A Simple Minting Policy](https://youtu.be/g_VoKPK-tk0)
+- [A More Realistic Minting Policy](https://youtu.be/Faru8_Br2Xg)
+- [NFT's](https://youtu.be/9kW-z_RuwEY)
+- [Homework](https://youtu.be/nQC_GNPIRT8)
