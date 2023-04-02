@@ -1,15 +1,27 @@
 <div align="center">
-<img  src="https://github.com/OpShin/opshin-pioneer-program/blob/main/opshin-pioneer-program.png" width="200" />
-<h1 > Opshin Pioneer Program </h1>
-<img src="https://img.shields.io/badge/cohort-4-red">
-<img src="https://img.shields.io/badge/language-python3-3670A0?logo=python&logoColor=959da5">
-<img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml/badge.svg"/>
+  <a href="https://github.com/OpShin/opshin-pioneer-program">
+    <img src="https://github.com/OpShin/opshin-pioneer-program/blob/main/opshin-pioneer-program.png" width="200" />
+  </a>
+  <h1> Opshin Pioneer Program </h1>
+  <a href="https://github.com/input-output-hk/plutus-pioneer-program">
+    <img src="https://img.shields.io/badge/cohort-4-red">
+  </a>
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/language-python3-3670A0?logo=python&logoColor=959da5">
+  </a>
+  <a href="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml">
+    <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml/badge.svg"/>
+  </a>
+  <a href="https://discord.com/invite/umR3A2g4uw">
+    <img src="https://dcbadge.vercel.app/api/server/umR3A2g4uw?style=flat"/>
+  </a>
 </div>
-<br/>
+
 
 This repository implements many educational Cardano Smart Contracts in Python using [opshin](https://github.com/OpShin/opshin).
 It also comes with off-chain code using [PyCardano](https://github.com/Python-Cardano/pycardano) and a host of test cases to ensure high quality of the resulting contracts.
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
+Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A and interact with other opshin pioneers!
 
 ## Installation
 
