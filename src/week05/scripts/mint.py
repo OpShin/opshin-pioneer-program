@@ -27,10 +27,16 @@ from src.week05 import assets_dir, lecture_dir
     type=int,
     default=1,
 )
+@click.option(
+    "--script",
+    type=click.Choice(["free", "nft", "signed"]),
+    default="nft",
+)
 def main(
     wallet_name: str,
     token_name: str,
     amount: int,
+    script: str,
 ):
     # Load chain context
     context = OgmiosChainContext(ogmios_url, network=network)
@@ -46,30 +52,35 @@ def main(
             break
     assert utxo_to_spend is not None, "UTxO not found to spend!"
 
-    # Build script
-    save_path = assets_dir.joinpath(f"nft_{token_name}")
-    script_path = lecture_dir.joinpath("nft.py")
-    oref = TxOutRef(
-        id=TxId(bytes(utxo_to_spend.input.transaction_id)),
-        idx=utxo_to_spend.input.index,
-    )
-    tn: TokenName = bytes(token_name, encoding="utf-8")
-    tn_json = json.dumps({"bytes": tn.hex()})
-    subprocess.run(
-        [
-            "opshin",
-            "-o",
-            str(save_path),
-            "build",
-            str(script_path),
-            oref.to_json(),
-            tn_json,
-        ],
-        check=True,
-    )
+    if script == "nft":
+        # Build script
+        save_path = assets_dir.joinpath(f"nft_{token_name}")
+        script_path = lecture_dir.joinpath("nft.py")
+        oref = TxOutRef(
+            id=TxId(bytes(utxo_to_spend.input.transaction_id)),
+            idx=utxo_to_spend.input.index,
+        )
+        tn_bytes: TokenName = bytes(token_name, encoding="utf-8")
+        tn_json = json.dumps({"bytes": tn_bytes.hex()})
+        subprocess.run(
+            [
+                "opshin",
+                "-o",
+                str(save_path),
+                "build",
+                str(script_path),
+                oref.to_json(),
+                tn_json,
+            ],
+            check=True,
+        )
+        cbor_path = save_path.joinpath("script.cbor")
+    else:
+        tn_bytes = token_name.encode(encoding="utf-8")
+        cbor_path = assets_dir.joinpath(script, "script.cbor")
 
-    # Load script info
-    with open(save_path.joinpath("script.cbor"), "r") as f:
+        # Load script info
+    with open(cbor_path, "r") as f:
         cbor_hex = f.read()
     cbor = bytes.fromhex(cbor_hex)
     plutus_script = PlutusV2Script(cbor)
@@ -80,7 +91,7 @@ def main(
     builder.add_minting_script(
         script=plutus_script, redeemer=Redeemer(RedeemerTag.MINT, 0)
     )
-    builder.mint = MultiAsset.from_primitive({bytes(script_hash): {tn: amount}})
+    builder.mint = MultiAsset.from_primitive({bytes(script_hash): {tn_bytes: amount}})
     builder.add_input(utxo_to_spend)
     builder.add_output(
         TransactionOutput(
