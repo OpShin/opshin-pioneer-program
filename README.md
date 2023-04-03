@@ -13,7 +13,7 @@
     <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml/badge.svg"/>
   </a>
   <a href="https://discord.com/invite/umR3A2g4uw">
-    <img src="https://dcbadge.vercel.app/api/server/umR3A2g4uw?style=flat"/>
+    <img src="https://dcbadge.vercel.app/api/server/umR3A2g4uw?style=flat&theme=default-inverted&compact=true"/>
   </a>
 </div>
 
