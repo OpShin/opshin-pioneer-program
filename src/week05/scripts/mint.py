@@ -79,7 +79,7 @@ def main(
         tn_bytes = token_name.encode(encoding="utf-8")
         cbor_path = assets_dir.joinpath(script, "script.cbor")
 
-        # Load script info
+    # Load script info
     with open(cbor_path, "r") as f:
         cbor_hex = f.read()
     cbor = bytes.fromhex(cbor_hex)
