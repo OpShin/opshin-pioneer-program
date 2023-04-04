@@ -2,7 +2,7 @@ import json
 import subprocess
 
 import click
-from opshin.prelude import TxOutRef, TxId, TokenName
+from opshin.prelude import TxOutRef, TxId
 from pycardano import (
     OgmiosChainContext,
     TransactionBuilder,
@@ -52,6 +52,8 @@ def main(
             break
     assert utxo_to_spend is not None, "UTxO not found to spend!"
 
+    tn_bytes = bytes(token_name, encoding="utf-8")
+    signatures = []
     if script == "nft":
         # Build script
         save_path = assets_dir.joinpath(f"nft_{token_name}")
@@ -60,7 +62,7 @@ def main(
             id=TxId(bytes(utxo_to_spend.input.transaction_id)),
             idx=utxo_to_spend.input.index,
         )
-        tn_bytes: TokenName = bytes(token_name, encoding="utf-8")
+        tn_bytes = bytes(token_name, encoding="utf-8")
         tn_json = json.dumps({"bytes": tn_bytes.hex()})
         subprocess.run(
             [
@@ -75,8 +77,26 @@ def main(
             check=True,
         )
         cbor_path = save_path.joinpath("script.cbor")
+    elif script == "signed":
+        # Build script
+        save_path = assets_dir.joinpath(f"signed_{wallet_name}")
+        script_path = lecture_dir.joinpath("signed.py")
+        pkh = bytes(get_address(wallet_name).payment_part)
+        signatures.append(pkh)
+        pkh_json = json.dumps({"bytes": pkh.hex()})
+        subprocess.run(
+            [
+                "opshin",
+                "-o",
+                str(save_path),
+                "build",
+                str(script_path),
+                pkh_json,
+            ],
+            check=True,
+        )
+        cbor_path = save_path.joinpath("script.cbor")
     else:
-        tn_bytes = token_name.encode(encoding="utf-8")
         cbor_path = assets_dir.joinpath(script, "script.cbor")
 
     # Load script info
@@ -98,6 +118,7 @@ def main(
             payment_address, amount=Value(coin=2000000, multi_asset=builder.mint)
         )
     )
+    builder.required_signers = signatures
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(wallet_name)
