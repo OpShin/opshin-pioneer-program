@@ -24,10 +24,6 @@ def test_homework_compile(path):
     print(code.dumps())
 
 
-def make_range_closed(lower: int, upper: int):
-    return make_range(lower, upper, TrueData(), TrueData())
-
-
 @pytest.mark.parametrize(
     ["deadline", "valid_lower", "valid_upper", "validates"],
     [
@@ -44,7 +40,7 @@ def test_beneficiary_1(
     deadline: int, valid_lower: int, valid_upper: int, validates: bool
 ):
     evaluate_homework1_validator(
-        deadline, make_range_closed(valid_lower, valid_upper), validates, True, False
+        deadline, make_range(valid_lower, valid_upper), validates, True, False
     )
 
 
@@ -66,7 +62,7 @@ def test_beneficiary_2(
     deadline: int, valid_lower: int, valid_upper: int, validates: bool
 ):
     evaluate_homework1_validator(
-        deadline, make_range_closed(valid_lower, valid_upper), validates, False, True
+        deadline, make_range(valid_lower, valid_upper), validates, False, True
     )
 
 
@@ -132,7 +128,7 @@ def test_homework_2(deadline: int, valid_lower: int, valid_upper: int, validates
     beneficiary = b"1"
     datum = deadline
     signatories = [b"1"]
-    valid_range = make_range_closed(valid_lower, valid_upper)
+    valid_range = make_range(valid_lower, valid_upper)
     context = make_context(valid_range, signatories)
     try:
         homework2.validator(beneficiary, datum, None, context)

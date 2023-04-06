@@ -17,12 +17,12 @@ class MisteryDatum(PlutusData):
 def validator(datum: MisteryDatum, redeemer: None, context: ScriptContext) -> None:
     valid_range = context.tx_info.valid_range
     signed1 = datum.beneficiary1 in context.tx_info.signatories
-    deadline1 = contains(make_to(datum.deadline, TrueData()), valid_range)
+    deadline1 = contains(make_to(datum.deadline), valid_range)
     condition1 = signed1 and deadline1
     if not condition1:
         print("Benificiary1 did not sign or to late")
     signed2 = datum.beneficiary2 in context.tx_info.signatories
-    deadline2 = contains(make_from(datum.deadline, FalseData()), valid_range)
+    deadline2 = contains(make_from(datum.deadline + 1), valid_range)
     condition2 = signed2 and deadline2
     if not condition2:
         print("Benificiary2 did not sign or is to early")
