@@ -91,7 +91,11 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - We use PyCardano to create off-chain scripts for our opshin contracts.
     Run the following python scripts with `poetry run python <script-path>`.
     The bash scripts using the dockerized Cardano CLI are also provided for reference.
-  - Look here for offchain code: `src/week02/scripts/`
+  - Look here for offchain code: `src/week02/scripts/`. PyCardano examples:
+    - Build the lecture scripts `python src/week02/scripts/build.py`. The output is saved in the `assets` folder.
+    - Send ada `python src/week02/scripts/send.py`
+    - Make gift `python src/week02/scripts/make_gift.py`
+    - Collect gift `python src/week02/scripts/collect_gift.py`
   - Look here for helper scripts (such as creating a test wallet): `scripts/`
 - [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
   - Review the rest of the opshin scripts.
@@ -99,6 +103,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - `src/week02/lecture/fourty_two_typed.py`
   - `src/week02/lecture/custom_types.py`
   - `src/week02/lecture/burn.py`
+  - You can choose which lecture script to use in `make_gift.py` and `collect_gift.py` with the argument `--script <script-name>`
 - [Summary](https://youtu.be/F5ewN65Mn4I)
 - [Homework](https://youtu.be/OR2IfD4oDjw)
   - Complete the following homework files:
@@ -149,6 +154,21 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Introduction](https://youtu.be/HgXYsMFqnb4)
 - [Values](https://youtu.be/ThYByMLC0EI)
 - [A Simple Minting Policy](https://youtu.be/g_VoKPK-tk0)
+  - `src/week05/lecture/free.py`
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=free WALLET_NAME TOKEN_NAME`
 - [A More Realistic Minting Policy](https://youtu.be/Faru8_Br2Xg)
+  - `src/week05/lecture/signed.py`
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=signed WALLET_NAME TOKEN_NAME`
 - [NFT's](https://youtu.be/9kW-z_RuwEY)
+  - `src/week05/lecture/nft.py`
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
 - [Homework](https://youtu.be/nQC_GNPIRT8)
+
+### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
+
+- [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
+- [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
+- [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
+- [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
+- [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
+- [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
