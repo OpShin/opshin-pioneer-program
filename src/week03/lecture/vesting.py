@@ -15,7 +15,7 @@ def is_after(deadline: POSIXTime, valid_range: POSIXTimeRange) -> bool:
     # To ensure that the `valid_range` occurs after the `deadline`,
     # we construct an interval from `deadline` to infinity
     # then check whether that interval contains the `valid_range` interval.
-    from_interval: POSIXTimeRange = make_from(deadline, TrueData())
+    from_interval: POSIXTimeRange = make_from(deadline)
     return contains(from_interval, valid_range)
 
 

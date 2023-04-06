@@ -12,7 +12,5 @@ def validator(
 ) -> None:
     signed = beneficiary in context.tx_info.signatories
     assert signed, "not signed by beneficiary"
-    deadline_met = contains(
-        make_from(deadline, TrueData()), context.tx_info.valid_range
-    )
+    deadline_met = contains(make_from(deadline), context.tx_info.valid_range)
     assert deadline_met, "deadline has not passed yet"
