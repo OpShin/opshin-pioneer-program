@@ -3,6 +3,7 @@ import subprocess
 
 import click
 from opshin.prelude import TxOutRef, TxId
+from opshin import build
 from pycardano import (
     OgmiosChainContext,
     TransactionBuilder,
@@ -56,52 +57,27 @@ def main(
     signatures = []
     if script == "nft":
         # Build script
-        save_path = assets_dir.joinpath(f"nft_{token_name}")
         script_path = lecture_dir.joinpath("nft.py")
         oref = TxOutRef(
             id=TxId(bytes(utxo_to_spend.input.transaction_id)),
             idx=utxo_to_spend.input.index,
         )
         tn_bytes = bytes(token_name, encoding="utf-8")
-        tn_json = json.dumps({"bytes": tn_bytes.hex()})
-        subprocess.run(
-            [
-                "opshin",
-                "-o",
-                str(save_path),
-                "build",
-                str(script_path),
-                oref.to_json(),
-                tn_json,
-            ],
-            check=True,
-        )
-        cbor_path = save_path.joinpath("script.cbor")
+        script_built = build(script_path, oref, tn_bytes)
+        cbor_hex = script_built.cbor_hex
     elif script == "signed":
         # Build script
-        save_path = assets_dir.joinpath(f"signed_{wallet_name}")
         script_path = lecture_dir.joinpath("signed.py")
         pkh = bytes(get_address(wallet_name).payment_part)
         signatures.append(pkh)
-        pkh_json = json.dumps({"bytes": pkh.hex()})
-        subprocess.run(
-            [
-                "opshin",
-                "-o",
-                str(save_path),
-                "build",
-                str(script_path),
-                pkh_json,
-            ],
-            check=True,
-        )
-        cbor_path = save_path.joinpath("script.cbor")
+        script_built = build(script_path, pkh)
+        cbor_hex = script_built.cbor_hex
     else:
         cbor_path = assets_dir.joinpath(script, "script.cbor")
+        with open(cbor_path, "r") as f:
+            cbor_hex = f.read()
 
     # Load script info
-    with open(cbor_path, "r") as f:
-        cbor_hex = f.read()
     cbor = bytes.fromhex(cbor_hex)
     plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
