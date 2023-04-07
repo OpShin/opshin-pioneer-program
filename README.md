@@ -131,7 +131,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - Complete the following homework files:
   - `src/week03/homework/homework1.py`
   - `src/week03/homework/homework2.py`
-  - Like before, you can run tests from `src/week03/tests`
+  - Like before, you can run tests with `pytest src/week03/tests`
 - [Summary](https://youtu.be/gxan_u2pStE)
 
 ### [Lecture 4](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2j587Ox_nwEzmCO-elk8BG)
@@ -163,6 +163,8 @@ We use pycardano, but you can compare and contrast alternatives.
   - `src/week05/lecture/nft.py`
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
 - [Homework](https://youtu.be/nQC_GNPIRT8)
+  - Complete the minting policies in `src/week05/homework`.
+  - Test your solution with `pytest src/week05/tests`
 
 ### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
 
