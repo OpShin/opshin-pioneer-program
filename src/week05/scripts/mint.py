@@ -63,23 +63,22 @@ def main(
             idx=utxo_to_spend.input.index,
         )
         tn_bytes = bytes(token_name, encoding="utf-8")
-        script_built = build(script_path, oref, tn_bytes)
-        cbor_hex = script_built.cbor_hex
+        plutus_script = build(script_path, oref, tn_bytes)
     elif script == "signed":
         # Build script
         script_path = lecture_dir.joinpath("signed.py")
         pkh = bytes(get_address(wallet_name).payment_part)
         signatures.append(pkh)
-        script_built = build(script_path, pkh)
-        cbor_hex = script_built.cbor_hex
+        plutus_script = build(script_path, pkh)
     else:
         cbor_path = assets_dir.joinpath(script, "script.cbor")
         with open(cbor_path, "r") as f:
             cbor_hex = f.read()
+        cbor = bytes.fromhex(cbor_hex)
+        plutus_script = PlutusV2Script(cbor)
+
 
     # Load script info
-    cbor = bytes.fromhex(cbor_hex)
-    plutus_script = PlutusV2Script(cbor)
     script_hash = plutus_script_hash(plutus_script)
 
     # Build the transaction
