@@ -77,7 +77,6 @@ def main(
         cbor = bytes.fromhex(cbor_hex)
         plutus_script = PlutusV2Script(cbor)
 
-
     # Load script info
     script_hash = plutus_script_hash(plutus_script)
 
