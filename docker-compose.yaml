@@ -22,7 +22,7 @@ services:
         max-file: "20"
 
   ogmios:
-    image: cardanosolutions/ogmios:latest-${NETWORK:-preview}
+    image: cardanosolutions/ogmios:v5.6.0-${NETWORK:-preview}
     platform: linux/amd64
     restart: on-failure
     command: [
