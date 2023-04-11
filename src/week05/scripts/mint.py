@@ -1,9 +1,6 @@
-import json
-import subprocess
-
 import click
-from opshin.prelude import TxOutRef, TxId
 from opshin import build
+from opshin.prelude import TxOutRef, TxId
 from pycardano import (
     OgmiosChainContext,
     TransactionBuilder,
