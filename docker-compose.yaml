@@ -23,6 +23,7 @@ services:
 
   ogmios:
     image: cardanosolutions/ogmios:latest-${NETWORK:-preview}
+    platform: linux/amd64
     restart: on-failure
     command: [
       "--host", "0.0.0.0",
