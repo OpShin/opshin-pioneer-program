@@ -7,7 +7,6 @@ from pycardano import (
     TransactionOutput,
     PlutusV2Script,
     MultiAsset,
-    RedeemerTag,
     Redeemer,
     plutus_script_hash,
     Value,
@@ -79,9 +78,7 @@ def main(
 
     # Build the transaction
     builder = TransactionBuilder(context)
-    builder.add_minting_script(
-        script=plutus_script, redeemer=Redeemer(RedeemerTag.MINT, 0)
-    )
+    builder.add_minting_script(script=plutus_script, redeemer=Redeemer(0))
     builder.mint = MultiAsset.from_primitive({bytes(script_hash): {tn_bytes: amount}})
     builder.add_input(utxo_to_spend)
     builder.add_output(

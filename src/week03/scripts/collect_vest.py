@@ -9,7 +9,6 @@ from pycardano import (
     PlutusV2Script,
     plutus_script_hash,
     Redeemer,
-    RedeemerTag,
     VerificationKeyHash,
 )
 
@@ -77,7 +76,7 @@ def main(name: str, parameterized):
     assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
 
     # Make redeemer
-    redeemer = Redeemer(RedeemerTag.SPEND, 0)
+    redeemer = Redeemer(0)
 
     # Build the transaction
     builder = TransactionBuilder(context)
