@@ -7,7 +7,6 @@ from pycardano import (
     TransactionOutput,
     PlutusV2Script,
     MultiAsset,
-    RedeemerTag,
     Redeemer,
     plutus_script_hash,
     Value,

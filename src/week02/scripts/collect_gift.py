@@ -7,7 +7,6 @@ from pycardano import (
     PlutusV2Script,
     plutus_script_hash,
     Redeemer,
-    RedeemerTag,
 )
 
 from src.utils import get_address, get_signing_info, network, ogmios_url
@@ -74,13 +73,13 @@ def main(name: str, script: str):
     # Build the transaction
     # no output is specified since everything minus fees is sent to change address
     if script in ["fourty_two", "fourty_two_typed"]:
-        redeemer = Redeemer(RedeemerTag.SPEND, 42)
+        redeemer = Redeemer(42)
     elif script == "custom_types":
         from src.week02.lecture.custom_types import MySillyRedeemer
 
-        redeemer = Redeemer(RedeemerTag.SPEND, MySillyRedeemer(42))
+        redeemer = Redeemer(MySillyRedeemer(42))
     else:
-        redeemer = Redeemer(RedeemerTag.SPEND, 0)
+        redeemer = Redeemer(0)
     builder = TransactionBuilder(context)
     builder.add_script_input(utxo_to_spend, script=plutus_script, redeemer=redeemer)
     builder.collaterals.append(non_nft_utxo)
