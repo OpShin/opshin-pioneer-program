@@ -92,10 +92,10 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
     Run the following python scripts with `poetry run python <script-path>`.
     The bash scripts using the dockerized Cardano CLI are also provided for reference.
   - Look here for offchain code: `src/week02/scripts/`. PyCardano examples:
-    - Build the lecture scripts `python src/week02/scripts/build.py`. The output is saved in the `assets` folder.
-    - Send ada `python src/week02/scripts/send.py`
-    - Make gift `python src/week02/scripts/make_gift.py`
-    - Collect gift `python src/week02/scripts/collect_gift.py`
+    - Build the lecture scripts `python -m src.week02.scripts.build`. The output is saved in the `assets` folder.
+    - Send ada `python -m src.week02.scripts.send`
+    - Make gift `python -m src.week02.scripts.make_gift`
+    - Collect gift `python -m src.week02.scripts.collect_gift`
   - Look here for helper scripts (such as creating a test wallet): `scripts/`
 - [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
   - Review the rest of the opshin scripts.
