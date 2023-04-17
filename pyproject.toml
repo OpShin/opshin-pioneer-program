@@ -8,7 +8,7 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.12"
-opshin = "^0.12.2"
+opshin = "^0.12.5"
 pycardano = "^0.8.0"
 click = "^8.1.3"
 
