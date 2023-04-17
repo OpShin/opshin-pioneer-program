@@ -746,14 +746,14 @@ setuptools = "*"
 
 [[package]]
 name = "opshin"
-version = "0.12.2"
+version = "0.12.5"
 description = "A simple pythonic programming language for Smart Contracts on Cardano"
 category = "main"
 optional = false
 python-versions = ">=3.8,<3.12"
 files = [
-    {file = "opshin-0.12.2-py3-none-any.whl", hash = "sha256:749a8c63e658afbb01d6510a37eb3c4c04849e215a988d141161f29af4633b36"},
-    {file = "opshin-0.12.2.tar.gz", hash = "sha256:8e7d7ec929bbe75dc52d6fae1090ecaaee12f6f9a01fd9ce030e8404fa819e99"},
+    {file = "opshin-0.12.5-py3-none-any.whl", hash = "sha256:699d66908030ba10a0408633715e959cfc67c3c0580cd6134bf09e10e357e8f2"},
+    {file = "opshin-0.12.5.tar.gz", hash = "sha256:33b3839e8290fe50fb24864cee650799368eb8b22dd3d9b9ef944744b5b4c830"},
 ]
 
 [package.dependencies]
@@ -1225,4 +1225,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "5082f41d6706e2be22f756e3cb65179e06baa6dcba8fd7c0ad16ab330efd1eaf"
+content-hash = "bbe8b35ceb8e30c7d156b5a6fd991a3b552c2f497f4928a1b9be82103c02ef6b"
