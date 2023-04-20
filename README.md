@@ -174,3 +174,26 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
 - [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
 - [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
+
+
+### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
+This week introduces Marlowe. There won't be any relevant opshin code for this week.
+
+- [Introduction](https://youtu.be/KCWuj2DXEY4)
+- [Marlowe Playground Demo](https://youtu.be/fldaBHmYfqk)
+- [Homework](https://youtu.be/C4WWnQZOAAM)
+- [Marlowe Starter Kit: Docker](https://youtu.be/wgSvPlWUrf8)
+- [Marlowe Starter Kit: Preliminaries](https://youtu.be/hGBmj9ZrYHs)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime command-line client](https://youtu.be/pjDtuD5rimI)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime REST API](https://youtu.be/wgJVdkM2pBY)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime CLI](https://youtu.be/ELc72BKf7ec)
+- [Marlowe Starter Kit: Escrow using the Marlowe Runtime's REST API](https://youtu.be/E8m-PKbS9TI)
+- [Marlowe Starter Kit: Swap contract using the Marlowe Runtime's REST API](https://youtu.be/sSrVCRNoytU)
+
+### [Lecture 8](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x09VdtQTw_UpxUa0bRcrVPI)
+
+- [Introduction](https://youtu.be/07ATzubeHjo)
+- [The Private Testnet](https://youtu.be/BBqOZAuMx1c)
+- [Plutus & Staking](https://youtu.be/1Hs6bU9pXi4)
+- [Trying it on the Testnet](https://youtu.be/fzYXwdrfu44)
+- [Homework](https://youtu.be/rO3FVGsuzUg)
