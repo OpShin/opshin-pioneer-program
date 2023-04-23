@@ -237,8 +237,9 @@ def generate_script_contexts_resolved(
             if tx.transaction_witness_set.plutus_v2_script is not None
             else []
         )
-        if spending_input.script is not None:
-            potential_scripts.append(spending_input.script)
+        for input in resolved_reference_inputs + resolved_inputs:
+            if input.script is not None:
+                potential_scripts.append(input.script)
         try:
             spending_script = next(
                 s
