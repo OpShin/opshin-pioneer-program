@@ -51,7 +51,7 @@ def run(datum, redeemer_data, *args):
     mock_chain_context.submit_tx_mock(tx)
 
     # WAIT FOR A BIT
-    mock_chain_context.wait(1000)
+    mock_chain_context.wait(2000)
 
     # USER 2 TAKES "val" FROM VALIDATOR
     utxo = mock_chain_context.utxos(str(script_address))[0]

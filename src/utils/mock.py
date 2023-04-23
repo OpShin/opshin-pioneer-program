@@ -1,4 +1,5 @@
 from collections import defaultdict
+from copy import copy
 from typing import Dict, List, Union, Optional
 
 import pycardano
@@ -108,18 +109,17 @@ class MockChainContext(ChainContext):
         )
         ret = {}
         for invocation in script_invocations:
-            if (
-                invocation.redeemer.ex_units.steps <= 0
-                and invocation.redeemer.ex_units.mem <= 0
-            ):
-                invocation.redeemer.ex_units = ExecutionUnits(
+            redeemer = invocation.redeemer
+            if redeemer.ex_units.steps <= 0 and redeemer.ex_units.mem <= 0:
+                redeemer.ex_units = ExecutionUnits(
                     self.protocol_param.max_tx_ex_mem,
-                    self._protocol_param.max_tx_ex_steps,
+                    self.protocol_param.max_tx_ex_steps,
                 )
             (suc, err), (cpu, mem) = evaluate_script(invocation)
             if err:
                 raise ValueError(err)
-            ret[str(invocation.redeemer)] = ExecutionUnits(mem, cpu)
+            key = f"{redeemer.tag.name.lower()}:{redeemer.index}"
+            ret[key] = ExecutionUnits(mem, cpu)
         return ret
 
     def wait(self, slots):
