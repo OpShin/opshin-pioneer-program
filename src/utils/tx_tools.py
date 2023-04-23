@@ -162,7 +162,9 @@ def to_tx_info(
         [
             to_tx_in_info(i, o)
             for i, o in zip(tx_body.reference_inputs, resolved_reference_inputs)
-        ],
+        ]
+        if tx_body.reference_inputs is not None
+        else [],
         [to_tx_out(o) for o in tx_body.outputs],
         value_to_value(pycardano.Value(tx_body.fee)),
         multiasset_to_value(tx_body.mint),
