@@ -159,6 +159,11 @@ def to_tx_info(
     ]
     if tx.transaction_witness_set.plutus_data:
         datums += tx.transaction_witness_set.plutus_data
+    redeemers = (
+        tx.transaction_witness_set.redeemer
+        if tx.transaction_witness_set.redeemer
+        else []
+    )
     return TxInfo(
         [to_tx_in_info(i, o) for i, o in zip(tx_body.inputs, resolved_inputs)],
         [
@@ -177,7 +182,7 @@ def to_tx_info(
         if tx_body.required_signers
         else [],
         {pycardano.datum_hash(d): d for d in datums},
-        {pycardano.datum_hash(r): r for r in tx.transaction_witness_set.redeemer},
+        {pycardano.datum_hash(r): r for r in redeemers},
         to_tx_id(tx_body.id),
     )
 
