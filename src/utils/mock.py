@@ -92,12 +92,12 @@ class MockChainContext(ChainContext):
     def evaluate_tx(self, cbor: Union[bytes, str]) -> Dict[str, ExecutionUnits]:
         tx = Transaction.from_cbor(cbor)
         input_utxos = [
-            self.get_utxo_from_txid(input.transaction_id, input.index).output
+            self.get_utxo_from_txid(input.transaction_id, input.index)
             for input in tx.transaction_body.inputs
         ]
         ref_input_utxos = (
             [
-                self.get_utxo_from_txid(input.transaction_id, input.index).output
+                self.get_utxo_from_txid(input.transaction_id, input.index)
                 for input in tx.transaction_body.reference_inputs
             ]
             if tx.transaction_body.reference_inputs is not None

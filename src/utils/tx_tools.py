@@ -9,6 +9,8 @@ from pycardano import (
     plutus_script_hash,
     TransactionOutput,
     datum_hash,
+    PlutusV2Script,
+    UTxO,
 )
 
 
@@ -203,9 +205,12 @@ def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
     #     utxo.input: utxo.output
     #     for utxo in tx_builder.inputs + tx_builder.reference_inputs
     # }
-    resolved_inputs = [input_to_resolved_output[i] for i in tx.transaction_body.inputs]
+    resolved_inputs = [
+        UTxO(i, input_to_resolved_output[i]) for i in tx.transaction_body.inputs
+    ]
     resolved_reference_inputs = [
-        input_to_resolved_output[i] for i in tx.transaction_body.reference_inputs
+        UTxO(i, input_to_resolved_output[i])
+        for i in tx.transaction_body.reference_inputs
     ]
     return generate_script_contexts_resolved(
         tx, resolved_inputs, resolved_reference_inputs
@@ -214,13 +219,17 @@ def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
 
 def generate_script_contexts_resolved(
     tx: pycardano.Transaction,
-    resolved_inputs: List[TransactionOutput],
-    resolved_reference_inputs: List[TransactionOutput],
+    resolved_inputs: List[UTxO],
+    resolved_reference_inputs: List[UTxO],
 ):
-    tx_info = to_tx_info(tx, resolved_inputs, resolved_reference_inputs)
+    tx_info = to_tx_info(
+        tx,
+        [i.output for i in resolved_inputs],
+        [i.output for i in resolved_reference_inputs],
+    )
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
-        if not isinstance(spending_input.address.payment_part, ScriptHash):
+        if not isinstance(spending_input.output.address.payment_part, ScriptHash):
             continue
         try:
             spending_redeemer = next(
@@ -232,34 +241,34 @@ def generate_script_contexts_resolved(
             raise ValueError(
                 f"Missing redeemer for script input {i} (index or tag set incorrectly or missing redeemer)"
             )
-        potential_scripts = (
-            tx.transaction_witness_set.plutus_v2_script
-            if tx.transaction_witness_set.plutus_v2_script is not None
-            else []
-        )
+        potential_scripts = tx.transaction_witness_set.plutus_v2_script or []
         for input in resolved_reference_inputs + resolved_inputs:
-            if input.script is not None:
-                potential_scripts.append(input.script)
+            if input.output.script is not None:
+                potential_scripts.append(input.output.script)
         try:
             spending_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(s) == spending_input.address.payment_part
+                if plutus_script_hash(PlutusV2Script(s))
+                == spending_input.output.address.payment_part
             )
         except (StopIteration, TypeError):
             raise NotImplementedError(
                 "Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)"
             )
-        if spending_input.datum is not None:
-            datum = None
-        elif spending_input.datum_hash is not None:
+        if spending_input.output.datum is not None:
+            datum = spending_input.output.datum
+        elif spending_input.output.datum_hash is not None:
+            datum_h = spending_input.output.datum_hash
             try:
                 datum = next(
-                    d for d in tx.datums if datum_hash(d) == spending_input.datum_hash
+                    d
+                    for d in tx.transaction_witness_set.plutus_data or []
+                    if datum_hash(d) == datum_h
                 )
             except StopIteration:
                 raise ValueError(
-                    f"No datum with hash {spending_input.datum_hash} provided for transaction"
+                    f"No datum with hash '{datum_h.payload.hex()}' provided for transaction"
                 )
         else:
             raise ValueError(
@@ -274,7 +283,7 @@ def generate_script_contexts_resolved(
                 spending_redeemer.ex_units,
             )
         )
-    for i, minting_script_hash in enumerate(tx.transaction_body.mint):
+    for i, minting_script_hash in enumerate(tx.transaction_body.mint or []):
         try:
             minting_redeemer = next(
                 r
@@ -289,7 +298,7 @@ def generate_script_contexts_resolved(
             minting_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(s) == minting_script_hash
+                if plutus_script_hash(PlutusV2Script(s)) == minting_script_hash
             )
         except StopIteration:
             raise NotImplementedError(
