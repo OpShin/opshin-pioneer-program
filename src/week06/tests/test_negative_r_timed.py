@@ -77,7 +77,7 @@ def run(datum, redeemer_data, *args):
     tx_builder.add_script_input(
         utxo,
         redeemer=pycardano.Redeemer(
-            redeemer_data, pycardano.ExecutionUnits(1000000, 1000000)
+            redeemer_data, pycardano.ExecutionUnits(14000000, 10000000000)
         ),
     )
     tx_builder.collaterals.append(mock_chain_context.utxos(str(u2.address))[0])
