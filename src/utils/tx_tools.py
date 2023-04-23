@@ -232,20 +232,7 @@ def evaluate_script(script_invocation: ScriptInvocation):
         args.insert(0, script_invocation.datum)
     program_args = []
     for a in args:
-        if isinstance(a, PlutusData):
-            data = f"(con data #{a.to_cbor()})"
-        elif isinstance(a, int):
-            data = f"(con integer {a})"
-        elif isinstance(a, bool):
-            data = f"(con bool {a})"
-        elif isinstance(a, bytes):
-            data = f"(con bytestring #{a})"
-        elif isinstance(a, str):
-            data = f'(con string "{a})"'
-        elif isinstance(a, list):
-            raise NotImplementedError
-        else:
-            raise NotImplementedError
+        data = f"(con data #{PlutusData.to_cbor(a, 'hex')})"
         program_args.append(data)
     if script_invocation.budget is not None:
         execution_steps = script_invocation.budget.steps
