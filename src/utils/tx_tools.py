@@ -230,6 +230,13 @@ def generate_script_contexts_resolved(
             raise ValueError(
                 f"Missing redeemer for script input {i} (index or tag set incorrectly or missing redeemer)"
             )
+        potential_scripts = (
+            tx.transaction_witness_set.plutus_v2_script
+            if tx.transaction_witness_set.plutus_v2_script is not None
+            else []
+        )
+        if spending_input.script is not None:
+            potential_scripts.append(spending_input.script)
         try:
             spending_script = next(
                 s
