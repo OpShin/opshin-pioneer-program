@@ -327,5 +327,9 @@ def evaluate_script(script_invocation: ScriptInvocation):
     ((suc, err), logs, (cpu, mem)) = pyaiken.uplc.eval(
         uplc_program, program_args, execution_steps, mem
     )
-    print(logs)
+    if logs:
+        print("Script debug logs:")
+        print("==================")
+        print("\n".join(logs))
+        print("==================")
     return (suc, err), (cpu, mem)
