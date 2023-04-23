@@ -208,11 +208,11 @@ def generate_script_contexts_resolved(tx: pycardano.Transaction, resolved_inputs
             continue
         try:
             spending_redeemer = next(r for r in tx.transaction_witness_set.redeemer if r.index == i and r.tag == RedeemerTag.SPEND)
-        except StopIteration:
+        except (StopIteration, TypeError):
             raise ValueError(f"Missing redeemer for script input {i} (index or tag set incorrectly or missing redeemer)")
         try:
             spending_script = next(s for s in tx.transaction_witness_set.plutus_v2_script if plutus_script_hash(s) == spending_input.address.payment_part)
-        except StopIteration:
+        except (StopIteration, TypeError):
             raise NotImplementedError("Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)")
         if spending_input.datum is not None:
             datum = None

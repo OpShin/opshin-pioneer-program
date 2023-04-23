@@ -82,6 +82,7 @@ def run(datum, redeemer_data, *args):
         redeemer=pycardano.Redeemer(
             redeemer_data,
         ),
+        script=plutus_script,
     )
     tx_builder.collaterals.append(mock_chain_context.utxos(str(u2.address))[0])
     # mock_chain_context.evaluate_scripts(tx_builder)  # TODO: fix evaluation errors here
