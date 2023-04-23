@@ -322,14 +322,17 @@ def evaluate_script(script_invocation: ScriptInvocation):
     for a in args:
         data = f"(con data #{PlutusData.to_cbor(a, 'hex')})"
         program_args.append(data)
-    execution_steps = script_invocation.redeemer.ex_units.steps
-    mem = script_invocation.redeemer.ex_units.mem
-    ((suc, err), logs, (cpu, mem)) = pyaiken.uplc.eval(
-        uplc_program, program_args, execution_steps, mem
+    allowed_cpu_steps = script_invocation.redeemer.ex_units.steps
+    allowed_mem_steps = script_invocation.redeemer.ex_units.mem
+    ((suc, err), logs, (remaining_cpu_steps, remaining_mem_steps)) = pyaiken.uplc.eval(
+        uplc_program, program_args, allowed_cpu_steps, allowed_mem_steps
     )
     if logs:
         print("Script debug logs:")
         print("==================")
         print("\n".join(logs))
         print("==================")
-    return (suc, err), (cpu, mem)
+    return (suc, err), (
+        allowed_cpu_steps - remaining_cpu_steps,
+        allowed_mem_steps - remaining_mem_steps,
+    )

@@ -13,6 +13,10 @@ import pycardano
 from src.week06 import lecture_dir
 
 
+def test_pass():
+    run(CustomDatum(1000), -1)
+
+
 @hypothesis.given(
     dt=st.datetimes(),
     redeemer=st.integers(),
@@ -26,7 +30,7 @@ def test_property_before_fails(dt: datetime.datetime, redeemer: int):
 
 def setup_user(context: MockChainContext):
     user = MockUser(context)
-    user.fund(1000000000)  # 100 ADA
+    user.fund(100000000)  # 100 ADA
     return user
 
 
@@ -56,6 +60,7 @@ def run(datum, redeemer_data, *args):
     # USER 2 TAKES "val" FROM VALIDATOR
     utxo = mock_chain_context.utxos(str(script_address))[0]
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
+    tx_builder.add_input_address(u2.address)
     tx_builder.add_script_input(
         utxo,
         redeemer=pycardano.Redeemer(
@@ -63,7 +68,6 @@ def run(datum, redeemer_data, *args):
         ),
         script=plutus_script,
     )
-    tx_builder.collaterals.append(mock_chain_context.utxos(str(u2.address))[0])
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
     mock_chain_context.submit_tx_mock(tx)
 
