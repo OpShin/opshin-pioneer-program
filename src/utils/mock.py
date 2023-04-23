@@ -1,5 +1,4 @@
 from collections import defaultdict
-from copy import copy
 from typing import Dict, List, Union, Optional
 
 import pycardano
@@ -10,7 +9,6 @@ from src.utils.protocol_params import (
     DEFAULT_GENESIS_PARAMETERS,
 )
 from src.utils.tx_tools import (
-    generate_script_contexts,
     evaluate_script,
     generate_script_contexts_resolved,
 )
@@ -34,7 +32,6 @@ class MockChainContext(ChainContext):
         self._network = Network.TESTNET
         self._epoch = 0
         self._last_block_slot = 0
-        self._genesis_param = None
 
     @property
     def protocol_param(self) -> ProtocolParameters:

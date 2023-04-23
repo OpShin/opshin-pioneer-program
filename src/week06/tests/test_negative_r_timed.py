@@ -36,7 +36,7 @@ def setup_user(context: MockChainContext):
 
 def run(datum, redeemer_data, *args):
     mock_chain_context = MockChainContext()
-    # SETUP USERS
+    # setup users
     u1 = setup_user(mock_chain_context)
     u2 = setup_user(mock_chain_context)
     # build script
@@ -44,7 +44,7 @@ def run(datum, redeemer_data, *args):
     script_hash = pycardano.plutus_script_hash(plutus_script)
     script_address = pycardano.Address(script_hash, network=network)
 
-    # USER 1 LOCKS 100 Lovelaces ("val") IN VALIDATOR
+    # user 1 locks 2 ADA ("val") in validator
     val = pycardano.Value(coin=2000000)  # 2 ADA
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
     tx_builder.add_input_address(u1.address)
@@ -52,12 +52,12 @@ def run(datum, redeemer_data, *args):
         pycardano.TransactionOutput(script_address, amount=val, datum=datum)
     )
     tx = tx_builder.build_and_sign([u1.signing_key], change_address=u1.address)
-    mock_chain_context.submit_tx_mock(tx)
+    mock_chain_context.submit_tx(tx.to_cbor())
 
-    # WAIT FOR A BIT
+    # wait for a bit
     mock_chain_context.wait(2000)
 
-    # USER 2 TAKES "val" FROM VALIDATOR
+    # user 2 takes "val" from validator - fees
     utxo = mock_chain_context.utxos(str(script_address))[0]
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
     tx_builder.add_input_address(u2.address)
@@ -68,8 +68,11 @@ def run(datum, redeemer_data, *args):
         ),
         script=plutus_script,
     )
+    tx_builder.validity_start = mock_chain_context.last_block_slot
+    num_slots = 60 * 60 // mock_chain_context.genesis_param.slot_length
+    tx_builder.ttl = tx_builder.validity_start + num_slots
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
-    mock_chain_context.submit_tx_mock(tx)
+    mock_chain_context.submit_tx(tx.to_cbor())
 
 
 if __name__ == "__main__":
