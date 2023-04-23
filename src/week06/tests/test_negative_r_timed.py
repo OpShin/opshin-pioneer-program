@@ -1,39 +1,20 @@
+import unittest
+
 import hypothesis
 import hypothesis.strategies as st
 from opshin import build
 
 from src.utils import network
 from src.utils.mock import MockChainContext, MockUser
-from src.week06.lecture.negative_r_timed import validator, CustomDatum
+from src.week06.lecture.negative_r_timed import CustomDatum
 import opshin.prelude
 import datetime
 import pycardano
 from src.week06 import lecture_dir
 
 
-def make_mock_context(
-    valid_range: opshin.prelude.POSIXTimeRange,
-):
-    tx_info = opshin.prelude.TxInfo(
-        inputs=None,
-        reference_inputs=None,
-        outputs=None,
-        fee=None,
-        mint=None,
-        dcert=None,
-        wdrl=None,
-        valid_range=valid_range,
-        signatories=None,
-        redeemers=None,
-        data=None,
-        id=None,
-    )
-    context = opshin.prelude.ScriptContext(tx_info=tx_info, purpose=None)
-    return context
-
-
 @hypothesis.given(
-    dt=st.datetimes(max_value=datetime.datetime(year=3000, month=1, day=1)),
+    dt=st.datetimes(),
     redeemer=st.integers(),
 )
 def test_property_before_fails(dt: datetime.datetime, redeemer: int):
@@ -83,7 +64,6 @@ def run(datum, redeemer_data, *args):
         script=plutus_script,
     )
     tx_builder.collaterals.append(mock_chain_context.utxos(str(u2.address))[0])
-    # mock_chain_context.evaluate_scripts(tx_builder)  # TODO: fix evaluation errors here
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
     mock_chain_context.submit_tx_mock(tx)
 
