@@ -188,7 +188,6 @@ class ScriptInvocation:
     datum: Optional[pycardano.Datum]
     redeemer: pycardano.Redeemer
     script_context: ScriptContext
-    budget: Optional[pycardano.ExecutionUnits]
 
 
 def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
@@ -278,9 +277,8 @@ def generate_script_contexts_resolved(
             ScriptInvocation(
                 spending_script,
                 datum,
-                spending_redeemer.data,
+                spending_redeemer,
                 ScriptContext(tx_info, Spending(to_tx_out_ref(spending_input.input))),
-                spending_redeemer.ex_units,
             )
         )
     for i, minting_script_hash in enumerate(tx.transaction_body.mint or []):
@@ -308,9 +306,8 @@ def generate_script_contexts_resolved(
         script_contexts.append(
             ScriptInvocation(
                 minting_script,
-                minting_redeemer.data,
+                minting_redeemer,
                 ScriptContext(tx_info, Minting(minting_script.hash())),
-                minting_redeemer.ex_units,
             )
         )
     return script_contexts
@@ -318,18 +315,15 @@ def generate_script_contexts_resolved(
 
 def evaluate_script(script_invocation: ScriptInvocation):
     uplc_program = pyaiken.uplc.unflat(script_invocation.script_type.hex())
-    args = [script_invocation.redeemer, script_invocation.script_context]
+    args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
     program_args = []
     for a in args:
         data = f"(con data #{PlutusData.to_cbor(a, 'hex')})"
         program_args.append(data)
-    if script_invocation.budget is not None:
-        execution_steps = script_invocation.budget.steps
-        mem = script_invocation.budget.mem
-    else:
-        execution_steps, mem = None, None
+    execution_steps = script_invocation.redeemer.ex_units.steps
+    mem = script_invocation.redeemer.ex_units.mem
     ((suc, err), logs, (cpu, mem)) = pyaiken.uplc.eval(
         uplc_program, program_args, execution_steps, mem
     )
