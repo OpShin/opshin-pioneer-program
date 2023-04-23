@@ -3,7 +3,13 @@ from typing import Optional
 import pycardano
 from opshin.prelude import *
 import pyaiken
-from pycardano import ScriptHash, RedeemerTag, plutus_script_hash, TransactionOutput, datum_hash
+from pycardano import (
+    ScriptHash,
+    RedeemerTag,
+    plutus_script_hash,
+    TransactionOutput,
+    datum_hash,
+)
 
 
 def to_staking_credential(
@@ -180,6 +186,7 @@ class ScriptInvocation:
     script_context: ScriptContext
     budget: Optional[pycardano.ExecutionUnits]
 
+
 def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
     """Generates for each evaluated script, with which parameters it should be called"""
     # TODO this only handles PlutusV2, no other script contexts are currently supported
@@ -198,31 +205,56 @@ def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
     resolved_reference_inputs = [
         input_to_resolved_output[i] for i in tx.transaction_body.reference_inputs
     ]
-    return generate_script_contexts_resolved(tx, resolved_inputs, resolved_reference_inputs)
+    return generate_script_contexts_resolved(
+        tx, resolved_inputs, resolved_reference_inputs
+    )
 
-def generate_script_contexts_resolved(tx: pycardano.Transaction, resolved_inputs: List[TransactionOutput], resolved_reference_inputs: List[TransactionOutput]):
+
+def generate_script_contexts_resolved(
+    tx: pycardano.Transaction,
+    resolved_inputs: List[TransactionOutput],
+    resolved_reference_inputs: List[TransactionOutput],
+):
     tx_info = to_tx_info(tx, resolved_inputs, resolved_reference_inputs)
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
         if not isinstance(spending_input.address.payment_part, ScriptHash):
             continue
         try:
-            spending_redeemer = next(r for r in tx.transaction_witness_set.redeemer if r.index == i and r.tag == RedeemerTag.SPEND)
+            spending_redeemer = next(
+                r
+                for r in tx.transaction_witness_set.redeemer
+                if r.index == i and r.tag == RedeemerTag.SPEND
+            )
         except (StopIteration, TypeError):
-            raise ValueError(f"Missing redeemer for script input {i} (index or tag set incorrectly or missing redeemer)")
+            raise ValueError(
+                f"Missing redeemer for script input {i} (index or tag set incorrectly or missing redeemer)"
+            )
         try:
-            spending_script = next(s for s in tx.transaction_witness_set.plutus_v2_script if plutus_script_hash(s) == spending_input.address.payment_part)
+            spending_script = next(
+                s
+                for s in tx.transaction_witness_set.plutus_v2_script
+                if plutus_script_hash(s) == spending_input.address.payment_part
+            )
         except (StopIteration, TypeError):
-            raise NotImplementedError("Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)")
+            raise NotImplementedError(
+                "Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)"
+            )
         if spending_input.datum is not None:
             datum = None
         elif spending_input.datum_hash is not None:
             try:
-                datum = next(d for d in tx.datums if datum_hash(d) == spending_input.datum_hash)
+                datum = next(
+                    d for d in tx.datums if datum_hash(d) == spending_input.datum_hash
+                )
             except StopIteration:
-                raise ValueError(f"No datum with hash {spending_input.datum_hash} provided for transaction")
+                raise ValueError(
+                    f"No datum with hash {spending_input.datum_hash} provided for transaction"
+                )
         else:
-            raise ValueError("Spending input is missing an attached datum and can not be spent")
+            raise ValueError(
+                "Spending input is missing an attached datum and can not be spent"
+            )
         script_contexts.append(
             ScriptInvocation(
                 spending_script,
@@ -234,13 +266,25 @@ def generate_script_contexts_resolved(tx: pycardano.Transaction, resolved_inputs
         )
     for i, minting_script_hash in enumerate(tx.transaction_body.mint):
         try:
-            minting_redeemer = next(r for r in tx.transaction_witness_set.redeemer if r.index == i and r.tag == RedeemerTag.MINT)
+            minting_redeemer = next(
+                r
+                for r in tx.transaction_witness_set.redeemer
+                if r.index == i and r.tag == RedeemerTag.MINT
+            )
         except StopIteration:
-            raise ValueError(f"Missing redeemer for mint {i} (index or tag set incorrectly or missing redeemer)")
+            raise ValueError(
+                f"Missing redeemer for mint {i} (index or tag set incorrectly or missing redeemer)"
+            )
         try:
-            minting_script = next(s for s in tx.transaction_witness_set.plutus_v2_script if plutus_script_hash(s) == minting_script_hash)
+            minting_script = next(
+                s
+                for s in tx.transaction_witness_set.plutus_v2_script
+                if plutus_script_hash(s) == minting_script_hash
+            )
         except StopIteration:
-            raise NotImplementedError("Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)")
+            raise NotImplementedError(
+                "Can not validate spending of non plutus v2 script (or plutus v2 script is not in context)"
+            )
 
         script_contexts.append(
             ScriptInvocation(

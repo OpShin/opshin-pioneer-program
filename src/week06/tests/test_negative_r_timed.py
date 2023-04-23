@@ -64,9 +64,7 @@ def run(datum, redeemer_data, *args):
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
     tx_builder.add_input_address(u1.address)
     tx_builder.add_output(
-        pycardano.TransactionOutput(
-            script_address, amount=val, datum=datum, script=plutus_script
-        )
+        pycardano.TransactionOutput(script_address, amount=val, datum=datum)
     )
     tx = tx_builder.build_and_sign([u1.signing_key], change_address=u1.address)
     mock_chain_context.submit_tx_mock(tx)

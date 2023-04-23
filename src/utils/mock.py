@@ -8,7 +8,11 @@ from src.utils.protocol_params import (
     DEFAULT_PROTOCOL_PARAMETERS,
     DEFAULT_GENESIS_PARAMETERS,
 )
-from src.utils.tx_tools import generate_script_contexts, evaluate_script, generate_script_contexts_resolved
+from src.utils.tx_tools import (
+    generate_script_contexts,
+    evaluate_script,
+    generate_script_contexts_resolved,
+)
 
 
 class MockChainContext(ChainContext):
@@ -87,9 +91,21 @@ class MockChainContext(ChainContext):
 
     def evaluate_tx(self, cbor: Union[bytes, str]) -> Dict[str, ExecutionUnits]:
         tx = Transaction.from_cbor(cbor)
-        input_utxos = [self.get_utxo_from_txid(input.transaction_id, input.index).output for input in tx.transaction_body.inputs]
-        ref_input_utxos = [self.get_utxo_from_txid(input.transaction_id, input.index).output for input in tx.transaction_body.reference_inputs]
-        script_invocations = generate_script_contexts_resolved(tx, input_utxos, ref_input_utxos)
+        input_utxos = [
+            self.get_utxo_from_txid(input.transaction_id, input.index).output
+            for input in tx.transaction_body.inputs
+        ]
+        ref_input_utxos = (
+            [
+                self.get_utxo_from_txid(input.transaction_id, input.index).output
+                for input in tx.transaction_body.reference_inputs
+            ]
+            if tx.transaction_body.reference_inputs is not None
+            else []
+        )
+        script_invocations = generate_script_contexts_resolved(
+            tx, input_utxos, ref_input_utxos
+        )
         ret = {}
         for invocation in script_invocations:
             (suc, err), (cpu, mem) = evaluate_script(invocation)
@@ -97,7 +113,6 @@ class MockChainContext(ChainContext):
                 raise ValueError(err)
             ret[str(invocation.redeemer)] = ExecutionUnits(mem, cpu)
         return ret
-
 
     def wait(self, slots):
         self._last_block_slot += slots
