@@ -635,14 +635,14 @@ files = [
 
 [[package]]
 name = "hypothesis"
-version = "6.72.1"
+version = "6.72.2"
 description = "A library for property-based testing"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "hypothesis-6.72.1-py3-none-any.whl", hash = "sha256:1901688aac1fc8d78d5431c4a1d48cc50940e247dd8b6ebc3d4167ef31204e10"},
-    {file = "hypothesis-6.72.1.tar.gz", hash = "sha256:2fd2c9640ea4b64d06fafc8d9aa8e9cbae365879d109a859afd37dda5c1ffb55"},
+    {file = "hypothesis-6.72.2-py3-none-any.whl", hash = "sha256:83224b49c8320fca3fadcd5b6041c5311f59fdf4190d3819a783869f4720b690"},
+    {file = "hypothesis-6.72.2.tar.gz", hash = "sha256:a3c6003c45e825a9c5f7b910c0b4a0522d7e6302f9616b3d723df3f6129a18ca"},
 ]
 
 [package.dependencies]
@@ -835,18 +835,18 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pluthon"
-version = "0.3.5"
+version = "0.3.6"
 description = "Pluto-like programming language for Cardano Smart Contracts in Python"
 category = "main"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "pluthon-0.3.5-py3-none-any.whl", hash = "sha256:5bdc0aa800af5a0d9b3607c712a765da14df10c2c926764e796cd17134731eca"},
-    {file = "pluthon-0.3.5.tar.gz", hash = "sha256:d46609e574e4dc71833c5506f500523ee0c460eda9452895d328b008ab8df808"},
+    {file = "pluthon-0.3.6-py3-none-any.whl", hash = "sha256:ef27d0a05c1ca59e16982087f01c14ecd8f4c806fff5707c0c21832b11104a54"},
+    {file = "pluthon-0.3.6.tar.gz", hash = "sha256:ffbdb2b80b97c04f3fb2eb62a2b509610c75c6e6b8f3b5ff6d80a856272ded9c"},
 ]
 
 [package.dependencies]
-uplc = "0.6.2"
+uplc = ">=0.6.2,<0.7.0"
 
 [[package]]
 name = "pprintpp"
@@ -914,26 +914,30 @@ files = [
 
 [[package]]
 name = "pycardano"
-version = "0.8.0"
+version = "0.8.1"
 description = "A Cardano library in Python"
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
-files = [
-    {file = "pycardano-0.8.0-py3-none-any.whl", hash = "sha256:0d396b1589957ec084a292ef87c5ad659ad7343429e506aa66b456c8e78f3226"},
-    {file = "pycardano-0.8.0.tar.gz", hash = "sha256:f7478463a27b3bcffc901cd48a4992ed1cdc80b0c911b1c75ff46f3676c257a2"},
-]
+python-versions = "^3.7"
+files = []
+develop = false
 
 [package.dependencies]
 blockfrost-python = "0.5.3"
-cbor2 = ">=5.4.3,<6.0.0"
+cbor2 = "^5.4.3"
 cose = "0.9.dev8"
-ECPy = ">=1.2.5,<2.0.0"
-mnemonic = ">=0.20,<0.21"
-pprintpp = ">=0.4.0,<0.5.0"
-PyNaCl = ">=1.5.0,<2.0.0"
-typeguard = ">=2.13.3,<3.0.0"
-websocket-client = ">=1.4.1,<2.0.0"
+ECPy = "^1.2.5"
+mnemonic = "^0.20"
+pprintpp = "^0.4.0"
+PyNaCl = "^1.5.0"
+typeguard = "^2.13.3"
+websocket-client = "^1.4.1"
+
+[package.source]
+type = "git"
+url = "https://github.com/Python-Cardano/pycardano.git"
+reference = "da6da6490467c5c27a8dd89d7d007c80d5105136"
+resolved_reference = "da6da6490467c5c27a8dd89d7d007c80d5105136"
 
 [[package]]
 name = "pycparser"
@@ -1101,14 +1105,14 @@ appdirs = "*"
 
 [[package]]
 name = "setuptools"
-version = "67.7.1"
+version = "67.7.2"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "setuptools-67.7.1-py3-none-any.whl", hash = "sha256:6f0839fbdb7e3cfef1fc38d7954f5c1c26bf4eebb155a55c9bf8faf997b9fb67"},
-    {file = "setuptools-67.7.1.tar.gz", hash = "sha256:bb16732e8eb928922eabaa022f881ae2b7cdcfaf9993ef1f5e841a96d32b8e0c"},
+    {file = "setuptools-67.7.2-py3-none-any.whl", hash = "sha256:23aaf86b85ca52ceb801d32703f12d77517b2556af839621c641fca11287952b"},
+    {file = "setuptools-67.7.2.tar.gz", hash = "sha256:f104fa03692a2602fa0fec6c6a9e63b6c8a968de13e17c026957dd1f53d80990"},
 ]
 
 [package.extras]
@@ -1182,21 +1186,21 @@ files = [
 
 [[package]]
 name = "uplc"
-version = "0.6.2"
+version = "0.6.4"
 description = "Python implementation of untyped plutus language core"
 category = "main"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "uplc-0.6.2-py3-none-any.whl", hash = "sha256:a6cdb5a221dee87b92c8b929968fa57b2ef6640d1ce424c3e4bc399d1c364b93"},
-    {file = "uplc-0.6.2.tar.gz", hash = "sha256:cd289791e7bcc09c27c362c015d82ce6dd90e21a2e6cc93f5876e829aa18a111"},
+    {file = "uplc-0.6.4-py3-none-any.whl", hash = "sha256:a818e37bfff6b78a7618bc76e7114ff337ad526088df8de7f7bf6c0999a4ddc2"},
+    {file = "uplc-0.6.4.tar.gz", hash = "sha256:fba3746a2e273d68ecd9728a3ccddafde3aecf8f86254502569c813e1a8d9834"},
 ]
 
 [package.dependencies]
 cbor2 = "5.4.6"
 frozendict = "2.3.4"
 frozenlist = "1.3.3"
-pycardano = "0.8.0"
+pycardano = "0.8.1"
 python-secp256k1-cardano = "0.2.3"
 rply = "0.7.8"
 
@@ -1261,4 +1265,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "2bb8c7d74d27291616158fcc97ffb767f32b4ac8c18f82f8728aa6069713cf79"
+content-hash = "b53f9d565e7970814efdeaabbc56be129b51c9c9dcac85b0e512e8004f907fac"

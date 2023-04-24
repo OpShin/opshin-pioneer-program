@@ -1,5 +1,3 @@
-import unittest
-
 import hypothesis
 import hypothesis.strategies as st
 from opshin import build
@@ -52,7 +50,7 @@ def run(datum, redeemer_data, *args):
         pycardano.TransactionOutput(script_address, amount=val, datum=datum)
     )
     tx = tx_builder.build_and_sign([u1.signing_key], change_address=u1.address)
-    mock_chain_context.submit_tx(tx.to_cbor())
+    mock_chain_context.submit_tx(tx)
 
     # wait for a bit
     mock_chain_context.wait(2000)
@@ -72,7 +70,7 @@ def run(datum, redeemer_data, *args):
     num_slots = 60 * 60 // mock_chain_context.genesis_param.slot_length
     tx_builder.ttl = tx_builder.validity_start + num_slots
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
-    mock_chain_context.submit_tx(tx.to_cbor())
+    mock_chain_context.submit_tx(tx)
 
 
 if __name__ == "__main__":

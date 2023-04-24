@@ -53,7 +53,7 @@ class MockChainContext(ChainContext):
     def last_block_slot(self) -> int:
         return self._last_block_slot
 
-    def utxos(self, address: str) -> List[UTxO]:
+    def _utxos(self, address: str) -> List[UTxO]:
         return self._utxo_state.get(address, [])
 
     def add_utxo(self, utxo: UTxO):
@@ -75,9 +75,9 @@ class MockChainContext(ChainContext):
     def get_utxo_from_txid(self, transaction_id: TransactionId, index: int) -> UTxO:
         return self._utxo_from_txid[transaction_id][index]
 
-    def submit_tx(self, cbor: Union[bytes, str]):
-        self.evaluate_tx(cbor)
-        self.submit_tx_mock(Transaction.from_cbor(cbor))
+    def submit_tx(self, tx: Transaction):
+        self.evaluate_tx(tx)
+        self.submit_tx_mock(tx)
 
     def submit_tx_mock(self, tx: Transaction):
         for input in tx.transaction_body.inputs:
@@ -87,8 +87,7 @@ class MockChainContext(ChainContext):
             utxo = UTxO(TransactionInput(tx.id, i), output)
             self.add_utxo(utxo)
 
-    def evaluate_tx(self, cbor: Union[bytes, str]) -> Dict[str, ExecutionUnits]:
-        tx = Transaction.from_cbor(cbor)
+    def evaluate_tx(self, tx: Transaction) -> Dict[str, ExecutionUnits]:
         input_utxos = [
             self.get_utxo_from_txid(input.transaction_id, input.index)
             for input in tx.transaction_body.inputs
@@ -145,4 +144,4 @@ class MockUser:
         )
 
     def utxos(self):
-        return self.context.utxos(str(self.address))
+        return self.context.utxos(self.address)
