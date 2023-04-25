@@ -146,6 +146,21 @@ def to_tx_in_info(i: pycardano.TransactionInput, o: pycardano.TransactionOutput)
     )
 
 
+def to_redeemer_purpose(r: pycardano.Redeemer):
+    # TODO: fix redeemer purpose
+    v = r.tag.to_primitive()
+    if v == 0:
+        return Spending(TxOutRef(TxId(b""), 0))
+    elif v == 1:
+        return Minting(None)
+    elif v == 2:
+        return Certifying(None)
+    elif v == 3:
+        return Rewarding(None)
+    else:
+        raise NotImplementedError()
+
+
 def to_tx_info(
     tx: pycardano.Transaction,
     resolved_inputs: List[pycardano.TransactionOutput],
@@ -181,8 +196,8 @@ def to_tx_info(
         [to_pubkeyhash(s) for s in tx_body.required_signers]
         if tx_body.required_signers
         else [],
+        {to_redeemer_purpose(r): r.data for r in redeemers},
         {pycardano.datum_hash(d): d for d in datums},
-        {pycardano.datum_hash(r): r for r in redeemers},
         to_tx_id(tx_body.id),
     )
 
