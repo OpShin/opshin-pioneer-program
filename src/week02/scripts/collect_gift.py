@@ -92,7 +92,7 @@ def main(name: str, script: str):
     )
 
     # Submit the transaction
-    context.submit_tx(signed_tx.to_cbor())
+    context.submit_tx(signed_tx)
 
     # context.submit_tx(signed_tx.to_cbor())
     print(f"transaction id: {signed_tx.id}")
