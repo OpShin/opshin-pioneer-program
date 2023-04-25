@@ -55,7 +55,7 @@ def main(name: str, script: str):
 
     # Find a script UTxO
     utxo_to_spend = None
-    for utxo in context.utxos(str(script_address)):
+    for utxo in context.utxos(script_address):
         if utxo.output.datum:
             utxo_to_spend = utxo
             break
@@ -63,7 +63,7 @@ def main(name: str, script: str):
 
     # Find a collateral UTxO
     non_nft_utxo = None
-    for utxo in context.utxos(str(payment_address)):
+    for utxo in context.utxos(payment_address):
         # multi_asset should be empty for collateral utxo
         if not utxo.output.amount.multi_asset:
             non_nft_utxo = utxo

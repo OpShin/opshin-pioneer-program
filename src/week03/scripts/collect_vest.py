@@ -47,7 +47,7 @@ def main(name: str, parameterized):
 
     # Find a script UTxO
     utxo_to_spend = None
-    for utxo in context.utxos(str(script_address)):
+    for utxo in context.utxos(script_address):
         if utxo.output.datum:
             if parameterized:
                 # unfortunately we can't check if deadline is passed because the params are baked into the script
@@ -68,7 +68,7 @@ def main(name: str, parameterized):
 
     # Find a collateral UTxO
     non_nft_utxo = None
-    for utxo in context.utxos(str(payment_address)):
+    for utxo in context.utxos(payment_address):
         # multi_asset should be empty for collateral utxo
         if not utxo.output.amount.multi_asset and utxo.output.amount.coin > 5000000:
             non_nft_utxo = utxo

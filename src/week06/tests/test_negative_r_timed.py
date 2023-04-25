@@ -56,7 +56,7 @@ def run(datum, redeemer_data, *args):
     mock_chain_context.wait(2000)
 
     # user 2 takes "val" from validator - fees
-    utxo = mock_chain_context.utxos(str(script_address))[0]
+    utxo = mock_chain_context.utxos(script_address)[0]
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
     tx_builder.add_input_address(u2.address)
     tx_builder.add_script_input(

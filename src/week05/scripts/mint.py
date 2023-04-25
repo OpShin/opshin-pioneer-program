@@ -43,7 +43,7 @@ def main(
 
     # Get input utxo
     utxo_to_spend = None
-    for utxo in context.utxos(str(payment_address)):
+    for utxo in context.utxos(payment_address):
         if utxo.output.amount.coin > 3000000:
             utxo_to_spend = utxo
             break
