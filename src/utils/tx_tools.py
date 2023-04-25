@@ -68,11 +68,11 @@ def to_valid_range(validity_start: Optional[int], ttl: Optional[int]):
 
 
 def to_pubkeyhash(vkh: pycardano.VerificationKeyHash):
-    return PubKeyHash(vkh.to_primitive())
+    return PubKeyHash(vkh.payload)
 
 
 def to_tx_id(tx_id: pycardano.TransactionId):
-    return TxId(tx_id.to_primitive())
+    return TxId(tx_id.payload)
 
 
 def to_dcert(c: pycardano.Certificate) -> DCert:
@@ -100,9 +100,9 @@ def to_payment_credential(
     c: Union[pycardano.VerificationKeyHash, pycardano.ScriptHash]
 ):
     if isinstance(c, pycardano.VerificationKeyHash):
-        return PubKeyCredential(PubKeyHash(c.to_primitive()))
+        return PubKeyCredential(PubKeyHash(c.payload))
     if isinstance(c, pycardano.ScriptHash):
-        return ScriptCredential(ValidatorHash(c.to_primitive()))
+        return ScriptCredential(ValidatorHash(c.payload))
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
 
@@ -117,13 +117,13 @@ def to_tx_out(o: pycardano.TransactionOutput):
     if o.datum is not None:
         output_datum = SomeOutputDatum(o.datum)
     elif o.datum_hash is not None:
-        output_datum = SomeOutputDatumHash(o.datum_hash.to_primitive())
+        output_datum = SomeOutputDatumHash(o.datum_hash.payload)
     else:
         output_datum = NoOutputDatum()
     if o.script is None:
         script = NoScriptHash()
     else:
-        script = SomeScriptHash(pycardano.script_hash(o.script).to_primitive())
+        script = SomeScriptHash(pycardano.script_hash(o.script).payload)
     return TxOut(
         to_address(o.address),
         value_to_value(o.amount),
@@ -134,7 +134,7 @@ def to_tx_out(o: pycardano.TransactionOutput):
 
 def to_tx_out_ref(i: pycardano.TransactionInput):
     return TxOutRef(
-        TxId(i.transaction_id.to_primitive()),
+        TxId(i.transaction_id.payload),
         i.index,
     )
 
@@ -148,7 +148,7 @@ def to_tx_in_info(i: pycardano.TransactionInput, o: pycardano.TransactionOutput)
 
 def to_redeemer_purpose(r: pycardano.Redeemer):
     # TODO: fix redeemer purpose
-    v = r.tag.to_primitive()
+    v = r.tag.value
     if v == 0:
         return Spending(TxOutRef(TxId(b""), 0))
     elif v == 1:
@@ -197,7 +197,7 @@ def to_tx_info(
         if tx_body.required_signers
         else [],
         {to_redeemer_purpose(r): r.data for r in redeemers},
-        {pycardano.datum_hash(d): d for d in datums},
+        {pycardano.datum_hash(d).payload: d for d in datums},
         to_tx_id(tx_body.id),
     )
 
