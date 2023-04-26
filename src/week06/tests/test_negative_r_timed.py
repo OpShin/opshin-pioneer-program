@@ -54,15 +54,17 @@ def setup_user(context: MockChainContext):
     return user
 
 
+# build script once outside test function
+plutus_script = build(lecture_dir.joinpath("negative_r_timed.py"))
+script_hash = pycardano.plutus_script_hash(plutus_script)
+script_address = pycardano.Address(script_hash, network=network)
+
+
 def run(deadline_slot: int, redeemer_data: int):
     mock_chain_context = MockChainContext()
     # setup users
     u1 = setup_user(mock_chain_context)
     u2 = setup_user(mock_chain_context)
-    # build script
-    plutus_script = build(lecture_dir.joinpath("negative_r_timed.py"))
-    script_hash = pycardano.plutus_script_hash(plutus_script)
-    script_address = pycardano.Address(script_hash, network=network)
     # create datum
     deadline_posix = mock_chain_context.posix_from_slot(deadline_slot) * 1000
     datum = CustomDatum(deadline_posix)
