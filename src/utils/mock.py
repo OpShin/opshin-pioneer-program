@@ -101,7 +101,7 @@ class MockChainContext(ChainContext):
             else []
         )
         script_invocations = generate_script_contexts_resolved(
-            tx, input_utxos, ref_input_utxos
+            tx, input_utxos, ref_input_utxos, lambda s: self.posix_from_slot(s)
         )
         ret = {}
         for invocation in script_invocations:
@@ -111,15 +111,25 @@ class MockChainContext(ChainContext):
                     self.protocol_param.max_tx_ex_mem,
                     self.protocol_param.max_tx_ex_steps,
                 )
-            (suc, err), (cpu, mem) = evaluate_script(invocation)
+            (suc, err), (cpu, mem), logs = evaluate_script(invocation)
             if err:
-                raise ValueError(err)
+                raise ValueError(err, logs)
             key = f"{redeemer.tag.name.lower()}:{redeemer.index}"
             ret[key] = ExecutionUnits(mem, cpu)
         return ret
 
     def wait(self, slots):
         self._last_block_slot += slots
+
+    def posix_from_slot(self, slot: int) -> int:
+        """Convert a slot to POSIX time (seconds)"""
+        return self.genesis_param.system_start + self.genesis_param.slot_length * slot
+
+    def slot_from_posix(self, posix: int) -> int:
+        """Convert POSIX time (seconds) to the last slot"""
+        return (
+            posix - self.genesis_param.system_start
+        ) // self.genesis_param.slot_length
 
 
 class MockUser:

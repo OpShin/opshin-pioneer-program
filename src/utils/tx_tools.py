@@ -1,13 +1,12 @@
 from typing import Optional
 
+import pyaiken
 import pycardano
 from opshin.prelude import *
-import pyaiken
 from pycardano import (
     ScriptHash,
     RedeemerTag,
     plutus_script_hash,
-    TransactionOutput,
     datum_hash,
     PlutusV2Script,
     UTxO,
@@ -53,17 +52,17 @@ def to_wdrl(wdrl: Optional[pycardano.Withdrawals]) -> Dict[StakingCredential, in
     return {m(key): val for key, val in wdrl.to_primitive().items()}
 
 
-def to_valid_range(validity_start: Optional[int], ttl: Optional[int]):
+def to_valid_range(validity_start: Optional[int], ttl: Optional[int], posix_from_slot):
     if validity_start is None:
         lower_bound = LowerBoundPOSIXTime(NegInfPOSIXTime(), FalseData())
     else:
-        # TODO converting slot number to POSIXTime
-        lower_bound = LowerBoundPOSIXTime(FinitePOSIXTime(validity_start), TrueData())
+        start = posix_from_slot(validity_start) * 1000
+        lower_bound = LowerBoundPOSIXTime(FinitePOSIXTime(start), TrueData())
     if ttl is None:
         upper_bound = UpperBoundPOSIXTime(PosInfPOSIXTime(), FalseData())
     else:
-        # TODO converting slot number to POSIXTime
-        upper_bound = UpperBoundPOSIXTime(FinitePOSIXTime(ttl), TrueData())
+        end = posix_from_slot(ttl) * 1000
+        upper_bound = UpperBoundPOSIXTime(FinitePOSIXTime(end), TrueData())
     return POSIXTimeRange(lower_bound, upper_bound)
 
 
@@ -165,6 +164,7 @@ def to_tx_info(
     tx: pycardano.Transaction,
     resolved_inputs: List[pycardano.TransactionOutput],
     resolved_reference_inputs: List[pycardano.TransactionOutput],
+    posix_from_slot,
 ):
     tx_body = tx.transaction_body
     datums = [
@@ -192,7 +192,7 @@ def to_tx_info(
         multiasset_to_value(tx_body.mint),
         [to_dcert(c) for c in tx_body.certificates] if tx_body.certificates else [],
         to_wdrl(tx_body.withdraws),
-        to_valid_range(tx_body.validity_start, tx_body.ttl),
+        to_valid_range(tx_body.validity_start, tx_body.ttl, posix_from_slot),
         [to_pubkeyhash(s) for s in tx_body.required_signers]
         if tx_body.required_signers
         else [],
@@ -240,11 +240,13 @@ def generate_script_contexts_resolved(
     tx: pycardano.Transaction,
     resolved_inputs: List[UTxO],
     resolved_reference_inputs: List[UTxO],
+    posix_from_slot,
 ):
     tx_info = to_tx_info(
         tx,
         [i.output for i in resolved_inputs],
         [i.output for i in resolved_reference_inputs],
+        posix_from_slot,
     )
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
@@ -352,7 +354,11 @@ def evaluate_script(script_invocation: ScriptInvocation):
         print("==================")
         print("\n".join(logs))
         print("==================")
-    return (suc, err), (
-        allowed_cpu_steps - remaining_cpu_steps,
-        allowed_mem_steps - remaining_mem_steps,
+    return (
+        (suc, err),
+        (
+            allowed_cpu_steps - remaining_cpu_steps,
+            allowed_mem_steps - remaining_mem_steps,
+        ),
+        logs,
     )
