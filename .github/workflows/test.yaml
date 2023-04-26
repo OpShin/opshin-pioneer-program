@@ -54,7 +54,7 @@ jobs:
       # install your root project, if required
       #----------------------------------------------
       - name: Install project
-        run: poetry install --no-interaction
+        run: poetry install --all-extras --no-interaction
       #----------------------------------------------
       #                run linter
       #----------------------------------------------
