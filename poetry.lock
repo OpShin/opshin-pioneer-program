@@ -938,8 +938,8 @@ websocket-client = "^1.4.1"
 [package.source]
 type = "git"
 url = "https://github.com/juliusfrost/pycardano.git"
-reference = "49e75d5f82f86c44529c11bacf17155aff246530"
-resolved_reference = "49e75d5f82f86c44529c11bacf17155aff246530"
+reference = "d873e56e0aed2bcd92964f19928254510573fe5f"
+resolved_reference = "d873e56e0aed2bcd92964f19928254510573fe5f"
 
 [[package]]
 name = "pycparser"
@@ -1267,4 +1267,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "41c0bbc98fce24f77ee77893e5ddfba4c3c6952186c8b9123487dec6fc8eb939"
+content-hash = "c8312dc654c3f0f5b9b17213913e13294dd4cf02eed6fca9ae68a582ec788b64"
