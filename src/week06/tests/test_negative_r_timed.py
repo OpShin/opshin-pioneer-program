@@ -1,29 +1,51 @@
 import hypothesis
 import hypothesis.strategies as st
+import pycardano
 from opshin import build
 
 from src.utils import network
 from src.utils.mock import MockChainContext, MockUser
-from src.week06.lecture.negative_r_timed import CustomDatum
-import opshin.prelude
-import datetime
-import pycardano
 from src.week06 import lecture_dir
+from src.week06.lecture.negative_r_timed import CustomDatum
 
 
-def test_pass():
-    run(CustomDatum(1000), -1)
-
-
+@hypothesis.settings(deadline=None)
 @hypothesis.given(
-    dt=st.datetimes(),
-    redeemer=st.integers(),
+    d=st.integers(min_value=1002),
+    r=st.integers(),
 )
-def test_property_before_fails(dt: datetime.datetime, redeemer: int):
-    deadline: opshin.prelude.POSIXTime = int(
-        dt.timestamp() * 1000
-    )  # plutus contracts uses milliseconds
-    run(CustomDatum(deadline), redeemer)
+def test_property_before_fails(d: int, r: int):
+    """All redeemers fail before deadline."""
+    run_fails(d, r)
+
+
+@hypothesis.settings(deadline=None)
+@hypothesis.given(
+    d=st.integers(min_value=0, max_value=998),
+    r=st.integers(min_value=1),
+)
+def test_property_positive_after_fails(d: int, r: int):
+    """Positive redeemer always fail after deadline."""
+    run_fails(d, r)
+
+
+@hypothesis.settings(deadline=None)
+@hypothesis.given(
+    d=st.integers(min_value=0, max_value=998),
+    r=st.integers(max_value=0),
+)
+def test_property_negative_after_succeeds(d: int, r: int):
+    """Negative redeemers always succeed after deadline."""
+    run(d, r)
+
+
+def run_fails(d, r):
+    try:
+        run(d, r)
+        errored = False
+    except ValueError:
+        errored = True
+    assert errored
 
 
 def setup_user(context: MockChainContext):
@@ -32,15 +54,18 @@ def setup_user(context: MockChainContext):
     return user
 
 
-def run(datum, redeemer_data, *args):
+def run(deadline_slot: int, redeemer_data: int):
     mock_chain_context = MockChainContext()
     # setup users
     u1 = setup_user(mock_chain_context)
     u2 = setup_user(mock_chain_context)
     # build script
-    plutus_script = build(lecture_dir.joinpath("negative_r_timed.py"), *args)
+    plutus_script = build(lecture_dir.joinpath("negative_r_timed.py"))
     script_hash = pycardano.plutus_script_hash(plutus_script)
     script_address = pycardano.Address(script_hash, network=network)
+    # create datum
+    deadline_posix = mock_chain_context.posix_from_slot(deadline_slot) * 1000
+    datum = CustomDatum(deadline_posix)
 
     # user 1 locks 2 ADA ("val") in validator
     val = pycardano.Value(coin=2000000)  # 2 ADA
@@ -53,7 +78,7 @@ def run(datum, redeemer_data, *args):
     mock_chain_context.submit_tx(tx)
 
     # wait for a bit
-    mock_chain_context.wait(2000)
+    mock_chain_context.wait(1000)
 
     # user 2 takes "val" from validator - fees
     utxo = mock_chain_context.utxos(script_address)[0]
@@ -67,8 +92,7 @@ def run(datum, redeemer_data, *args):
         script=plutus_script,
     )
     tx_builder.validity_start = mock_chain_context.last_block_slot
-    num_slots = 60 * 60 // mock_chain_context.genesis_param.slot_length
-    tx_builder.ttl = tx_builder.validity_start + num_slots
+    tx_builder.ttl = tx_builder.validity_start + 1
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
     mock_chain_context.submit_tx(tx)
 
