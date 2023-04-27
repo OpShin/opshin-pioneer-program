@@ -335,7 +335,9 @@ def generate_script_contexts_resolved(
                 minting_script,
                 datum,
                 minting_redeemer,
-                ScriptContext(tx_info, Minting(minting_script.hash())),
+                ScriptContext(
+                    tx_info, Minting(pycardano.script_hash(minting_script).payload)
+                ),
             )
         )
     return script_contexts
