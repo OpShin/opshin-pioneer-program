@@ -70,7 +70,7 @@ def run(deadline_slot: int, redeemer_data: int):
     datum = CustomDatum(deadline_posix)
 
     # user 1 locks 2 ADA ("val") in validator
-    val = pycardano.Value(coin=2000000)  # 2 ADA
+    val = pycardano.Value(coin=5000000)  # 5 ADA
     tx_builder = pycardano.TransactionBuilder(mock_chain_context)
     tx_builder.add_input_address(u1.address)
     tx_builder.add_output(
@@ -100,4 +100,4 @@ def run(deadline_slot: int, redeemer_data: int):
 
 
 if __name__ == "__main__":
-    run(CustomDatum(1000), -1)
+    run(1000, -1)

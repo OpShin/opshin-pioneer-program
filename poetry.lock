@@ -507,6 +507,21 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "execnet"
+version = "1.9.0"
+description = "execnet: rapid multi-Python deployment"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+files = [
+    {file = "execnet-1.9.0-py2.py3-none-any.whl", hash = "sha256:a295f7cc774947aac58dde7fdc85f4aa00c42adf5d8f5468fc630c1acf30a142"},
+    {file = "execnet-1.9.0.tar.gz", hash = "sha256:8f694f3ba9cc92cab508b152dcfe322153975c29bda272e2fd7f3f00f36e47c5"},
+]
+
+[package.extras]
+testing = ["pre-commit"]
+
+[[package]]
 name = "filelock"
 version = "3.12.0"
 description = "A platform independent file lock."
@@ -635,14 +650,14 @@ files = [
 
 [[package]]
 name = "hypothesis"
-version = "6.72.4"
+version = "6.74.0"
 description = "A library for property-based testing"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "hypothesis-6.72.4-py3-none-any.whl", hash = "sha256:9873eed54abc0611c5ed6c51df508e196f8204270f98c41264dcd052f6fbad07"},
-    {file = "hypothesis-6.72.4.tar.gz", hash = "sha256:a8487696a0e0e4e1d5e5205a2496d155b0f54e440dfebc0c9224ea1599f17404"},
+    {file = "hypothesis-6.74.0-py3-none-any.whl", hash = "sha256:6f19e61ac13bd35d5271b2788fd51b1e8cc673696b7a353d9a425960113efdbf"},
+    {file = "hypothesis-6.74.0.tar.gz", hash = "sha256:b933baab6569c6639f6d8e1232ecc9f5388faa0cc5fba15cfc4d3447143b5965"},
 ]
 
 [package.dependencies]
@@ -803,14 +818,14 @@ files = [
 
 [[package]]
 name = "platformdirs"
-version = "3.3.0"
+version = "3.4.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "platformdirs-3.3.0-py3-none-any.whl", hash = "sha256:ea61fd7b85554beecbbd3e9b37fb26689b227ffae38f73353cbcc1cf8bd01878"},
-    {file = "platformdirs-3.3.0.tar.gz", hash = "sha256:64370d47dc3fca65b4879f89bdead8197e93e05d696d6d1816243ebae8595da5"},
+    {file = "platformdirs-3.4.0-py3-none-any.whl", hash = "sha256:01437886022decaf285d8972f9526397bfae2ac55480ed372ed6d9eca048870a"},
+    {file = "platformdirs-3.4.0.tar.gz", hash = "sha256:a5e1536e5ea4b1c238a1364da17ff2993d5bd28e15600c2c8224008aff6bbcad"},
 ]
 
 [package.extras]
@@ -881,35 +896,31 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "pyaiken"
-version = "0.4.0"
+version = "0.5.0"
 description = "Python bindings for aiken"
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "pyaiken-0.4.0-cp310-cp310-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:c7cd6e02df007dff5ac7c6f80d7279857008670dfdae6793bac4634a000010db"},
-    {file = "pyaiken-0.4.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:cedfa5c1658c0e66299e2d15a4304661a63dc319aba13a7c5c69fef4c852c68b"},
-    {file = "pyaiken-0.4.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:abd79bffbfcf729030e3358cd772c349157576fbbcc3757720311c027d4abfaf"},
-    {file = "pyaiken-0.4.0-cp310-none-win_amd64.whl", hash = "sha256:5b9fb858b8d87148f709c53b6c9d371b2771ad6fe1183b05cfd5a330b48132fb"},
-    {file = "pyaiken-0.4.0-cp311-cp311-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:8bfe5fdeebc7d955f4d80ff3b16a2c023f975a5741ca952d5852eae7b27f51ef"},
-    {file = "pyaiken-0.4.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:308ea50c4accc6fd273f0690ce5b7d2784ffa6ce91aa9e2c9f715193fa541ee4"},
-    {file = "pyaiken-0.4.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0461ba51df27552ec94b04943e9cd5784d391a7dfbcb20936ba6e0f751caa43e"},
-    {file = "pyaiken-0.4.0-cp311-none-win_amd64.whl", hash = "sha256:7ada1ea0be5f7782d13186cd5fbce744b7446fddc8b2df03dac2df5e77148e06"},
-    {file = "pyaiken-0.4.0-cp37-cp37m-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:844e9ebbcb2574d0d5f12024fc550604adfc63535098eeef0e990aa8116f20ea"},
-    {file = "pyaiken-0.4.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:abe39b0b18b151fbdfc39ea9c458b2d77433d6f4c662b55db4a3abc9ce14da0c"},
-    {file = "pyaiken-0.4.0-cp37-none-win_amd64.whl", hash = "sha256:0aefe41206c2ecf6539480fade621e017097ea697a5101db70ba6e76b3d1eba5"},
-    {file = "pyaiken-0.4.0-cp38-cp38-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:745ae349ff0eb904a93d75f00f5b6be6076374d0b79c52820dee6df04edda8e0"},
-    {file = "pyaiken-0.4.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3d735eb81ce0aa3419094556d1df85bf2a58e6a3a4e519760097c85e69629cc9"},
-    {file = "pyaiken-0.4.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e0fe51e1e313b2fd0a7ed77cc05720258ec6a9e3309cc220cc56f6f97e679b49"},
-    {file = "pyaiken-0.4.0-cp38-none-win_amd64.whl", hash = "sha256:4a96829350e69c403d63b0efb9e2a9019d5bcbf5b3831327249f6644560ab4e7"},
-    {file = "pyaiken-0.4.0-cp39-cp39-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:ed319fdde3c736a0f3afe5e0f9a5cb2e3eaf606547eb5b03fd35e80a9dc700fd"},
-    {file = "pyaiken-0.4.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1b0368539d52f81997cb6af85179abe97a24780a80acfe3dfc8d46808e9670cc"},
-    {file = "pyaiken-0.4.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0048d65a1bed02d9a576063553103ca057c8e250114fef3f5d2553ee0b170a49"},
-    {file = "pyaiken-0.4.0-cp39-none-win_amd64.whl", hash = "sha256:8975f1d1a87c1f5f59e876522d8a3496c6f4750332f579808d4bf22ffe7144cc"},
-    {file = "pyaiken-0.4.0-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8cfbcdedd7b420a61e115d525c108e1ed9a2f54d3836715b8d1d8e25ee2615cf"},
-    {file = "pyaiken-0.4.0-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3d3e21f96adae2578bbaf57b27d22e0107de54a5690b19878857656f38074889"},
-    {file = "pyaiken-0.4.0-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f480cc52f9df0acd36ac8e3723352ce0da3a0ec724bc5f07e5b6745205615c3b"},
-    {file = "pyaiken-0.4.0.tar.gz", hash = "sha256:083b2db369fb55ad1cdf7d8f9cd9b9e0bb98c3363d5dc67a8ba1492801a72f57"},
+    {file = "pyaiken-0.5.0-cp310-cp310-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:d603c0f87dd9e1c02598ae228726942a6ab186f2bc280dfc44110e0c05cd2bfb"},
+    {file = "pyaiken-0.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:115b7f7454aa331249bd091e8797bc3b4f1095e7fc44448e9d839c41e077961f"},
+    {file = "pyaiken-0.5.0-cp310-none-win_amd64.whl", hash = "sha256:ad110df45cd6eb25411b2a02b7a19a5597a2de3810ca0e7f93c9931178d5fa22"},
+    {file = "pyaiken-0.5.0-cp311-cp311-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:9ca9aa27aa582c6c4659b343d42c629bd3e57f4076adce320130c075dfe0f676"},
+    {file = "pyaiken-0.5.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:308e15b3c5995f6ae3498e79b22ef5e5bbdf001a395680c5e8941ab81d2c1407"},
+    {file = "pyaiken-0.5.0-cp311-none-win_amd64.whl", hash = "sha256:834ad9d46d362a9406ca73e6b790f6ab8045227ec39f51c03e93d5be6ca07a9e"},
+    {file = "pyaiken-0.5.0-cp37-cp37m-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:df57db70baca1c52ccc1403245eb48c5b26195e850a25765a977f81219027975"},
+    {file = "pyaiken-0.5.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a755f4d701bf2879d063cfd28d42f9020233cc48e5fc12c601db98534a2ed53"},
+    {file = "pyaiken-0.5.0-cp37-none-win_amd64.whl", hash = "sha256:7c5ed7c799bfccd06471db9a3dc1621370eff23f2f1599a8bba6bbd367c16c1c"},
+    {file = "pyaiken-0.5.0-cp38-cp38-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:cc970fd655b2768d566b5cb69c097e04d30bfce601e3168fff6bc69ababf015f"},
+    {file = "pyaiken-0.5.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:63d49b21c0f018dc0c4ccaf501c0fb276c8bd23e599c42e6696b69c6998543d4"},
+    {file = "pyaiken-0.5.0-cp38-none-win_amd64.whl", hash = "sha256:5608bbbb0a7ea4236385e2e93aa46cdaaa75428f7f1b2efb1d7e45871c209031"},
+    {file = "pyaiken-0.5.0-cp39-cp39-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:f98859c19e85e7b590b439b370d17914eccad7a6646fe9111d39e584899b6625"},
+    {file = "pyaiken-0.5.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:23867398ca557ce717af96aeb5ead2fcec7234883b22a6278bafb4ab4b98b514"},
+    {file = "pyaiken-0.5.0-cp39-none-win_amd64.whl", hash = "sha256:cfb556b16ffc8ff1e9e41dc452560f489df82e1fc2ce13c270e5ec48bb7ee26d"},
+    {file = "pyaiken-0.5.0-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2caebaf99050c1416fb17c1cfc9a253c12a1e5152b4878e2c67a0f8a35652575"},
+    {file = "pyaiken-0.5.0-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:522ed4d072b5fa025dad8c66ae0f1dbcc74b89c5d7176d5187dd3d2bb6824d80"},
+    {file = "pyaiken-0.5.0-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e405770205d1681d68b92c9c0ac8f7abf167f5658ed9d6ce59349107d82a0e49"},
+    {file = "pyaiken-0.5.0.tar.gz", hash = "sha256:7b9e80838ec3d558c9309b6bab19d3a15a74e2e3a5d1af6bb9c15a357567ae5b"},
 ]
 
 [[package]]
@@ -1004,6 +1015,27 @@ tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
+name = "pytest-xdist"
+version = "3.2.1"
+description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-xdist-3.2.1.tar.gz", hash = "sha256:1849bd98d8b242b948e472db7478e090bf3361912a8fed87992ed94085f54727"},
+    {file = "pytest_xdist-3.2.1-py3-none-any.whl", hash = "sha256:37290d161638a20b672401deef1cba812d110ac27e35d213f091d15b8beb40c9"},
+]
+
+[package.dependencies]
+execnet = ">=1.1"
+pytest = ">=6.2.0"
+
+[package.extras]
+psutil = ["psutil (>=3.0)"]
+setproctitle = ["setproctitle"]
+testing = ["filelock"]
+
+[[package]]
 name = "python-secp256k1-cardano"
 version = "0.2.3"
 description = "Ctypes Python3 FFI bindings for libsecp256k1 at commit hash ac83be33"
@@ -1070,14 +1102,14 @@ files = [
 
 [[package]]
 name = "requests"
-version = "2.28.2"
+version = "2.29.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
-python-versions = ">=3.7, <4"
+python-versions = ">=3.7"
 files = [
-    {file = "requests-2.28.2-py3-none-any.whl", hash = "sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa"},
-    {file = "requests-2.28.2.tar.gz", hash = "sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"},
+    {file = "requests-2.29.0-py3-none-any.whl", hash = "sha256:e8f3c9be120d3333921d213eef078af392fba3933ab7ed2d1cba3b56f2568c3b"},
+    {file = "requests-2.29.0.tar.gz", hash = "sha256:f2e34a75f4749019bb0e3effb66683630e4ffeaf75819fb51bebef1bf5aef059"},
 ]
 
 [package.dependencies]
@@ -1267,4 +1299,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.12"
-content-hash = "c8312dc654c3f0f5b9b17213913e13294dd4cf02eed6fca9ae68a582ec788b64"
+content-hash = "8230ca04608cab1ee660651b474e9c0f346e2c6bc2ba782a4aca8f65033dd5cc"
