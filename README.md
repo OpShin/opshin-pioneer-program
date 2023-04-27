@@ -25,7 +25,7 @@ Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A 
 
 ## Installation
 
-1. Install Python 3.8, 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
+1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
 Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
 
 2. Install python poetry.

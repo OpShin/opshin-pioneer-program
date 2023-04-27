@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.9,<3.12"
 opshin = "^0.13.0"
 pycardano = {git = "https://github.com/juliusfrost/pycardano.git", rev = "d873e56e0aed2bcd92964f19928254510573fe5f"}
 click = "^8.1.3"

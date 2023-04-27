@@ -1298,5 +1298,5 @@ pyaiken = ["pyaiken"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">=3.8,<3.12"
-content-hash = "8230ca04608cab1ee660651b474e9c0f346e2c6bc2ba782a4aca8f65033dd5cc"
+python-versions = ">=3.9,<3.12"
+content-hash = "405191c7fd4f001b0398d0a8a49e2a53437bdf3759da59def8c52920018e0cee"
