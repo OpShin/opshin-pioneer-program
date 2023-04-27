@@ -1,5 +1,4 @@
 from collections import defaultdict
-from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Union, Iterable
 
 from frozendict import frozendict
