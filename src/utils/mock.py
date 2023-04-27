@@ -1,17 +1,29 @@
 from collections import defaultdict
-from typing import Dict, List, Union, Optional, Any
+from typing import Any, Dict, List, Optional, Union
 
-import pycardano
-from pycardano import *
+from pycardano import (
+    Address,
+    ChainContext,
+    ExecutionUnits,
+    GenesisParameters,
+    Network,
+    PaymentSigningKey,
+    PaymentVerificationKey,
+    ProtocolParameters,
+    ScriptType,
+    Transaction,
+    TransactionId,
+    TransactionInput,
+    TransactionOutput,
+    UTxO,
+    Value,
+)
 
 from src.utils.protocol_params import (
-    DEFAULT_PROTOCOL_PARAMETERS,
     DEFAULT_GENESIS_PARAMETERS,
+    DEFAULT_PROTOCOL_PARAMETERS,
 )
-from src.utils.tx_tools import (
-    evaluate_script,
-    generate_script_contexts_resolved,
-)
+from src.utils.tx_tools import evaluate_script, generate_script_contexts_resolved
 
 
 class MockChainContext(ChainContext):
@@ -88,6 +100,9 @@ class MockChainContext(ChainContext):
             utxo = UTxO(TransactionInput(tx.id, i), output)
             self.add_utxo(utxo)
 
+    def submit_tx_cbor(self, cbor: Union[bytes, str]):
+        return self.submit_tx(Transaction.from_cbor(cbor))
+
     def evaluate_tx(self, tx: Transaction) -> Dict[str, ExecutionUnits]:
         input_utxos = [
             self.get_utxo_from_txid(input.transaction_id, input.index)
@@ -128,6 +143,9 @@ class MockChainContext(ChainContext):
             ret[key] = ExecutionUnits(mem, cpu)
         return ret
 
+    def evaluate_tx_cbor(self, cbor: Union[bytes, str]) -> Dict[str, ExecutionUnits]:
+        return self.evaluate_tx(Transaction.from_cbor(cbor))
+
     def wait(self, slots):
         self._last_block_slot += slots
 
@@ -141,25 +159,32 @@ class MockChainContext(ChainContext):
             posix - self.genesis_param.system_start
         ) // self.genesis_param.slot_length
 
+    def __hash__(self):
+        return hash((value for value in self.__dict__.values()))
+
 
 class MockUser:
     def __init__(self, context: MockChainContext):
         self.context = context
-        self.signing_key = pycardano.PaymentSigningKey.generate()
-        self.verification_key = pycardano.PaymentVerificationKey.from_signing_key(
+        self.signing_key = PaymentSigningKey.generate()
+        self.verification_key = PaymentVerificationKey.from_signing_key(
             self.signing_key
         )
-        self.network = pycardano.Network.TESTNET
-        self.address = pycardano.Address(
+        self.network = Network.TESTNET
+        self.address = Address(
             payment_part=self.verification_key.hash(), network=self.network
         )
 
-    def fund(self, amount: int):
+    def fund(self, amount: Union[int, Value]):
+        if isinstance(amount, int):
+            value = Value(coin=amount)
+        else:
+            value = amount
         self.context.add_utxo(
             # not sure what the correct genesis transaction is
             UTxO(
                 TransactionInput(TransactionId(self.verification_key.payload), 0),
-                TransactionOutput(self.address, Value(coin=amount)),
+                TransactionOutput(self.address, value),
             ),
         )
 
