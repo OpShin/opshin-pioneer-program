@@ -366,8 +366,8 @@ def evaluate_script(script_invocation: ScriptInvocation):
     return (
         (suc, err),
         (
-            allowed_cpu_steps - remaining_cpu_steps,
-            allowed_mem_steps - remaining_mem_steps,
+            remaining_cpu_steps,
+            remaining_mem_steps,
         ),
         logs,
     )
