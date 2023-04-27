@@ -66,6 +66,6 @@ jobs:
       #----------------------------------------------
       - name: Run pytest
         run: |
-          poetry run pytest
+          poetry run pytest -n auto
         env:
           TEST_SOLVED: 1
