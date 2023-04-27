@@ -1,6 +1,8 @@
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Union
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Union, Iterable
 
+from frozendict import frozendict
 from pycardano import (
     Address,
     ChainContext,
@@ -160,7 +162,27 @@ class MockChainContext(ChainContext):
         ) // self.genesis_param.slot_length
 
     def __hash__(self):
-        return hash((value for value in self.__dict__.values()))
+        def freeze(v):
+            if isinstance(v, (dict, defaultdict)):
+                new_dict = {}
+                for key, val in v.items():
+                    new_dict[key] = freeze(val)
+                return frozendict(new_dict)
+            elif isinstance(v, Iterable):
+                return tuple(freeze(val) for val in v)
+            return v
+
+        return hash(
+            freeze(
+                (
+                    self._utxo_state,
+                    self._network,
+                    self._epoch,
+                    self._last_block_slot,
+                    self.opshin_scripts,
+                )
+            )
+        )
 
 
 class MockUser:
