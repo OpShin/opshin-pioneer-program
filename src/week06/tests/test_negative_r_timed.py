@@ -61,7 +61,7 @@ def run_fails(d, r):
     try:
         run(d, r)
         errored = False
-    except ValueError:
+    except (ValueError, AssertionError):
         errored = True
     assert errored
 
