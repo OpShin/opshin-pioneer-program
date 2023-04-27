@@ -9,6 +9,8 @@ from src.utils.mock import MockChainContext, MockUser
 from src.week06 import lecture_dir
 from src.week06.lecture.negative_r_timed import CustomDatum
 
+from src.week06.lecture import negative_r_timed
+
 
 @pytest.mark.parametrize(
     ["d", "r", "validates"],
@@ -78,6 +80,7 @@ script_address = pycardano.Address(script_hash, network=network)
 
 def run(deadline_slot: int, redeemer_data: int):
     mock_chain_context = MockChainContext()
+    mock_chain_context.opshin_scripts[plutus_script] = negative_r_timed
     # setup users
     u1 = setup_user(mock_chain_context)
     u2 = setup_user(mock_chain_context)
@@ -111,6 +114,8 @@ def run(deadline_slot: int, redeemer_data: int):
     )
     tx_builder.validity_start = mock_chain_context.last_block_slot
     tx_builder.ttl = tx_builder.validity_start + 1
+
+
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
     mock_chain_context.submit_tx(tx)
 

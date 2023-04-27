@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Optional, Any
 
 import pycardano
 from pycardano import *
@@ -32,6 +32,8 @@ class MockChainContext(ChainContext):
         self._network = Network.TESTNET
         self._epoch = 0
         self._last_block_slot = 0
+        self.opshin_scripts: Dict[ScriptType, Any] = {}
+
 
     @property
     def protocol_param(self) -> ProtocolParameters:
@@ -105,12 +107,17 @@ class MockChainContext(ChainContext):
         )
         ret = {}
         for invocation in script_invocations:
+            # run opshin script if available
+            if self.opshin_scripts.get(invocation.script) is not None:
+                opshin_module = self.opshin_scripts[invocation.script]
+                opshin_module.validator(invocation.datum, invocation.redeemer.data, invocation.script_context)
             redeemer = invocation.redeemer
             if redeemer.ex_units.steps <= 0 and redeemer.ex_units.mem <= 0:
                 redeemer.ex_units = ExecutionUnits(
                     self.protocol_param.max_tx_ex_mem,
                     self.protocol_param.max_tx_ex_steps,
                 )
+
             (suc, err), (cpu, mem), logs = evaluate_script(invocation)
             if err:
                 raise ValueError(err, logs)
