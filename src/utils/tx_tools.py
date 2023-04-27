@@ -205,7 +205,7 @@ def to_tx_info(
 
 @dataclass
 class ScriptInvocation:
-    script_type: pycardano.ScriptType
+    script: pycardano.ScriptType
     datum: Optional[pycardano.Datum]
     redeemer: pycardano.Redeemer
     script_context: ScriptContext
@@ -342,7 +342,7 @@ def uplc_unflat(hex: str):
 
 
 def evaluate_script(script_invocation: ScriptInvocation):
-    uplc_program = uplc_unflat(script_invocation.script_type.hex())
+    uplc_program = uplc_unflat(script_invocation.script.hex())
     args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
