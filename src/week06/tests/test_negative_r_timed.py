@@ -1,3 +1,5 @@
+from functools import cache
+
 import hypothesis
 import hypothesis.strategies as st
 import pycardano
@@ -78,32 +80,31 @@ script_hash = pycardano.plutus_script_hash(plutus_script)
 script_address = pycardano.Address(script_hash, network=network)
 
 
-def run(deadline_slot: int, redeemer_data: int):
-    mock_chain_context = MockChainContext()
-    mock_chain_context.opshin_scripts[plutus_script] = negative_r_timed
-    # setup users
-    u1 = setup_user(mock_chain_context)
-    u2 = setup_user(mock_chain_context)
-    # create datum
-    deadline_posix = mock_chain_context.posix_from_slot(deadline_slot) * 1000
+@cache
+def setup_users(context: MockChainContext):
+    return context, setup_user(context), setup_user(context)
+
+
+@cache
+def lock(context: MockChainContext, u1: MockUser, deadline_slot: int):
+    deadline_posix = context.posix_from_slot(deadline_slot) * 1000
     datum = CustomDatum(deadline_posix)
 
-    # user 1 locks 2 ADA ("val") in validator
     val = pycardano.Value(coin=5000000)  # 5 ADA
-    tx_builder = pycardano.TransactionBuilder(mock_chain_context)
+    tx_builder = pycardano.TransactionBuilder(context)
     tx_builder.add_input_address(u1.address)
     tx_builder.add_output(
         pycardano.TransactionOutput(script_address, amount=val, datum=datum)
     )
     tx = tx_builder.build_and_sign([u1.signing_key], change_address=u1.address)
-    mock_chain_context.submit_tx(tx)
+    context.submit_tx(tx)
+    return context
 
-    # wait for a bit
-    mock_chain_context.wait(1000)
 
-    # user 2 takes "val" from validator - fees
-    utxo = mock_chain_context.utxos(script_address)[0]
-    tx_builder = pycardano.TransactionBuilder(mock_chain_context)
+@cache
+def unlock(context: MockChainContext, u2: MockUser, redeemer_data: int):
+    utxo = context.utxos(script_address)[0]
+    tx_builder = pycardano.TransactionBuilder(context)
     tx_builder.add_input_address(u2.address)
     tx_builder.add_script_input(
         utxo,
@@ -112,11 +113,30 @@ def run(deadline_slot: int, redeemer_data: int):
         ),
         script=plutus_script,
     )
-    tx_builder.validity_start = mock_chain_context.last_block_slot
+    tx_builder.validity_start = context.last_block_slot
     tx_builder.ttl = tx_builder.validity_start + 1
 
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
-    mock_chain_context.submit_tx(tx)
+    context.submit_tx(tx)
+    return context
+
+
+def run(deadline_slot: int, redeemer_data: int):
+    context = MockChainContext()
+    # enable opshin validator debugging
+    context.opshin_scripts[plutus_script] = negative_r_timed
+
+    # setup users
+    context, u1, u2 = setup_users(context)
+
+    # user 1 locks 2 ADA ("val") in validator
+    context = lock(context, u1, deadline_slot)
+
+    # wait for a bit
+    context.wait(1000)
+
+    # user 2 takes "val" from validator - fees
+    unlock(context, u2, redeemer_data)
 
 
 if __name__ == "__main__":
