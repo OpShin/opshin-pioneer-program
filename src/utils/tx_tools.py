@@ -146,16 +146,19 @@ def to_tx_in_info(i: pycardano.TransactionInput, o: pycardano.TransactionOutput)
     )
 
 
-def to_redeemer_purpose(r: pycardano.Redeemer):
-    # TODO: fix redeemer purpose
-    v = r.tag.value
-    if v == 0:
-        return Spending(TxOutRef(TxId(b""), 0))
-    elif v == 1:
-        return Minting(None)
-    elif v == 2:
+def to_redeemer_purpose(r: pycardano.Redeemer, tx_body: pycardano.TransactionBody):
+    v = r.tag
+    if v == pycardano.RedeemerTag.SPEND:
+        spent_input = tx_body.inputs[r.index]
+        return Spending(to_tx_out_ref(spent_input))
+    elif v == pycardano.RedeemerTag.MINT:
+        minted_id = sorted(tx_body.mint.data.keys())[r.index]
+        return Minting(PolicyId(minted_id.payload))
+    elif v == pycardano.RedeemerTag.CERT:
+        # TODO: fix redeemer purpose
         return Certifying(None)
-    elif v == 3:
+    elif v == pycardano.RedeemerTag.REWARD:
+        # TODO: fix redeemer purpose
         return Rewarding(None)
     else:
         raise NotImplementedError()
@@ -197,7 +200,7 @@ def to_tx_info(
         [to_pubkeyhash(s) for s in tx_body.required_signers]
         if tx_body.required_signers
         else [],
-        {to_redeemer_purpose(r): r.data for r in redeemers},
+        {to_redeemer_purpose(r, tx_body): r.data for r in redeemers},
         {pycardano.datum_hash(d).payload: d for d in datums},
         to_tx_id(tx_body.id),
     )
