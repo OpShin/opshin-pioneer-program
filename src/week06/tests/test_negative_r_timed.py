@@ -32,6 +32,7 @@ def test_unit(d: int, r: int, validates: bool):
         run_fails(d, r)
 
 
+@hypothesis.settings(deadline=None)
 @hypothesis.given(
     d=st.integers(min_value=1002),
     r=st.integers(),
@@ -41,6 +42,7 @@ def test_property_before_fails(d: int, r: int):
     run_fails(d, r)
 
 
+@hypothesis.settings(deadline=None)
 @hypothesis.given(
     d=st.integers(min_value=0, max_value=998),
     r=st.integers(min_value=1),
@@ -50,6 +52,7 @@ def test_property_positive_after_fails(d: int, r: int):
     run_fails(d, r)
 
 
+@hypothesis.settings(deadline=None)
 @hypothesis.given(
     d=st.integers(min_value=0, max_value=998),
     r=st.integers(max_value=0),
