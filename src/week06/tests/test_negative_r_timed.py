@@ -115,7 +115,6 @@ def run(deadline_slot: int, redeemer_data: int):
     tx_builder.validity_start = mock_chain_context.last_block_slot
     tx_builder.ttl = tx_builder.validity_start + 1
 
-
     tx = tx_builder.build_and_sign([u2.signing_key], change_address=u2.address)
     mock_chain_context.submit_tx(tx)
 

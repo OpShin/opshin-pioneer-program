@@ -34,7 +34,6 @@ class MockChainContext(ChainContext):
         self._last_block_slot = 0
         self.opshin_scripts: Dict[ScriptType, Any] = {}
 
-
     @property
     def protocol_param(self) -> ProtocolParameters:
         return self._protocol_param
@@ -110,7 +109,11 @@ class MockChainContext(ChainContext):
             # run opshin script if available
             if self.opshin_scripts.get(invocation.script) is not None:
                 opshin_module = self.opshin_scripts[invocation.script]
-                opshin_module.validator(invocation.datum, invocation.redeemer.data, invocation.script_context)
+                opshin_module.validator(
+                    invocation.datum,
+                    invocation.redeemer.data,
+                    invocation.script_context,
+                )
             redeemer = invocation.redeemer
             if redeemer.ex_units.steps <= 0 and redeemer.ex_units.mem <= 0:
                 redeemer.ex_units = ExecutionUnits(
