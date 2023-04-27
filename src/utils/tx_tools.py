@@ -1,3 +1,4 @@
+from functools import cache
 from typing import Optional
 
 import pyaiken
@@ -335,8 +336,13 @@ def generate_script_contexts_resolved(
     return script_contexts
 
 
+@cache
+def uplc_unflat(hex: str):
+    return pyaiken.uplc.unflat(hex)
+
+
 def evaluate_script(script_invocation: ScriptInvocation):
-    uplc_program = pyaiken.uplc.unflat(script_invocation.script_type.hex())
+    uplc_program = uplc_unflat(script_invocation.script_type.hex())
     args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
