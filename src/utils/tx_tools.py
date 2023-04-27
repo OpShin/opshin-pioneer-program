@@ -84,7 +84,7 @@ def multiasset_to_value(ma: pycardano.MultiAsset) -> Value:
         return {b"": {b"": 0}}
     return {
         PolicyId(policy_id): {
-            TokenName(asset_name): quantity for asset_name, quantity in asset
+            TokenName(asset_name): quantity for asset_name, quantity in asset.items()
         }
         for policy_id, asset in ma.to_shallow_primitive().items()
     }
