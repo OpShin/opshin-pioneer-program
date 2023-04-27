@@ -252,6 +252,7 @@ def generate_script_contexts_resolved(
         [i.output for i in resolved_reference_inputs],
         posix_from_slot,
     )
+    datum = None
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
         if not isinstance(spending_input.output.address.payment_part, ScriptHash):
@@ -332,6 +333,7 @@ def generate_script_contexts_resolved(
         script_contexts.append(
             ScriptInvocation(
                 minting_script,
+                datum,
                 minting_redeemer,
                 ScriptContext(tx_info, Minting(minting_script.hash())),
             )
