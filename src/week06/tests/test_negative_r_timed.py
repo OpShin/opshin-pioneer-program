@@ -1,12 +1,31 @@
 import hypothesis
 import hypothesis.strategies as st
 import pycardano
+import pytest
 from opshin import build
 
 from src.utils import network
 from src.utils.mock import MockChainContext, MockUser
 from src.week06 import lecture_dir
 from src.week06.lecture.negative_r_timed import CustomDatum
+
+
+@pytest.mark.parametrize(
+    ["d", "r", "validates"],
+    [
+        [50, -42, True],
+        [50, 0, True],
+        [50, 42, False],
+        [5000, -42, False],
+        [5000, 0, False],
+        [5000, 42, False],
+    ],
+)
+def test_unit(d: int, r: int, validates: bool):
+    if validates:
+        run(d, r)
+    else:
+        run_fails(d, r)
 
 
 @hypothesis.given(
