@@ -44,7 +44,7 @@ class MockChainContext(ChainContext):
         self._network = Network.TESTNET
         self._epoch = 0
         self._last_block_slot = 0
-        self.opshin_scripts: Dict[ScriptType, Callable] = {}
+        self.opshin_scripts: Dict[ScriptType, Callable[[Any, Any, Any], Any]] = {}
 
     @property
     def protocol_param(self) -> ProtocolParameters:
