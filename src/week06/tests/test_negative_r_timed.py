@@ -10,8 +10,6 @@ from opshin import build
 from src.utils import network
 from src.utils.mock import MockChainContext, MockUser
 from src.week06 import lecture_dir
-from src.week06.lecture.negative_r_timed import CustomDatum
-
 from src.week06.lecture import negative_r_timed
 
 
@@ -94,7 +92,7 @@ script_address = pycardano.Address(script_hash, network=network)
 
 def lock(context: MockChainContext, u1: MockUser, deadline_slot: int):
     deadline_posix = context.posix_from_slot(deadline_slot) * 1000
-    datum = CustomDatum(deadline_posix)
+    datum = negative_r_timed.CustomDatum(deadline_posix)
 
     val = pycardano.Value(coin=5000000)  # 5 ADA
     tx_builder = pycardano.TransactionBuilder(context)
