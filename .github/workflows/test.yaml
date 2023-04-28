@@ -69,4 +69,4 @@ jobs:
           poetry run pytest -n auto
         env:
           TEST_SOLVED: 1
-          PYTHONOPTIMIZE: 1
+          PYTHONOPTIMIZE: 2
