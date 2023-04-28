@@ -1,7 +1,6 @@
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Union, Iterable
+from typing import Any, Dict, List, Optional, Union, Callable
 
-from frozendict import frozendict
 from pycardano import (
     Address,
     ChainContext,
@@ -45,7 +44,7 @@ class MockChainContext(ChainContext):
         self._network = Network.TESTNET
         self._epoch = 0
         self._last_block_slot = 0
-        self.opshin_scripts: Dict[ScriptType, Any] = {}
+        self.opshin_scripts: Dict[ScriptType, Callable] = {}
 
     @property
     def protocol_param(self) -> ProtocolParameters:
@@ -124,8 +123,8 @@ class MockChainContext(ChainContext):
         for invocation in script_invocations:
             # run opshin script if available
             if self.opshin_scripts.get(invocation.script) is not None:
-                opshin_module = self.opshin_scripts[invocation.script]
-                opshin_module.validator(
+                opshin_validator = self.opshin_scripts[invocation.script]
+                opshin_validator(
                     invocation.datum,
                     invocation.redeemer.data,
                     invocation.script_context,
@@ -159,29 +158,6 @@ class MockChainContext(ChainContext):
         return (
             posix - self.genesis_param.system_start
         ) // self.genesis_param.slot_length
-
-    def __hash__(self):
-        def freeze(v):
-            if isinstance(v, (dict, defaultdict)):
-                new_dict = {}
-                for key, val in v.items():
-                    new_dict[key] = freeze(val)
-                return frozendict(new_dict)
-            elif isinstance(v, Iterable):
-                return tuple(freeze(val) for val in v)
-            return v
-
-        return hash(
-            freeze(
-                (
-                    self._utxo_state,
-                    self._network,
-                    self._epoch,
-                    self._last_block_slot,
-                    self.opshin_scripts,
-                )
-            )
-        )
 
 
 class MockUser:

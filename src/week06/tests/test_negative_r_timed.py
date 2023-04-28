@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import cache
 
 import hypothesis
@@ -77,18 +78,20 @@ def setup_user(context: MockChainContext):
     return user
 
 
-# build script once outside test function
+@cache
+def setup_context():
+    context = MockChainContext()
+    # enable opshin validator debugging
+    context.opshin_scripts[plutus_script] = negative_r_timed.validator
+    return context, setup_user(context), setup_user(context)
+
+
+# build script once outside our test functions
 plutus_script = build(lecture_dir.joinpath("negative_r_timed.py"))
 script_hash = pycardano.plutus_script_hash(plutus_script)
 script_address = pycardano.Address(script_hash, network=network)
 
 
-@cache
-def setup_users(context: MockChainContext):
-    return context, setup_user(context), setup_user(context)
-
-
-@cache
 def lock(context: MockChainContext, u1: MockUser, deadline_slot: int):
     deadline_posix = context.posix_from_slot(deadline_slot) * 1000
     datum = CustomDatum(deadline_posix)
@@ -104,7 +107,6 @@ def lock(context: MockChainContext, u1: MockUser, deadline_slot: int):
     return context
 
 
-@cache
 def unlock(context: MockChainContext, u2: MockUser, redeemer_data: int):
     utxo = context.utxos(script_address)[0]
     tx_builder = pycardano.TransactionBuilder(context)
@@ -125,12 +127,9 @@ def unlock(context: MockChainContext, u2: MockUser, redeemer_data: int):
 
 
 def run(deadline_slot: int, redeemer_data: int):
-    context = MockChainContext()
-    # enable opshin validator debugging
-    context.opshin_scripts[plutus_script] = negative_r_timed
-
-    # setup users
-    context, u1, u2 = setup_users(context)
+    # setup context and users
+    # needs deepcopy so state starts fresh each run
+    context, u1, u2 = deepcopy(setup_context())
 
     # user 1 locks 2 ADA ("val") in validator
     context = lock(context, u1, deadline_slot)
