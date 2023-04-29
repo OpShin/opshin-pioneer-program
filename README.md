@@ -169,11 +169,22 @@ We use pycardano, but you can compare and contrast alternatives.
 ### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
 
 - [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
+  - You can skip this for opshin.
 - [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
+  - We implement `MockChainContext` and `MockUser` in `src/utils/mock.py`.
+    These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
+  - We implement a simple test in `src/week06/tests/test_mock.py` with simulated spending and multiple users.
 - [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
+  - Unit tests located in `src/week06/tests/test_negative_r_timed.py`
 - [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
+  - Property tests also located in `src/week06/tests/test_negative_r_timed.py`
+  - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
+    to get familiar with property testing in Python.
 - [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
+  - N/A.
 - [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
+  - Complete the following test `src/week06/homework/test_exploitable_swap.py`
+  - Use your completed test to implement a fix to the swap script: `src/week06/homework/fixed_swap.py`
 
 
 ### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
