@@ -44,6 +44,9 @@ poetry install
 
 # run a shell with the virtual environment activated
 poetry shell
+
+# If you're not in a shell, you can run python scripts with `poetry run`
+poetry run python <script-path>
 ```
 
 4. Install Docker.
@@ -91,11 +94,18 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - We use PyCardano to create off-chain scripts for our opshin contracts.
     Run the following python scripts with `poetry run python <script-path>`.
     The bash scripts using the dockerized Cardano CLI are also provided for reference.
+  - Create your test wallets with `poetry run python scripts/create_key_pair.py --help`
+    - The wallets are generated in the `keys/` directory.
+    - Fund your wallets with the address in `keys/<name>.addr` at the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)
+    - Use the name of your key as arguments for the offchain scripts below.
   - Look here for offchain code: `src/week02/scripts/`. PyCardano examples:
-    - Build the lecture scripts `python src/week02/scripts/build.py`. The output is saved in the `assets` folder.
-    - Send ada `python src/week02/scripts/send.py`
-    - Make gift `python src/week02/scripts/make_gift.py`
-    - Collect gift `python src/week02/scripts/collect_gift.py`
+    - Build the lecture scripts `poetry run python -m src/week02/scripts/build.py`.
+      The output is saved in the `src/week02/assets` folder.
+    - Send ada `poetry run python src/week02/scripts/send.py`
+    - Make gift `poetry run python src/week02/scripts/make_gift.py`
+    - Collect gift `poetry run python src/week02/scripts/collect_gift.py`
+    - You can reference `make_gift.sh` and `collect_gift.sh` for the equivalent using the Cardano CLI,
+      but going forward we will use pycardano to get a consistent and holistic Python experience.
   - Look here for helper scripts (such as creating a test wallet): `scripts/`
 - [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
   - Review the rest of the opshin scripts.
@@ -111,7 +121,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - `src/week02/homework/homework2.py`
   - You can test your solution with:
   - `pytest src/week02/tests/test_homework.py`
-  - The solutions are availble at:
+  - The solutions are available at:
   - `src/week02/homework/homework1_solved.py`
   - `src/week02/homework/homework2_solved.py`
 
