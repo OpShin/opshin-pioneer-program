@@ -45,7 +45,7 @@ poetry install
 # run a shell with the virtual environment activated
 poetry shell
 
-# If you're not in shell, you can run python scripts with `poetry run`
+# If you're not in a shell, you can run python scripts with `poetry run`
 poetry run python <script-path>
 ```
 
@@ -121,7 +121,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - `src/week02/homework/homework2.py`
   - You can test your solution with:
   - `pytest src/week02/tests/test_homework.py`
-  - The solutions are availble at:
+  - The solutions are available at:
   - `src/week02/homework/homework1_solved.py`
   - `src/week02/homework/homework2_solved.py`
 
