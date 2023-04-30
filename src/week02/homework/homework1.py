@@ -8,4 +8,4 @@ from opshin.prelude import *
 
 # This should validate if and only if the Booleans in the redeemer list are True!
 def validator(v: None, r: List[bool], c: ScriptContext) -> None:
-    assert False
+    assert all(r)
