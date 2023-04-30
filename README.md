@@ -121,9 +121,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - `src/week02/homework/homework2.py`
   - You can test your solution with:
   - `pytest src/week02/tests/test_homework.py`
-  - The solutions are available at:
-  - `src/week02/homework/homework1_solved.py`
-  - `src/week02/homework/homework2_solved.py`
+  - The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch
 
 ### [Lecture 3](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2zXSjHRKLSc5Jn9vJFA3_O)
 
@@ -157,6 +155,7 @@ We use pycardano, but you can compare and contrast alternatives.
   - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
   - There is no correct solution for this week as solutions can very widely.
     So make sure to test your code!
+  - Feel free to submit your solution by making a PR to the `solutions` branch!
   - We will continue to implement off-chain code in pycardano for this repository.
 
 ### [Lecture 5](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2T1lIR4XnDILKukj3rPapi)
