@@ -2,25 +2,12 @@ name: test-solutions
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "solutions" ]
+  pull_request:
+    branches: [ "solutions" ]
 
 jobs:
-  merge-branch:
-    runs-on: ubuntu-latest
-    steps:
-      #----------------------------------------------
-      # check-out repo and merge main into solutions
-      #----------------------------------------------
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Merge main -> solutions
-        uses: devmasx/merge-branch@1.4.0
-        with:
-          type: now
-          target_branch: solutions
-          github_token: ${{ secrets.GITHUB_TOKEN }}
   test-solutions:
-    needs: merge-branch
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
