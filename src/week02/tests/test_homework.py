@@ -7,11 +7,10 @@ from src.week02 import homework_dir
 from src.week02.homework import homework1, homework2
 
 
-if "TEST_SOLVED" in os.environ:
-    from src.week02.homework import homework1_solved as homework1
-    from src.week02.homework import homework2_solved as homework2
+skip = "SKIP_HOMEWORK" in os.environ
 
 
+@pytest.mark.skipif(skip, reason="skip homework tests if not implemented")
 @pytest.mark.parametrize(
     ["r1", "r2", "result"],
     [
@@ -30,6 +29,7 @@ def test_homework1(r1: bool, r2: bool, result: bool):
     assert validate == result
 
 
+@pytest.mark.skipif(skip, reason="skip homework tests if not implemented")
 @pytest.mark.parametrize(
     ["r1", "r2", "result"],
     [
@@ -51,9 +51,7 @@ def test_homework2(r1: bool, r2: bool, result: bool):
 
 python_files = [
     "homework1.py",
-    "homework1_solved.py",
     "homework2.py",
-    "homework2_solved.py",
 ]
 script_paths = [str(homework_dir.joinpath(f)) for f in python_files]
 
