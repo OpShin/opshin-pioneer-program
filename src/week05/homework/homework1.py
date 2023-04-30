@@ -1,4 +1,4 @@
-from opshin.prelude import *
+from opshin.ledger.interval import *
 
 
 # This policy should only allow minting (or burning) of tokens if the owner of the specified PubKeyHash
@@ -6,4 +6,5 @@ from opshin.prelude import *
 def validator(
     pkh: PubKeyHash, deadline: POSIXTime, redeemer: None, context: ScriptContext
 ) -> None:
-    assert False  # Fix this
+    assert pkh in context.tx_info.signatories, "transaction not signed"
+    assert contains(make_to(deadline), context.tx_info.valid_range), "deadline passed"
