@@ -2,16 +2,16 @@ version: "3.5"
 
 services:
   cardano-node:
-    image: inputoutput/cardano-node:1.35.4
+    image: inputoutput/cardano-node:1.35.7
     command: [
       "run",
-      "--config", "/config/config.json",
+      "--config", "/config/cardano-node/config.json",
       "--database-path", "/data/db",
       "--socket-path", "/ipc/node.socket",
-      "--topology", "/config/topology.json"
+      "--topology", "/config/cardano-node/topology.json"
     ]
     volumes:
-      - ./config/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-db:/data
       - node-ipc:/ipc
     restart: on-failure
@@ -28,10 +28,10 @@ services:
     command: [
       "--host", "0.0.0.0",
       "--node-socket", "/ipc/node.socket",
-      "--node-config", "/config/config.json"
+      "--node-config", "/config/cardano-node/config.json",
     ]
     volumes:
-      - ./config/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-ipc:/ipc
     ports:
       - ${OGMIOS_PORT:-1337}:1337
