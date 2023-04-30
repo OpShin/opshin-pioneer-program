@@ -19,15 +19,11 @@ from src.week05 import homework_dir
 from src.week05.homework import homework1
 from src.week05.homework import homework2
 
-if "TEST_SOLVED" in os.environ:
-    from src.week05.homework import homework1_solved as homework1
-    from src.week05.homework import homework2_solved as homework2
+skip = "SKIP_HOMEWORK" in os.environ
 
 python_files = [
     "homework1.py",
-    "homework1_solved.py",
     "homework2.py",
-    "homework2_solved.py",
 ]
 script_paths = [str(homework_dir.joinpath(f)) for f in python_files]
 
@@ -41,6 +37,7 @@ def test_homework_compile(path):
     print(code.dumps())
 
 
+@pytest.mark.skipif(skip, reason="skip homework tests if not implemented")
 @pytest.mark.parametrize(
     ["deadline", "valid_lower", "valid_upper", "validates"],
     [
@@ -61,6 +58,7 @@ def test_homework1_deadline_met(
     )
 
 
+@pytest.mark.skipif(skip, reason="skip homework tests if not implemented")
 @pytest.mark.parametrize(
     ["signatories", "validates"],
     [
@@ -112,6 +110,7 @@ def make_context(
     return context
 
 
+@pytest.mark.skipif(skip, reason="skip homework tests if not implemented")
 @pytest.mark.parametrize(
     ["tx_id", "index", "mint", "validates"],
     [

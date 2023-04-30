@@ -1,20 +1,22 @@
-name: test
+name: test-solutions
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "solutions" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "solutions" ]
 
 jobs:
-  test:
+  test-solutions:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
-      #       check-out repo and set-up python
+      # check-out solutions branch and set-up python
       #----------------------------------------------
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          ref: solutions
       - name: Set up python
         uses: actions/setup-python@v4
         with:
@@ -67,5 +69,3 @@ jobs:
       - name: Run pytest
         run: |
           poetry run pytest
-        env:
-          SKIP_HOMEWORK: 1
