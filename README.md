@@ -185,6 +185,8 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
   - We implement `MockChainContext` and `MockUser` in `src/utils/mock.py`.
     These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
+  - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
+    - `poetry install --sync --extras=pyaiken`
   - We implement a simple test in `src/week06/tests/test_mock.py` with simulated spending and multiple users.
 - [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
   - Unit tests located in `src/week06/tests/test_negative_r_timed.py`
