@@ -1,24 +1,24 @@
-name: test
+name: test-solutions
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "solutions" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "solutions" ]
 
 jobs:
-  test:
+  test-solutions:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
-      #       check-out repo and set-up python
+      # check-out solutions branch and set-up python
       #----------------------------------------------
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.8'
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.local  # the path depends on the OS
-          key: poetry-3  # increment to reset cache
+          key: poetry-1  # increment to reset cache
       - name: Install Poetry
         if: steps.cached-poetry.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
@@ -49,12 +49,12 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --all-extras --no-interaction --no-root
+        run: poetry install --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
       - name: Install project
-        run: poetry install --all-extras --no-interaction
+        run: poetry install --no-interaction
       #----------------------------------------------
       #                run linter
       #----------------------------------------------
@@ -66,6 +66,4 @@ jobs:
       #----------------------------------------------
       - name: Run pytest
         run: |
-          poetry run pytest -n auto
-        env:
-          SKIP_HOMEWORK: 1
+          poetry run pytest
