@@ -5,7 +5,6 @@ from src.week06 import homework_dir
 
 python_files = [
     "fixed_swap.py",
-    "fixed_swap_solved.py",
 ]
 script_paths = [str(homework_dir.joinpath(f)) for f in python_files]
 
