@@ -539,29 +539,49 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "diff-cover (>=7.5)", "p
 
 [[package]]
 name = "frozendict"
-version = "2.3.4"
+version = "2.3.8"
 description = "A simple immutable dictionary"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "frozendict-2.3.4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:4a3b32d47282ae0098b9239a6d53ec539da720258bd762d62191b46f2f87c5fc"},
-    {file = "frozendict-2.3.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:84c9887179a245a66a50f52afa08d4d92ae0f269839fab82285c70a0fa0dd782"},
-    {file = "frozendict-2.3.4-cp310-cp310-win_amd64.whl", hash = "sha256:b98a0d65a59af6da03f794f90b0c3085a7ee14e7bf8f0ef36b079ee8aa992439"},
-    {file = "frozendict-2.3.4-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:3d8042b7dab5e992e30889c9b71b781d5feef19b372d47d735e4d7d45846fd4a"},
-    {file = "frozendict-2.3.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:25a6d2e8b7cf6b6e5677a1a4b53b4073e5d9ec640d1db30dc679627668d25e90"},
-    {file = "frozendict-2.3.4-cp36-cp36m-win_amd64.whl", hash = "sha256:dbbe1339ac2646523e0bb00d1896085d1f70de23780e4927ca82b36ab8a044d3"},
-    {file = "frozendict-2.3.4-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:95bac22f7f09d81f378f2b3f672b7a50a974ca180feae1507f5e21bc147e8bc8"},
-    {file = "frozendict-2.3.4-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dae686722c144b333c4dbdc16323a5de11406d26b76d2be1cc175f90afacb5ba"},
-    {file = "frozendict-2.3.4-cp37-cp37m-win_amd64.whl", hash = "sha256:389f395a74eb16992217ac1521e689c1dea2d70113bcb18714669ace1ed623b9"},
-    {file = "frozendict-2.3.4-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:ccb6450a416c9cc9acef7683e637e28356e3ceeabf83521f74cc2718883076b7"},
-    {file = "frozendict-2.3.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:aca59108b77cadc13ba7dfea7e8f50811208c7652a13dc6c7f92d7782a24d299"},
-    {file = "frozendict-2.3.4-cp38-cp38-win_amd64.whl", hash = "sha256:3ec86ebf143dd685184215c27ec416c36e0ba1b80d81b1b9482f7d380c049b4e"},
-    {file = "frozendict-2.3.4-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:5809e6ff6b7257043a486f7a3b73a7da71cf69a38980b4171e4741291d0d9eb3"},
-    {file = "frozendict-2.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7c550ed7fdf1962984bec21630c584d722b3ee5d5f57a0ae2527a0121dc0414a"},
-    {file = "frozendict-2.3.4-cp39-cp39-win_amd64.whl", hash = "sha256:3e93aebc6e69a8ef329bbe9afb8342bd33c7b5c7a0c480cb9f7e60b0cbe48072"},
-    {file = "frozendict-2.3.4-py3-none-any.whl", hash = "sha256:d722f3d89db6ae35ef35ecc243c40c800eb344848c83dba4798353312cd37b15"},
-    {file = "frozendict-2.3.4.tar.gz", hash = "sha256:15b4b18346259392b0d27598f240e9390fafbff882137a9c48a1e0104fb17f78"},
+    {file = "frozendict-2.3.8-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d188d062084fba0e4bf32719ff7380b26c050b932ff164043ce82ab90587c52b"},
+    {file = "frozendict-2.3.8-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:f2a4e818ac457f6354401dcb631527af25e5a20fcfc81e6b5054b45fc245caca"},
+    {file = "frozendict-2.3.8-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9a506d807858fa961aaa5b48dab6154fdc6bd045bbe9310788bbff141bb42d13"},
+    {file = "frozendict-2.3.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:750632cc890d8ee9484fe6d31b261159144b6efacc08e1317fe46accd1410373"},
+    {file = "frozendict-2.3.8-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:7ee5fe2658a8ac9a57f748acaf563f6a47f80b8308cbf0a04fac0ba057d41f75"},
+    {file = "frozendict-2.3.8-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:23c4bb46e6b8246e1e7e49b5593c2bc09221db0d8f31f7c092be8dfb42b9e620"},
+    {file = "frozendict-2.3.8-cp310-cp310-win_amd64.whl", hash = "sha256:c31abc8acea309b132dde441856829f6003a3d242da8b54bce4c0f2a3c8c63f0"},
+    {file = "frozendict-2.3.8-cp310-cp310-win_arm64.whl", hash = "sha256:9ea5520e85447ff8d4681e181941e482662817ccba921b7cb3f87922056d892a"},
+    {file = "frozendict-2.3.8-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f83fed36497af9562ead5e9fb8443224ba2781786bd3b92b1087cb7d0ff20135"},
+    {file = "frozendict-2.3.8-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e27c5c1d29d0eda7979253ec88abc239da1313b38f39f4b16984db3b3e482300"},
+    {file = "frozendict-2.3.8-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e4c785de7f1a13f15963945f400656b18f057c2fc76c089dacf127a2bb188c03"},
+    {file = "frozendict-2.3.8-cp36-cp36m-musllinux_1_1_aarch64.whl", hash = "sha256:8cf35ddd25513428ec152614def9696afb93ae5ec0eb54fa6aa6206eda77ac4c"},
+    {file = "frozendict-2.3.8-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:ffc684773de7c88724788fa9787d0016fd75830412d58acbd9ed1a04762c675b"},
+    {file = "frozendict-2.3.8-cp36-cp36m-win_amd64.whl", hash = "sha256:4c258aab9c8488338634f2ec670ef049dbf0ab0e7a2fa9bc2c7b5009cb614801"},
+    {file = "frozendict-2.3.8-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:47fc26468407fdeb428cfc89495b7921419e670355c21b383765482fdf6c5c14"},
+    {file = "frozendict-2.3.8-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6ea638228692db2bf94bce40ea4b25f4077588497b516bd16576575560094bd9"},
+    {file = "frozendict-2.3.8-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7a75bf87e76c4386caecdbdd02a99e53ad43a6b5c38fb3d5a634a9fc9ce41462"},
+    {file = "frozendict-2.3.8-cp37-cp37m-musllinux_1_1_aarch64.whl", hash = "sha256:ed5a6c5c7a0f57269577c2a338a6002949aea21a23b7b7d06da7e7dced8b605b"},
+    {file = "frozendict-2.3.8-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:d086440328a465dea9bef2dbad7548d75d1a0a0d21f43a08c03e1ec79ac5240e"},
+    {file = "frozendict-2.3.8-cp37-cp37m-win_amd64.whl", hash = "sha256:0bc4767e2f83db5b701c787e22380296977368b0c57e485ca71b2eedfa11c4a3"},
+    {file = "frozendict-2.3.8-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:638cf363d3cbca31a341503cf2219eac52a5f5140449676fae3d9644cd3c5487"},
+    {file = "frozendict-2.3.8-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:2b2fd8ce36277919b36e3c834d2389f3cd7ac068ae730c312671dd4439a5dd65"},
+    {file = "frozendict-2.3.8-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3957d52f1906b0c85f641a1911d214255873f6408ab4e5ad657cc27a247fb145"},
+    {file = "frozendict-2.3.8-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:72cfe08ab8ae524e54848fa90b22d02c1b1ecfb3064438696bcaa4b953f18772"},
+    {file = "frozendict-2.3.8-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:4742e76c4111bd09198d3ab66cef94be8506212311338f9182d6ef5f5cb60493"},
+    {file = "frozendict-2.3.8-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:313ed8d9ba6bac35d7635cd9580ee5721a0fb016f4d2d20f0efa05dbecbdb1be"},
+    {file = "frozendict-2.3.8-cp38-cp38-win_amd64.whl", hash = "sha256:d3c6ce943946c2a61501c8cf116fff0892d11dd579877eb36e2aea2c27fddfef"},
+    {file = "frozendict-2.3.8-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:f0f573dc4861dd7ec9e055c8cceaf45355e894e749f621f199aab7b311ac4bdb"},
+    {file = "frozendict-2.3.8-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:2b3435e5f1ca5ae68a5e95e64b09d6d5c645cadd6b87569a0b3019dd248c8d00"},
+    {file = "frozendict-2.3.8-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:145afd033ebfade28416093335261b8ec1af5cccc593482309e7add062ec8668"},
+    {file = "frozendict-2.3.8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:da98427de26b5a2865727947480cbb53860089c4d195baa29c539da811cea617"},
+    {file = "frozendict-2.3.8-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:5e82befa7c385a668d569cebbebbdf49cee6fea4083f08e869a1b08cfb640a9f"},
+    {file = "frozendict-2.3.8-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:80abe81d36e889ceec665e06ec764a7638000fa3e7be09786ac4d3ddc64b76db"},
+    {file = "frozendict-2.3.8-cp39-cp39-win_amd64.whl", hash = "sha256:8ccc94ac781710db44e142e1a11ff9b31d02c032c01c6868d51fcbef73086225"},
+    {file = "frozendict-2.3.8-cp39-cp39-win_arm64.whl", hash = "sha256:e72dbc1bcc2203cef38d205f692396f5505921a5680f66aa9a7e8bb71fd38f28"},
+    {file = "frozendict-2.3.8-py311-none-any.whl", hash = "sha256:ba41a7ed019bd03b62d63ed3f8dea35b8243d1936f7c9ed4b5298ca45a01928e"},
+    {file = "frozendict-2.3.8.tar.gz", hash = "sha256:5526559eca8f1780a4ee5146896f59afc31435313560208dd394a3a5e537d3ff"},
 ]
 
 [[package]]
@@ -683,14 +703,14 @@ zoneinfo = ["backports.zoneinfo (>=0.2.1)", "tzdata (>=2023.3)"]
 
 [[package]]
 name = "identify"
-version = "2.5.23"
+version = "2.5.24"
 description = "File identification library for Python"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "identify-2.5.23-py2.py3-none-any.whl", hash = "sha256:17d9351c028a781456965e781ed2a435755cac655df1ebd930f7186b54399312"},
-    {file = "identify-2.5.23.tar.gz", hash = "sha256:50b01b9d5f73c6b53e5fa2caf9f543d3e657a9d0bbdeb203ebb8d45960ba7433"},
+    {file = "identify-2.5.24-py2.py3-none-any.whl", hash = "sha256:986dbfb38b1140e763e413e6feb44cd731faf72d1909543178aa79b0e258265d"},
+    {file = "identify-2.5.24.tar.gz", hash = "sha256:0aac67d5b4812498056d28a9a512a483f5085cc28640b02b258a59dac34301d4"},
 ]
 
 [package.extras]
@@ -896,31 +916,35 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "pyaiken"
-version = "0.5.0"
+version = "0.5.1"
 description = "Python bindings for aiken"
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "pyaiken-0.5.0-cp310-cp310-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:d603c0f87dd9e1c02598ae228726942a6ab186f2bc280dfc44110e0c05cd2bfb"},
-    {file = "pyaiken-0.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:115b7f7454aa331249bd091e8797bc3b4f1095e7fc44448e9d839c41e077961f"},
-    {file = "pyaiken-0.5.0-cp310-none-win_amd64.whl", hash = "sha256:ad110df45cd6eb25411b2a02b7a19a5597a2de3810ca0e7f93c9931178d5fa22"},
-    {file = "pyaiken-0.5.0-cp311-cp311-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:9ca9aa27aa582c6c4659b343d42c629bd3e57f4076adce320130c075dfe0f676"},
-    {file = "pyaiken-0.5.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:308e15b3c5995f6ae3498e79b22ef5e5bbdf001a395680c5e8941ab81d2c1407"},
-    {file = "pyaiken-0.5.0-cp311-none-win_amd64.whl", hash = "sha256:834ad9d46d362a9406ca73e6b790f6ab8045227ec39f51c03e93d5be6ca07a9e"},
-    {file = "pyaiken-0.5.0-cp37-cp37m-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:df57db70baca1c52ccc1403245eb48c5b26195e850a25765a977f81219027975"},
-    {file = "pyaiken-0.5.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a755f4d701bf2879d063cfd28d42f9020233cc48e5fc12c601db98534a2ed53"},
-    {file = "pyaiken-0.5.0-cp37-none-win_amd64.whl", hash = "sha256:7c5ed7c799bfccd06471db9a3dc1621370eff23f2f1599a8bba6bbd367c16c1c"},
-    {file = "pyaiken-0.5.0-cp38-cp38-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:cc970fd655b2768d566b5cb69c097e04d30bfce601e3168fff6bc69ababf015f"},
-    {file = "pyaiken-0.5.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:63d49b21c0f018dc0c4ccaf501c0fb276c8bd23e599c42e6696b69c6998543d4"},
-    {file = "pyaiken-0.5.0-cp38-none-win_amd64.whl", hash = "sha256:5608bbbb0a7ea4236385e2e93aa46cdaaa75428f7f1b2efb1d7e45871c209031"},
-    {file = "pyaiken-0.5.0-cp39-cp39-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:f98859c19e85e7b590b439b370d17914eccad7a6646fe9111d39e584899b6625"},
-    {file = "pyaiken-0.5.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:23867398ca557ce717af96aeb5ead2fcec7234883b22a6278bafb4ab4b98b514"},
-    {file = "pyaiken-0.5.0-cp39-none-win_amd64.whl", hash = "sha256:cfb556b16ffc8ff1e9e41dc452560f489df82e1fc2ce13c270e5ec48bb7ee26d"},
-    {file = "pyaiken-0.5.0-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2caebaf99050c1416fb17c1cfc9a253c12a1e5152b4878e2c67a0f8a35652575"},
-    {file = "pyaiken-0.5.0-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:522ed4d072b5fa025dad8c66ae0f1dbcc74b89c5d7176d5187dd3d2bb6824d80"},
-    {file = "pyaiken-0.5.0-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e405770205d1681d68b92c9c0ac8f7abf167f5658ed9d6ce59349107d82a0e49"},
-    {file = "pyaiken-0.5.0.tar.gz", hash = "sha256:7b9e80838ec3d558c9309b6bab19d3a15a74e2e3a5d1af6bb9c15a357567ae5b"},
+    {file = "pyaiken-0.5.1-cp310-cp310-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:a0fa9aee119c87ca733143904b11ffa6756e9a2a730d52b87d91809ac768ba3a"},
+    {file = "pyaiken-0.5.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a8dd61997601b7d27dd5c2a64371090d6acbd4bb15dd034add63b1d7b9986c2a"},
+    {file = "pyaiken-0.5.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b8c35d767ee858c231a4b5b7cea211edb8d5bf1936bc9327e3f05cb441b56c2b"},
+    {file = "pyaiken-0.5.1-cp310-none-win_amd64.whl", hash = "sha256:282d49e7130ec45cdff6db5343895314d6924d91ed560ddf9415d17de264838a"},
+    {file = "pyaiken-0.5.1-cp311-cp311-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:ea1f612b81f2a26c55314497991f42f7afd9f6b56d33827186892e299527c0c8"},
+    {file = "pyaiken-0.5.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ca544715e9b8e94941373127f787ce9f4f8d1d24db44bc9ad6876fdaf6a5c040"},
+    {file = "pyaiken-0.5.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:25186bdc5ed1a7d3e60f1e893b729c15a0c727d5e6604dbf8e844d8da58b3c7b"},
+    {file = "pyaiken-0.5.1-cp311-none-win_amd64.whl", hash = "sha256:31a00ae0a0b0efe7aedca034d5b2da8f094d8fef571db12c3a728c2475505229"},
+    {file = "pyaiken-0.5.1-cp37-cp37m-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:de516293ec3ef7068326f5a692effc0b9da0289b2881a2b64e0e372968c9b1f6"},
+    {file = "pyaiken-0.5.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:28425ae1283d297729b40f5eced679d2e580013fe35f0140b317ca03d6787e51"},
+    {file = "pyaiken-0.5.1-cp37-none-win_amd64.whl", hash = "sha256:d02cdebb90f3915e20706d44e7a3dfa77964ee97b0755a18b652d94217ec2101"},
+    {file = "pyaiken-0.5.1-cp38-cp38-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:e39616d3af2c092eba6aad149c676c9351015994f82899983247736907d20390"},
+    {file = "pyaiken-0.5.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:31a04cfe1b0729b91323ba7dffb915b61edf86d5fdc33ad099542c068bd13b41"},
+    {file = "pyaiken-0.5.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7ef1b17e1c2e0bfabe44782e8c04356a25a7bf8c602cf071c8688c3d7ec2c23f"},
+    {file = "pyaiken-0.5.1-cp38-none-win_amd64.whl", hash = "sha256:cf7ab846660169577f9503f3472b9ed3824f5344379766f69a179b12657dff71"},
+    {file = "pyaiken-0.5.1-cp39-cp39-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:2805b806209fa856a2f4a4baf54ef6b5e0f5a054cf2234dd049eae9e0c77a5b6"},
+    {file = "pyaiken-0.5.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9482b42f550787b8f45c241f4c02bc45ca553732bc10302756e26d6884229c30"},
+    {file = "pyaiken-0.5.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:de6cb1353b54a121f0c97b74cd1b12cc6428b24cd0918a5fa0020417507b0e13"},
+    {file = "pyaiken-0.5.1-cp39-none-win_amd64.whl", hash = "sha256:25c5495979bdbcab9ac07af6574e7c183162c5f68e371e30a1749d859889e00f"},
+    {file = "pyaiken-0.5.1-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f5314640c347a60e7c7fdcee7d18a3c1480f512e52ee6a77c2b8989b161b7d47"},
+    {file = "pyaiken-0.5.1-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:390699fb76b510dac59d3535557ab64d23a44d39d96c9d31cec4c583845cd640"},
+    {file = "pyaiken-0.5.1-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:94d5d6bd608671763e5861ce32f6abedbee5c624fbe82a73e56b8611a04d928b"},
+    {file = "pyaiken-0.5.1.tar.gz", hash = "sha256:e1bb45932a402c695bc5f9fd56209e9e9b7a664c9252ef782202fafae8369611"},
 ]
 
 [[package]]
@@ -938,7 +962,7 @@ blockfrost-python = "0.5.3"
 cbor2 = "^5.4.3"
 cose = "0.9.dev8"
 ECPy = "^1.2.5"
-frozendict = "^2.3.4"
+frozendict = "^2.3.8"
 frozenlist = "^1.3.3"
 mnemonic = "^0.20"
 pprintpp = "^0.4.0"
@@ -948,9 +972,9 @@ websocket-client = "^1.4.1"
 
 [package.source]
 type = "git"
-url = "https://github.com/juliusfrost/pycardano.git"
-reference = "d873e56e0aed2bcd92964f19928254510573fe5f"
-resolved_reference = "d873e56e0aed2bcd92964f19928254510573fe5f"
+url = "https://github.com/Python-Cardano/pycardano.git"
+reference = "HEAD"
+resolved_reference = "2317c5745e886a411ead8eff55c0068be8557cfa"
 
 [[package]]
 name = "pycparser"
@@ -1220,23 +1244,23 @@ files = [
 
 [[package]]
 name = "uplc"
-version = "0.6.4"
+version = "0.6.5"
 description = "Python implementation of untyped plutus language core"
 category = "main"
 optional = false
-python-versions = ">=3"
+python-versions = ">=3.8,<3.12"
 files = [
-    {file = "uplc-0.6.4-py3-none-any.whl", hash = "sha256:a818e37bfff6b78a7618bc76e7114ff337ad526088df8de7f7bf6c0999a4ddc2"},
-    {file = "uplc-0.6.4.tar.gz", hash = "sha256:fba3746a2e273d68ecd9728a3ccddafde3aecf8f86254502569c813e1a8d9834"},
+    {file = "uplc-0.6.5-py3-none-any.whl", hash = "sha256:b4d68bc14b52d827a3807fadc3e9d19a15aca89a155729385234c3116dbfb90b"},
+    {file = "uplc-0.6.5.tar.gz", hash = "sha256:796331a6bcd2f38b50ff6ca8214019a4b9c0d92541681f7c956c133c1e100055"},
 ]
 
 [package.dependencies]
-cbor2 = "5.4.6"
-frozendict = "2.3.4"
-frozenlist = "1.3.3"
-pycardano = "0.8.1"
-python-secp256k1-cardano = "0.2.3"
-rply = "0.7.8"
+cbor2 = ">=5.4.6,<6.0.0"
+frozendict = ">=2.3.8,<3.0.0"
+frozenlist = ">=1.3.3,<2.0.0"
+pycardano = ">=0.8.1,<0.9.0"
+python-secp256k1-cardano = ">=0.2.3,<0.3.0"
+rply = ">=0.7.8,<0.8.0"
 
 [[package]]
 name = "urllib3"
@@ -1299,4 +1323,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "cf48f8205031737e8ba7994e322994c08a9f0eb4ac4e11916298be30a9373012"
+content-hash = "2f593e382c35cf85389733104b1df432c279ca6995ff559845e090bcc3988c20"
