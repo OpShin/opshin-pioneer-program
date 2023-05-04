@@ -43,7 +43,7 @@ def main(
 
     # Get input utxo
     utxo_to_spend = None
-    for utxo in context.utxos(str(payment_address)):
+    for utxo in context.utxos(payment_address):
         if utxo.output.amount.coin > 3000000:
             utxo_to_spend = utxo
             break
@@ -96,7 +96,7 @@ def main(
     )
 
     # Submit the transaction
-    context.submit_tx(signed_tx.to_cbor())
+    context.submit_tx(signed_tx)
 
     print(f"transaction id: {signed_tx.id}")
     print(f"Cardanoscan: https://preview.cardanoscan.io/transaction/{signed_tx.id}")
