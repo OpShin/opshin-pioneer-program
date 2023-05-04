@@ -1,22 +1,11 @@
 from opshin.prelude import *
 
 
-def equal(a: Union[StakingHash, StakingPtr], b: Union[StakingHash, StakingPtr]) -> bool:
-    result = False
-    if isinstance(b, StakingHash):
-        if isinstance(a, StakingHash):
-            result = b == a
-    elif isinstance(b, StakingPtr):
-        if isinstance(a, StakingPtr):
-            result = b == a
-    return result
-
-
 def get_amount(context: ScriptContext, purpose: Rewarding) -> int:
     amount = 0
     found = False
     for staking_cred, a in context.tx_info.wdrl.items():
-        if equal(staking_cred, purpose.staking_credential):
+        if staking_cred == purpose.staking_credential:
             found = True
             amount = a
     assert found, "withdrawal not found"
