@@ -1,7 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
 
-import src.utils.network
 import src.week02.scripts.build
 import src.week02.scripts.collect_gift
 import src.week02.scripts.make_gift

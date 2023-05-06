@@ -3,7 +3,6 @@ import time
 import pytest
 from pytest_mock import MockerFixture
 
-import src.utils.network
 import src.week03.scripts.build
 import src.week03.scripts.collect_vest
 import src.week03.scripts.make_vest
