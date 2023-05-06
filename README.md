@@ -36,6 +36,10 @@ Follow the official documentation [here](https://python-poetry.org/docs/#install
 
 3. Install a python virtual environment with poetry:
 ```bash
+# clone the repository including the config submodule necessary for running the node
+git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
+cd opshin-pioneer-program
+
 # Optional. Use a specific python version
 # replace <version> with 3.8, 3.9, 3.10, or 3.11
 # for this to work, python<version> must be accessible in your command line
