@@ -19,7 +19,7 @@ uplc = "^0.6.5"
 black = "^23.3.0"
 pre-commit = "^3.3.1"
 pytest = "^7.3.1"
-hypothesis = "^6.74.0"
+hypothesis = "^6.75.2"
 pytest-xdist = "^3.2.1"
 pytest-mock = "^3.10.0"
 
