@@ -187,3 +187,6 @@ class MockUser:
 
     def utxos(self):
         return self.context.utxos(self.address)
+
+    def balance(self) -> Value:
+        return sum([utxo.output.amount for utxo in self.utxos()], start=Value())
