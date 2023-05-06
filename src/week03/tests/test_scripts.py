@@ -59,3 +59,6 @@ def test_vest(mocker: MockerFixture, parameterized: bool):
     mock = mock_context(mocker, "src.week03.scripts.collect_vest", context, users)
     run_script(mocker, src.week03.scripts.collect_vest, args=["u2", *args])
     mock.assert_called_once()
+
+    assert 4_000_000 <= u1.balance().coin <= 5_000_000
+    assert 9_000_000 <= u2.balance().coin <= 10_000_000

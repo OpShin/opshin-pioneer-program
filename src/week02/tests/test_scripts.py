@@ -56,7 +56,16 @@ def test_gift(mocker: MockerFixture, script: str):
         run_script(
             mocker, src.week02.scripts.collect_gift, args=["u2", "--script", script]
         )
+        validates = True
     except ValueError as e:
         if script != "burn":
             raise e
+        validates = False
+
     mock.assert_called_once()
+    assert validates == (script != "burn")
+    if script == "burn":
+        return
+
+    assert 4_000_000 <= u1.balance().coin <= 5_000_000
+    assert 9_000_000 <= u2.balance().coin <= 10_000_000

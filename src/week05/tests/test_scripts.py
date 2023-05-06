@@ -42,3 +42,5 @@ def test_mint(mocker: MockerFixture, script: str):
         args=["u1", "token", "--amount", "-1", "--script", script],
     )
     mock.assert_called_once()
+
+    assert u1.balance().multi_asset.count(lambda p, an, a: a > 0) == 0
