@@ -1,6 +1,5 @@
 import click
 from pycardano import (
-    OgmiosChainContext,
     Address,
     TransactionBuilder,
     UTxO,
@@ -9,7 +8,7 @@ from pycardano import (
     Redeemer,
 )
 
-from src.utils import get_address, get_signing_info, network, ogmios_url
+from src.utils import get_address, get_signing_info, network, get_chain_context
 from src.week02 import assets_dir
 
 
@@ -25,7 +24,7 @@ from src.week02 import assets_dir
 )
 def main(name: str, script: str):
     # Load chain context
-    context = OgmiosChainContext(ogmios_url, network=network)
+    context = get_chain_context()
 
     # Load script info
     # We need `plutus_script: PlutusV2Script` and `script_address: Address`.
@@ -55,7 +54,7 @@ def main(name: str, script: str):
 
     # Find a script UTxO
     utxo_to_spend = None
-    for utxo in context.utxos(str(script_address)):
+    for utxo in context.utxos(script_address):
         if utxo.output.datum:
             utxo_to_spend = utxo
             break
@@ -63,7 +62,7 @@ def main(name: str, script: str):
 
     # Find a collateral UTxO
     non_nft_utxo = None
-    for utxo in context.utxos(str(payment_address)):
+    for utxo in context.utxos(payment_address):
         # multi_asset should be empty for collateral utxo
         if not utxo.output.amount.multi_asset:
             non_nft_utxo = utxo
@@ -92,7 +91,7 @@ def main(name: str, script: str):
     )
 
     # Submit the transaction
-    context.submit_tx(signed_tx.to_cbor())
+    context.submit_tx(signed_tx)
 
     # context.submit_tx(signed_tx.to_cbor())
     print(f"transaction id: {signed_tx.id}")

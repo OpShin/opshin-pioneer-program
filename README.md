@@ -28,7 +28,7 @@ Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A 
 
 ## Installation
 
-1. Install Python 3.8, 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
+1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
 Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
 
 2. Install python poetry.
@@ -52,12 +52,14 @@ poetry shell
 poetry run python <script-path>
 ```
 
-4. Install Docker.
-Follow the official documentation [here](https://docs.docker.com/get-docker/).
-
 ### Cardano Node
 
-Start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) with docker-compose:
+First install Docker.
+Follow the official documentation [here](https://docs.docker.com/get-docker/).
+
+
+To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
+
 ```bash
 # starts a cardano node and ogmios api on the preview testnet
 docker-compose up
@@ -181,11 +183,24 @@ We use pycardano, but you can compare and contrast alternatives.
 ### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
 
 - [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
+  - You can skip this for opshin.
 - [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
+  - We implement `MockChainContext` and `MockUser` in `src/utils/mock.py`.
+    These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
+  - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
+    - `poetry install --sync --extras=pyaiken`
+  - We implement a simple test in `src/week06/tests/test_mock.py` with simulated spending and multiple users.
 - [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
+  - Unit tests located in `src/week06/tests/test_negative_r_timed.py`
 - [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
+  - Property tests also located in `src/week06/tests/test_negative_r_timed.py`
+  - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
+    to get familiar with property testing in Python.
 - [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
+  - N/A.
 - [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
+  - Complete the following test `src/week06/homework/test_exploitable_swap.py`
+  - Use your completed test to implement a fix to the swap script: `src/week06/homework/fixed_swap.py`
 
 
 ### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
@@ -209,3 +224,23 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Plutus & Staking](https://youtu.be/1Hs6bU9pXi4)
 - [Trying it on the Testnet](https://youtu.be/fzYXwdrfu44)
 - [Homework](https://youtu.be/rO3FVGsuzUg)
+
+### [Lecture 9](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3ZWTpR5lhoVs_DHkebiBcU)
+
+- [Creating our own Stablecoin Dapp](https://youtu.be/KDzyMy0WN9M)
+- [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
+- [Stablecoin's Oracle](https://youtu.be/XfbEsFPbzCI)
+- [Deploying Stablecoin's Reference scripts](https://youtu.be/AokRj-upwlY)
+- [Minting Stablecoins](https://youtu.be/mUa9sztfPKs)
+- [Burning Stablecoins and Liquidating positions](https://youtu.be/u2cUeD72MrQ)
+- [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
+- [Homework](https://youtu.be/yfmLaLcDjtc)
+
+### [Lecture 10](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1)
+
+- [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
+- [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
+- [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
+- [Developing smart contracts with OpShin and PyCardano (Python)](https://www.youtube.com/watch?v=Ale01hnxZEg&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=3)
+- [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
+- [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)

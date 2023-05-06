@@ -1,11 +1,7 @@
 import click
-from pycardano import (
-    OgmiosChainContext,
-    TransactionBuilder,
-    TransactionOutput,
-)
+from pycardano import TransactionBuilder, TransactionOutput
 
-from src.utils import get_address, get_signing_info, network, ogmios_url
+from src.utils import get_address, get_signing_info, get_chain_context
 
 
 @click.command()
@@ -13,7 +9,7 @@ from src.utils import get_address, get_signing_info, network, ogmios_url
 @click.argument("recipient")
 @click.option("--amount", type=int, default=5000000)
 def main(name, recipient, amount):
-    context = OgmiosChainContext(ogmios_url, network=network)
+    context = get_chain_context()
 
     payment_address = get_address(name)
 
@@ -29,7 +25,7 @@ def main(name, recipient, amount):
         change_address=payment_address,
     )
 
-    context.submit_tx(signed_tx.to_cbor())
+    context.submit_tx(signed_tx)
     print(f"transaction id: {signed_tx.id}")
     print(f"Cardanoscan: https://preview.cardanoscan.io/transaction/{signed_tx.id}")
 
