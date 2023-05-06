@@ -52,12 +52,13 @@ poetry shell
 poetry run python <script-path>
 ```
 
-4. Install Docker.
-Follow the official documentation [here](https://docs.docker.com/get-docker/).
-
 ### Cardano Node
 
-Start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) with docker-compose:
+First install Docker.
+Follow the official documentation [here](https://docs.docker.com/get-docker/).
+
+
+To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/):
 ```bash
 # starts a cardano node and ogmios api on the preview testnet
 docker-compose up
