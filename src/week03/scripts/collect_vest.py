@@ -2,7 +2,6 @@ import time
 
 import click
 from pycardano import (
-    OgmiosChainContext,
     Address,
     TransactionBuilder,
     UTxO,
@@ -10,9 +9,10 @@ from pycardano import (
     plutus_script_hash,
     Redeemer,
     VerificationKeyHash,
+    RawPlutusData,
 )
 
-from src.utils import get_address, get_signing_info, network, ogmios_url
+from src.utils import get_address, get_signing_info, network, get_chain_context
 from src.week03 import assets_dir
 from src.week03.lecture.vesting import VestingParams
 
@@ -24,7 +24,7 @@ from src.week03.lecture.vesting import VestingParams
 )
 def main(name: str, parameterized):
     # Load chain context
-    context = OgmiosChainContext(ogmios_url, network=network)
+    context = get_chain_context()
 
     # Load script info
     if parameterized:
@@ -54,9 +54,14 @@ def main(name: str, parameterized):
                 utxo_to_spend = utxo
                 break
             else:
-                try:
-                    params = VestingParams.from_cbor(utxo.output.datum.cbor)
-                except Exception:
+                if isinstance(utxo.output.datum, RawPlutusData):
+                    try:
+                        params = VestingParams.from_cbor(utxo.output.datum.to_cbor())
+                    except Exception:
+                        continue
+                elif isinstance(utxo.output.datum, VestingParams):
+                    params = utxo.output.datum
+                else:
                     continue
                 if (
                     params.beneficiary == bytes(payment_address.payment_part)
@@ -70,7 +75,7 @@ def main(name: str, parameterized):
     non_nft_utxo = None
     for utxo in context.utxos(payment_address):
         # multi_asset should be empty for collateral utxo
-        if not utxo.output.amount.multi_asset and utxo.output.amount.coin > 5000000:
+        if not utxo.output.amount.multi_asset and utxo.output.amount.coin >= 5000000:
             non_nft_utxo = utxo
             break
     assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
