@@ -1,6 +1,5 @@
 import click
 from pycardano import (
-    OgmiosChainContext,
     TransactionBuilder,
     TransactionOutput,
 )
@@ -8,8 +7,6 @@ from pycardano import (
 from src.utils import (
     get_address,
     get_signing_info,
-    network,
-    ogmios_url,
     get_chain_context,
 )
 
