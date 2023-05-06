@@ -10,10 +10,9 @@ from src.utils.mock import MockChainContext, MockUser
 from src.utils.mock_scripts import mock_context, run_script
 
 
-@pytest.fixture(autouse=True)
-def test_build(mocker: MockerFixture):
-    mocker.patch("subprocess.run", return_value=None)
-    run_script(mocker, src.week02.scripts.build)
+@pytest.fixture(scope="module", autouse=True)
+def test_build():
+    src.week02.scripts.build.main()
 
 
 def test_send(mocker: MockerFixture):

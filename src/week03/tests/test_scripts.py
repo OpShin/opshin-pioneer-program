@@ -11,9 +11,9 @@ from src.utils.mock import MockChainContext, MockUser
 from src.utils.mock_scripts import mock_context, run_script
 
 
-@pytest.fixture(autouse=True)
-def test_build(mocker: MockerFixture):
-    run_script(mocker, src.week03.scripts.build)
+@pytest.fixture(scope="module", autouse=True)
+def test_build():
+    src.week03.scripts.build.main()
 
 
 @pytest.mark.parametrize("parameterized", [True, False])
