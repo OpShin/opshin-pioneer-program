@@ -2,7 +2,6 @@ import click
 from opshin import build
 from opshin.prelude import TxOutRef, TxId
 from pycardano import (
-    OgmiosChainContext,
     TransactionBuilder,
     TransactionOutput,
     PlutusV2Script,
@@ -10,9 +9,12 @@ from pycardano import (
     Redeemer,
     plutus_script_hash,
     Value,
+    VerificationKeyHash,
+    AssetName,
+    ScriptHash,
 )
 
-from src.utils import get_address, get_signing_info, network, ogmios_url
+from src.utils import get_address, get_signing_info, get_chain_context
 from src.week05 import assets_dir, lecture_dir
 
 
@@ -36,7 +38,7 @@ def main(
     script: str,
 ):
     # Load chain context
-    context = OgmiosChainContext(ogmios_url, network=network)
+    context = get_chain_context()
 
     # Get payment address
     payment_address = get_address(wallet_name)
@@ -64,7 +66,7 @@ def main(
         # Build script
         script_path = lecture_dir.joinpath("signed.py")
         pkh = bytes(get_address(wallet_name).payment_part)
-        signatures.append(pkh)
+        signatures.append(VerificationKeyHash(pkh))
         plutus_script = build(script_path, pkh)
     else:
         cbor_path = assets_dir.joinpath(script, "script.cbor")
@@ -80,12 +82,26 @@ def main(
     builder = TransactionBuilder(context)
     builder.add_minting_script(script=plutus_script, redeemer=Redeemer(0))
     builder.mint = MultiAsset.from_primitive({bytes(script_hash): {tn_bytes: amount}})
-    builder.add_input(utxo_to_spend)
-    builder.add_output(
-        TransactionOutput(
-            payment_address, amount=Value(coin=2000000, multi_asset=builder.mint)
+    if amount > 0:
+        builder.add_input(utxo_to_spend)
+        builder.add_output(
+            TransactionOutput(
+                payment_address, amount=Value(coin=2000000, multi_asset=builder.mint)
+            )
         )
-    )
+    else:
+        assert script != "nft", "lecture nft script doesn't allow burning"
+        burn_utxo = None
+
+        def f(pi: ScriptHash, an: AssetName, a: int) -> bool:
+            return pi == script_hash and an.payload == tn_bytes and a >= -amount
+
+        for utxo in context.utxos(payment_address):
+            if utxo.output.amount.multi_asset.count(f):
+                burn_utxo = utxo
+        builder.add_input(burn_utxo)
+        assert burn_utxo, "UTxO containing token not found!"
+
     builder.required_signers = signatures
 
     # Sign the transaction
