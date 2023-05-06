@@ -62,7 +62,7 @@ To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [
 
 ```bash
 # starts a cardano node and ogmios api on the preview testnet
-docker-compose up
+docker compose up
 ```
 
 You can then access the `cardano-cli` using the docker image:
