@@ -58,7 +58,8 @@ First install Docker.
 Follow the official documentation [here](https://docs.docker.com/get-docker/).
 
 
-To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/):
+To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
+
 ```bash
 # starts a cardano node and ogmios api on the preview testnet
 docker-compose up
