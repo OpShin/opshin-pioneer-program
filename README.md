@@ -222,3 +222,23 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Plutus & Staking](https://youtu.be/1Hs6bU9pXi4)
 - [Trying it on the Testnet](https://youtu.be/fzYXwdrfu44)
 - [Homework](https://youtu.be/rO3FVGsuzUg)
+
+### [Lecture 9](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3ZWTpR5lhoVs_DHkebiBcU)
+
+- [Creating our own Stablecoin Dapp](https://youtu.be/KDzyMy0WN9M)
+- [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
+- [Stablecoin's Oracle](https://youtu.be/XfbEsFPbzCI)
+- [Deploying Stablecoin's Reference scripts](https://youtu.be/AokRj-upwlY)
+- [Minting Stablecoins](https://youtu.be/mUa9sztfPKs)
+- [Burning Stablecoins and Liquidating positions](https://youtu.be/u2cUeD72MrQ)
+- [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
+- [Homework](https://youtu.be/yfmLaLcDjtc)
+
+### [Lecture 10](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1)
+
+- [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
+- [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
+- [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
+- [Developing smart contracts with OpShin and PyCardano (Python)](https://www.youtube.com/watch?v=Ale01hnxZEg&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=3)
+- [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
+- [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
