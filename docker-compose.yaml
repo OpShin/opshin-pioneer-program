@@ -51,7 +51,7 @@ services:
       "--workdir", "/db",
     ]
     volumes:
-      - ./config/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-ipc:/ipc
       - kupo-db:/db
     ports:
