@@ -91,6 +91,8 @@ docker compose --profile kupo up
 export CHAIN_BACKEND=kupo
 ```
 
+You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
+to ogmios at http://localhost:1337/
 
 ## How to Follow the Pioneer Lectures and Code
 Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
