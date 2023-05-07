@@ -6,6 +6,7 @@ from pytest_mock import MockerFixture
 import src.week03.scripts.build
 import src.week03.scripts.collect_vest
 import src.week03.scripts.make_vest
+import src.week03.lecture.vesting
 from src.utils.mock import MockChainContext, MockUser
 from src.utils.mock_scripts import mock_context, run_script
 
@@ -18,7 +19,11 @@ def test_build():
 @pytest.mark.parametrize("parameterized", [True, False])
 def test_vest(mocker: MockerFixture, parameterized: bool):
     # setup chain
-    context = MockChainContext()
+    if parameterized:
+        validator = None  # parameterized scripts not supported yet
+    else:
+        validator = src.week03.lecture.vesting.validator
+    context = MockChainContext(default_validator=validator)
     u1 = MockUser(context)
     u1.fund(10_000_000)
     u2 = MockUser(context)
