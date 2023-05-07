@@ -1,3 +1,5 @@
+import importlib
+
 import pytest
 from pytest_mock import MockerFixture
 
@@ -36,7 +38,8 @@ def test_send(mocker: MockerFixture):
 )
 def test_gift(mocker: MockerFixture, script: str):
     # setup chain
-    context = MockChainContext()
+    validator = importlib.import_module(f"src.week02.lecture.{script}").validator
+    context = MockChainContext(default_validator=validator)
     u1 = MockUser(context)
     u1.fund(10_000_000)
     u2 = MockUser(context)
@@ -57,7 +60,7 @@ def test_gift(mocker: MockerFixture, script: str):
             mocker, src.week02.scripts.collect_gift, args=["u2", "--script", script]
         )
         validates = True
-    except ValueError as e:
+    except (AssertionError, ValueError) as e:
         if script != "burn":
             raise e
         validates = False

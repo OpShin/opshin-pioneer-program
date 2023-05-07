@@ -1,6 +1,9 @@
+import importlib
+
 import pytest
 from pytest_mock import MockerFixture
 
+import src.week05.lecture.free
 import src.week05.scripts.build
 import src.week05.scripts.mint
 from src.utils.mock import MockChainContext, MockUser
@@ -15,7 +18,11 @@ def test_build():
 @pytest.mark.parametrize("script", ["free", "nft", "signed"])
 def test_mint(mocker: MockerFixture, script: str):
     # setup chain
-    context = MockChainContext()
+    if script == "free":
+        validator = src.week05.lecture.free.validator
+    else:
+        validator = None  # parameterized scripts not supported yet
+    context = MockChainContext(default_validator=validator)
     u1 = MockUser(context)
     u1.fund(10_000_000)
     users = {"u1": u1}

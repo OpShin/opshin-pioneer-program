@@ -17,13 +17,32 @@ from pycardano import (
     TransactionOutput,
     UTxO,
     Value,
+    RedeemerTag,
 )
 
 from src.utils.protocol_params import (
     DEFAULT_GENESIS_PARAMETERS,
     DEFAULT_PROTOCOL_PARAMETERS,
 )
-from src.utils.tx_tools import evaluate_script, generate_script_contexts_resolved
+from src.utils.tx_tools import (
+    evaluate_script,
+    generate_script_contexts_resolved,
+    ScriptInvocation,
+)
+
+
+ValidatorType = Callable[[Any, Any, Any], Any]
+MintingPolicyType = Callable[[Any, Any], Any]
+OpshinValidator = Union[ValidatorType, MintingPolicyType]
+
+
+def evaluate_opshin_validator(validator: OpshinValidator, invocation: ScriptInvocation):
+    if invocation.redeemer.tag == RedeemerTag.SPEND:
+        validator(invocation.datum, invocation.redeemer.data, invocation.script_context)
+    elif invocation.redeemer.tag == RedeemerTag.MINT:
+        validator(invocation.redeemer.data, invocation.script_context)
+    else:
+        raise NotImplementedError("Only spending and minting validators supported.")
 
 
 class MockChainContext(ChainContext):
@@ -31,20 +50,35 @@ class MockChainContext(ChainContext):
         self,
         protocol_param: Optional[ProtocolParameters] = None,
         genesis_param: Optional[GenesisParameters] = None,
+        default_validator: Optional[OpshinValidator] = None,
+        opshin_scripts: Optional[Dict[ScriptType, OpshinValidator]] = None,
     ):
+        """
+        A mock PyCardano ChainContext that you can use for testing offchain code and evaluating scripts locally.
+
+        Args:
+            protocol_param: Cardano Node protocol parameters. Defaults to preview network parameters.
+            genesis_param: Cardano Node genesis parameters. Defaults to preview network parameters.
+            default_validator: If set, always evaluate this opshin validator when a plutus script is evaluated.
+            opshin_scripts: If set, evaluate the opshin validator when the plutus script matches.
+        """
         self._protocol_param = (
             protocol_param if protocol_param else DEFAULT_PROTOCOL_PARAMETERS
         )
         self._genesis_param = (
             genesis_param if genesis_param else DEFAULT_GENESIS_PARAMETERS
         )
+        self.default_validator = default_validator
+        if opshin_scripts is None:
+            self.opshin_scripts = {}
+        else:
+            self.opshin_scripts = opshin_scripts
         self._utxo_state: Dict[str, List[UTxO]] = defaultdict(list)
         self._address_lookup: Dict[UTxO, str] = {}
         self._utxo_from_txid: Dict[TransactionId, Dict[int, UTxO]] = defaultdict(dict)
         self._network = Network.TESTNET
         self._epoch = 0
         self._last_block_slot = 0
-        self.opshin_scripts: Dict[ScriptType, Callable[[Any, Any, Any], Any]] = {}
 
     @property
     def protocol_param(self) -> ProtocolParameters:
@@ -122,13 +156,11 @@ class MockChainContext(ChainContext):
         ret = {}
         for invocation in script_invocations:
             # run opshin script if available
+            if self.default_validator is not None:
+                evaluate_opshin_validator(self.default_validator, invocation)
             if self.opshin_scripts.get(invocation.script) is not None:
                 opshin_validator = self.opshin_scripts[invocation.script]
-                opshin_validator(
-                    invocation.datum,
-                    invocation.redeemer.data,
-                    invocation.script_context,
-                )
+                evaluate_opshin_validator(opshin_validator, invocation)
             redeemer = invocation.redeemer
             if redeemer.ex_units.steps <= 0 and redeemer.ex_units.mem <= 0:
                 redeemer.ex_units = ExecutionUnits(
