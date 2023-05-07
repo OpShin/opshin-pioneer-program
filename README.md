@@ -87,6 +87,7 @@ docker run --rm -it \
 #### Kupo (Optional)
 Kupo is a database that supports fast queries to the Cardano blockchain.
 Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
+This adds ~2GB storage and ~2GB memory on the preview network.
 
 ```bash
 # starts the cardano node and ogmios with kupo (disabled by default)
