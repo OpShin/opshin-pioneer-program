@@ -86,6 +86,9 @@ Although not needed for simple use cases, it can offer more speed in exchange fo
 ```bash
 # starts the cardano node and ogmios with kupo (disabled by default)
 docker compose --profile kupo up
+
+# set the environment variable to use the ogmios + kupo backend
+export CHAIN_BACKEND=kupo
 ```
 
 
