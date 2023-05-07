@@ -56,7 +56,7 @@ poetry shell
 poetry run python <script-path>
 ```
 
-### Cardano Node
+### Cardano Node and Ogmios
 
 First install Docker.
 Follow the official documentation [here](https://docs.docker.com/get-docker/).
@@ -78,6 +78,16 @@ docker run --rm -it \
   -v opshin-pioneer-program_node-ipc:/ipc \
   inputoutput/cardano-node
 ```
+
+#### Kupo (Optional)
+Kupo is a database that supports fast queries to the Cardano blockchain.
+Although not needed for simple use cases, it can offer more speed in exchange for more storage requirements.
+
+```bash
+# starts the cardano node and ogmios with kupo (disabled by default)
+docker compose --profile kupo up
+```
+
 
 ## How to Follow the Pioneer Lectures and Code
 Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
