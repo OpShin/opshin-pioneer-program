@@ -108,7 +108,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
 
 - [Low-Level, Untyped Validation Scripts](https://youtu.be/3tcWCZV6L_w)
   - Study and compare the gift contract in opshin to plutus.
-  - `src/week02/lecture/gift.py`
+    - [`src/week02/lecture/gift.py`](src/week02/lecture/gift.py)
 - [Using the Cardano CLI to Interact with Plutus](https://youtu.be/2MbzKzoBiak)
   - We use PyCardano to create off-chain scripts for our opshin contracts.
     Run the following python scripts with `poetry run python <script-path>`.
@@ -117,7 +117,7 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
     - The wallets are generated in the `keys/` directory.
     - Fund your wallets with the address in `keys/<name>.addr` at the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)
     - Use the name of your key as arguments for the offchain scripts below.
-  - Look here for offchain code: `src/week02/scripts/`. PyCardano examples:
+  - Look here for offchain code: [`src/week02/scripts/`](src/week02/scripts/). PyCardano examples:
     - Build the lecture scripts `poetry run python -m src/week02/scripts/build.py`.
       The output is saved in the `src/week02/assets` folder.
     - Send ada `poetry run python src/week02/scripts/send.py`
@@ -128,18 +128,17 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
   - Look here for helper scripts (such as creating a test wallet): `scripts/`
 - [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
   - Review the rest of the opshin scripts.
-  - `src/week02/lecture/fourty_two.py`
-  - `src/week02/lecture/fourty_two_typed.py`
-  - `src/week02/lecture/custom_types.py`
-  - `src/week02/lecture/burn.py`
+    - [`src/week02/lecture/fourty_two.py`](src/week02/lecture/fourty_two.py)
+    - [`src/week02/lecture/fourty_two_typed.py`](src/week02/lecture/fourty_two_typed.py)
+    - [`src/week02/lecture/custom_types.py`](src/week02/lecture/custom_types.py)
+    - [`src/week02/lecture/burn.py`](src/week02/lecture/burn.py)
   - You can choose which lecture script to use in `make_gift.py` and `collect_gift.py` with the argument `--script <script-name>`
 - [Summary](https://youtu.be/F5ewN65Mn4I)
 - [Homework](https://youtu.be/OR2IfD4oDjw)
   - Complete the following homework files:
-  - `src/week02/homework/homework1.py`
-  - `src/week02/homework/homework2.py`
-  - You can test your solution with:
-  - `pytest src/week02/tests/test_homework.py`
+    - [`src/week02/homework/homework1.py`](src/week02/homework/homework1.py)
+    - [`src/week02/homework/homework2.py`](src/week02/homework/homework2.py)
+  - You can test your solution with `pytest src/week02/tests/test_homework.py`
   - The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch
 
 ### [Lecture 3](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2zXSjHRKLSc5Jn9vJFA3_O)
@@ -147,17 +146,17 @@ Some files may not be documented thoroughly so try to infer the purpose by refer
 - [Script Contexts](https://youtu.be/dcoYrIyEI4o)
 - [Handling Time](https://youtu.be/LPzwMqOnWvk)
 - [A Vesting Example](https://youtu.be/5D0O7q9UPJA)
-  - `src/week03/lecture/vesting.py`
+  - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
 - [Parameterized Contracts](https://youtu.be/ZSKVu32c5eA)
-  - `src/week03/lecture/parameterized_vesting.py`
+  - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
 - [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
-  - We implement the same in pycardano instead in `src/week03/scripts`.
+  - We implement the same in pycardano instead in [`src/week03/scripts`](src/week03/scripts).
 - [Reference Scripts](https://youtu.be/Rnyc5YXVXew)
   - To be implemented...
 - [Homework](https://youtu.be/hdt4XqFeEyg)
   - Complete the following homework files:
-  - `src/week03/homework/homework1.py`
-  - `src/week03/homework/homework2.py`
+    - [`src/week03/homework/homework1.py`](src/week03/homework/homework1.py)
+    - [`src/week03/homework/homework2.py`](src/week03/homework/homework2.py)
   - Like before, you can run tests with `pytest src/week03/tests`
 - [Summary](https://youtu.be/gxan_u2pStE)
 
@@ -170,7 +169,7 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Off-chain Code with Kuber](https://youtu.be/fzib9ALlL2M)
 - [Off-chain Code with Lucid](https://youtu.be/BXz5V2rjbiE)
 - [Homework](https://youtu.be/2Qm2xgmtbk4)
-  - Implement the offchain code for the files in `src/week04/homework`.
+  - Implement the offchain code for the files in [`src/week04/homework`](src/week04/homework).
   - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
   - There is no correct solution for this week as solutions can very widely.
     So make sure to test your code!
@@ -182,16 +181,16 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Introduction](https://youtu.be/HgXYsMFqnb4)
 - [Values](https://youtu.be/ThYByMLC0EI)
 - [A Simple Minting Policy](https://youtu.be/g_VoKPK-tk0)
-  - `src/week05/lecture/free.py`
+  - [`src/week05/lecture/free.py`](src/week05/lecture/free.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=free WALLET_NAME TOKEN_NAME`
 - [A More Realistic Minting Policy](https://youtu.be/Faru8_Br2Xg)
-  - `src/week05/lecture/signed.py`
+  - [`src/week05/lecture/signed.py`](src/week05/lecture/signed.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=signed WALLET_NAME TOKEN_NAME`
 - [NFT's](https://youtu.be/9kW-z_RuwEY)
-  - `src/week05/lecture/nft.py`
+  - [`src/week05/lecture/nft.py`](src/week05/lecture/nft.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
 - [Homework](https://youtu.be/nQC_GNPIRT8)
-  - Complete the minting policies in `src/week05/homework`.
+  - Complete the minting policies in [`src/week05/homework`](src/week05/homework).
   - Test your solution with `pytest src/week05/tests`
 
 ### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
@@ -199,22 +198,22 @@ We use pycardano, but you can compare and contrast alternatives.
 - [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
   - You can skip this for opshin.
 - [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
-  - We implement `MockChainContext` and `MockUser` in `src/utils/mock.py`.
+  - We implement `MockChainContext` and `MockUser` in [`src/utils/mock.py`](src/utils/mock.py).
     These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
   - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
     - `poetry install --sync --extras=pyaiken`
-  - We implement a simple test in `src/week06/tests/test_mock.py` with simulated spending and multiple users.
+  - We implement a simple test in [`src/week06/tests/test_mock.py`](src/week06/tests/test_mock.py) with simulated spending and multiple users.
 - [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
-  - Unit tests located in `src/week06/tests/test_negative_r_timed.py`
+  - Unit tests located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
 - [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
-  - Property tests also located in `src/week06/tests/test_negative_r_timed.py`
+  - Property tests also located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
   - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
     to get familiar with property testing in Python.
 - [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
   - N/A.
 - [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
-  - Complete the following test `src/week06/homework/test_exploitable_swap.py`
-  - Use your completed test to implement a fix to the swap script: `src/week06/homework/fixed_swap.py`
+  - Complete the following test [`src/week06/homework/test_exploitable_swap.py`](src/week06/homework/test_exploitable_swap.py)
+  - Use your completed test to implement a fix to the swap script: [`src/week06/homework/fixed_swap.py`](src/week06/homework/fixed_swap.py)
 
 
 ### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
