@@ -1,0 +1,3 @@
+[submodule "cardano-configurations"]
+	path = cardano-configurations
+	url = https://github.com/juliusfrost/cardano-configurations.git

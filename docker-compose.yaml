@@ -2,19 +2,18 @@ version: "3.5"
 
 services:
   cardano-node:
-    image: inputoutput/cardano-node:1.35.4
+    image: inputoutput/cardano-node:1.35.7
     command: [
       "run",
-      "--config", "/config/config.json",
+      "--config", "/config/cardano-node/config.json",
       "--database-path", "/data/db",
       "--socket-path", "/ipc/node.socket",
-      "--topology", "/config/topology.json"
+      "--topology", "/config/cardano-node/topology.json"
     ]
     volumes:
-      - ./config/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-db:/data
       - node-ipc:/ipc
-    restart: on-failure
     logging:
       driver: "json-file"
       options:
@@ -22,20 +21,44 @@ services:
         max-file: "20"
 
   ogmios:
+    depends_on:
+      - cardano-node
     image: cardanosolutions/ogmios:v5.6.0-${NETWORK:-preview}
     platform: linux/amd64
-    restart: on-failure
     command: [
       "--host", "0.0.0.0",
       "--node-socket", "/ipc/node.socket",
-      "--node-config", "/config/config.json"
+      "--node-config", "/config/cardano-node/config.json",
     ]
     volumes:
-      - ./config/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-ipc:/ipc
     ports:
       - ${OGMIOS_PORT:-1337}:1337
 
+  kupo:
+    depends_on:
+      - cardano-node
+    profiles:
+      - kupo
+    image: cardanosolutions/kupo
+    command: [
+      "--node-socket", "/ipc/node.socket",
+      "--node-config", "/config/cardano-node/config.json",
+      "--host", "0.0.0.0",
+      "--port", "${KUPO_PORT:-1442}",
+      "--since", "origin",
+      "--prune-utxo",
+      "--workdir", "/db",
+    ]
+    volumes:
+      - ./cardano-configurations/network/${NETWORK:-preview}:/config
+      - node-ipc:/ipc
+      - kupo-db:/db
+    ports:
+      - ${KUPO_PORT:-1442}:1442
+
 volumes:
   node-db:
   node-ipc:
+  kupo-db:
