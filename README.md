@@ -70,6 +70,8 @@ Follow the official documentation [here](https://docs.docker.com/get-docker/).
 To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
 
 ```bash
+# make sure your node configurations are up to date
+git submodule update --init
 # starts a cardano node and ogmios api on the preview testnet
 docker compose up
 ```
