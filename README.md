@@ -36,6 +36,10 @@ Follow the official documentation [here](https://python-poetry.org/docs/#install
 
 3. Install a python virtual environment with poetry:
 ```bash
+# clone the repository including the config submodule necessary for running the node
+git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
+cd opshin-pioneer-program
+
 # Optional. Use a specific python version
 # replace <version> with 3.8, 3.9, 3.10, or 3.11
 # for this to work, python<version> must be accessible in your command line
@@ -52,7 +56,12 @@ poetry shell
 poetry run python <script-path>
 ```
 
-### Cardano Node
+### Cardano Node and Ogmios
+
+Minimum Specs for Preview Network:
+- 2 Core CPU
+- 4GB memory
+- 16GB free storage
 
 First install Docker.
 Follow the official documentation [here](https://docs.docker.com/get-docker/).
@@ -61,8 +70,10 @@ Follow the official documentation [here](https://docs.docker.com/get-docker/).
 To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
 
 ```bash
+# make sure your node configurations are up to date
+git submodule update --init
 # starts a cardano node and ogmios api on the preview testnet
-docker-compose up
+docker compose up
 ```
 
 You can then access the `cardano-cli` using the docker image:
@@ -74,6 +85,22 @@ docker run --rm -it \
   -v opshin-pioneer-program_node-ipc:/ipc \
   inputoutput/cardano-node
 ```
+
+#### Kupo (Optional)
+Kupo is a database that supports fast queries to the Cardano blockchain.
+Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
+This adds ~2GB storage and ~2GB memory on the preview network.
+
+```bash
+# starts the cardano node and ogmios with kupo (disabled by default)
+docker compose --profile kupo up
+
+# set the environment variable to use the ogmios + kupo backend
+export CHAIN_BACKEND=kupo
+```
+
+You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
+to ogmios at http://localhost:1337/
 
 ## How to Follow the Pioneer Lectures and Code
 Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
