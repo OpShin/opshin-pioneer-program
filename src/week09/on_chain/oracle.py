@@ -1,10 +1,4 @@
-from opshin.prelude import *
-
-
-@dataclass()
-class OracleParams(PlutusData):
-    nft: None
-    operator: PubKeyHash
+from src.week09.on_chain.common import *
 
 
 @dataclass()

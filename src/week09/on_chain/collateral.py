@@ -1,15 +1,6 @@
 from opshin.prelude import *
 
-CurrencySymbol = bytes
-
-
-@dataclass()
-class CollateralDatum(PlutusData):
-    """Datum containing all the relevant information"""
-
-    minting_policy_id: CurrencySymbol
-    owner: PubKeyHash
-    stable_coin_amount: int
+from src.week09.on_chain.common import *
 
 
 @dataclass()
@@ -24,8 +15,6 @@ class Liquidate(PlutusData):
 
 # We can lock or redeem our own collateral or liquidate someone else's
 CollateralRedeemer = Union[Redeem, Liquidate]
-
-STABLECOIN_TOKEN_NAME = b"USDP"
 
 
 def check_signed_by_owner(datum: CollateralDatum, context: ScriptContext) -> bool:
