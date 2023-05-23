@@ -10,7 +10,7 @@ def main():
     for script in script_paths:
         build_dir = assets_dir.joinpath(Path(script).stem)
         if not build_dir.exists():
-            subprocess.run(f"opshin build {script} -o {build_dir}".split())
+            subprocess.run(f"opshin build spending {script} -o {build_dir}".split())
 
 
 if __name__ == "__main__":
