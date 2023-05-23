@@ -17,7 +17,7 @@ uplc = "^0.6.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
-pre-commit = "^3.3.1"
+pre-commit = "^3.3.2"
 pytest = "^7.3.1"
 hypothesis = "^6.75.3"
 pytest-xdist = "^3.2.1"
