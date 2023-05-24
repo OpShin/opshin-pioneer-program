@@ -60,6 +60,7 @@ def main(name: str, beneficiary: str, amount: int, wait_time: int, parameterized
                 "-o",
                 str(save_path),
                 "build",
+                "spending",
                 str(script_path),
                 params.to_json(),
             ],

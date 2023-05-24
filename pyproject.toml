@@ -8,8 +8,8 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-opshin = "^0.13.0"
-pycardano = {git = "https://github.com/Python-Cardano/pycardano.git"}
+opshin = "^0.14.1"
+pycardano = "^0.9.0"
 click = "^8.1.3"
 pyaiken = {version = "^0.5.1", optional = true}
 uplc = "^0.6.5"
