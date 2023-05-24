@@ -3,6 +3,7 @@ from typing import Optional
 
 import pyaiken
 import pycardano
+import uplc
 from opshin.prelude import *
 from pycardano import (
     ScriptHash,
@@ -345,11 +346,13 @@ def generate_script_contexts_resolved(
 
 @cache
 def uplc_unflat(hex: str):
-    return pyaiken.uplc.unflat(hex)
+    return uplc.unflatten(bytes.fromhex(hex))
 
 
 def evaluate_script(script_invocation: ScriptInvocation):
-    uplc_program = uplc_unflat(script_invocation.script.hex())
+    uplc_program = uplc_unflat(script_invocation.script.hex()).dumps(
+        dialect=uplc.UPLCDialect.Aiken
+    )
     args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
