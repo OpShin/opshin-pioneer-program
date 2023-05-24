@@ -355,7 +355,7 @@ def evaluate_script(script_invocation: ScriptInvocation):
         args.insert(0, script_invocation.datum)
     program_args = []
     for a in args:
-        data = f"(con data #{PlutusData.to_cbor(a, 'hex')})"
+        data = f"(con data #{PlutusData.to_cbor(a).hex()})"
         program_args.append(data)
     allowed_cpu_steps = script_invocation.redeemer.ex_units.steps
     allowed_mem_steps = script_invocation.redeemer.ex_units.mem
