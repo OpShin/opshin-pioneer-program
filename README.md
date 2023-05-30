@@ -59,49 +59,21 @@ poetry run python <script-path>
 
 ### Cardano Node and Ogmios
 
-Minimum Specs for Preview Network:
-- 2 Core CPU
-- 4GB memory
-- 16GB free storage
+#### Quick setup
 
-First install Docker.
-Follow the official documentation [here](https://docs.docker.com/get-docker/).
-
-
-To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
+Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
 
 ```bash
-# make sure your node configurations are up to date
-git submodule update --init
-# starts a cardano node and ogmios api on the preview testnet
-docker compose up
-```
-
-You can then access the `cardano-cli` using the docker image:
-```bash
-docker run --rm -it \
-  --entrypoint cardano-cli \
-  -e CARDANO_NODE_SOCKET_PATH=/ipc/node.socket \
-  -v opshin-pioneer-program_node-db:/data \
-  -v opshin-pioneer-program_node-ipc:/ipc \
-  inputoutput/cardano-node
-```
-
-#### Kupo (Optional)
-Kupo is a database that supports fast queries to the Cardano blockchain.
-Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
-This adds ~2GB storage and ~2GB memory on the preview network.
-
-```bash
-# starts the cardano node and ogmios with kupo (disabled by default)
-docker compose --profile kupo up
-
-# set the environment variable to use the ogmios + kupo backend
+export OGMIOS_API_PROTOCOL=wss
+export OGMIOS_API_HOST=ogmios-preview-api-public-e79b24.us1.demeter.run
+export OGMIOS_API_PORT=443
+export KUPO_API_PROTOCOL=https
+export KUPO_API_HOST=kupo-preview-api-public-e79b24.us1.demeter.run
+export KUPO_API_PORT=443
 export CHAIN_BACKEND=kupo
 ```
 
-You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
-to ogmios at http://localhost:1337/
+If you want to host the node on your local computer, follow the steps in [Local Setup](#Local-Setup)
 
 ## How to Follow the Pioneer Lectures and Code
 Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
@@ -271,3 +243,51 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Developing smart contracts with OpShin and PyCardano (Python)](https://www.youtube.com/watch?v=Ale01hnxZEg&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=3)
 - [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
 - [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
+
+### Additional Material
+
+#### Local setup
+
+Minimum Specs for Preview Network:
+- 2 Core CPU
+- 4GB memory
+- 16GB free storage
+
+First install Docker.
+Follow the official documentation [here](https://docs.docker.com/get-docker/).
+
+
+To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
+
+```bash
+# make sure your node configurations are up to date
+git submodule update --init
+# starts a cardano node and ogmios api on the preview testnet
+docker compose up
+```
+
+You can then access the `cardano-cli` using the docker image:
+```bash
+docker run --rm -it \
+  --entrypoint cardano-cli \
+  -e CARDANO_NODE_SOCKET_PATH=/ipc/node.socket \
+  -v opshin-pioneer-program_node-db:/data \
+  -v opshin-pioneer-program_node-ipc:/ipc \
+  inputoutput/cardano-node
+```
+
+#### Kupo (Optional)
+Kupo is a database that supports fast queries to the Cardano blockchain.
+Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
+This adds ~2GB storage and ~2GB memory on the preview network.
+
+```bash
+# starts the cardano node and ogmios with kupo (disabled by default)
+docker compose --profile kupo up
+
+# set the environment variable to use the ogmios + kupo backend
+export CHAIN_BACKEND=kupo
+```
+
+You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
+to ogmios at http://localhost:1337/
