@@ -64,7 +64,7 @@ poetry run python <script-path>
 Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
 These nodes are already fully synced and ready to use. Node that as public endpoints, these nodes may be slow to respond and occasionally fail.
 
-Note also that production environments should *always* host their own node in order to guard themselves from failure.s
+Note also that production environments should *always* host their own node in order to guard themselves from failures.
 
 ```bash
 export OGMIOS_API_PROTOCOL=wss
