@@ -15,6 +15,9 @@
   <a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
     <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
   </a>
+  <a href="https://cardanosolutions.github.io/kupo/">
+    <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
+  </a>
   <a href="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test-solutions.yaml">
     <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test-solutions.yaml/badge.svg"/>
   </a>
