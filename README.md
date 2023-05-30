@@ -12,6 +12,9 @@
   <a href="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml">
     <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test.yaml/badge.svg"/>
   </a>
+  <a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
+    <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
+  </a>
   <a href="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test-solutions.yaml">
     <img src="https://github.com/OpShin/opshin-pioneer-program/actions/workflows/test-solutions.yaml/badge.svg"/>
   </a>
