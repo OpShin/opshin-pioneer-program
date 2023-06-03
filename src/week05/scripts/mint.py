@@ -60,7 +60,6 @@ def main(
             id=TxId(bytes(utxo_to_spend.input.transaction_id)),
             idx=utxo_to_spend.input.index,
         )
-        tn_bytes = bytes(token_name, encoding="utf-8")
         plutus_script = build(script_path, oref, tn_bytes)
     elif script == "signed":
         # Build script
