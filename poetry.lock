@@ -781,14 +781,14 @@ setuptools = "*"
 
 [[package]]
 name = "opshin"
-version = "0.14.2"
+version = "0.14.3"
 description = "A simple pythonic programming language for Smart Contracts on Cardano"
 category = "main"
 optional = false
 python-versions = ">=3.8,<3.12"
 files = [
-    {file = "opshin-0.14.2-py3-none-any.whl", hash = "sha256:ce6b28c96d6e8f57198607b713680506f9a6e49d99cb23b349999b0d608c9357"},
-    {file = "opshin-0.14.2.tar.gz", hash = "sha256:a313bec8e1a920f53fa4adb129721f98063adfc4976624b581be73067009926c"},
+    {file = "opshin-0.14.3-py3-none-any.whl", hash = "sha256:2415fa5700f6383df453ef2bc883fa65e84e9b796a253397df7cec106de2c9b3"},
+    {file = "opshin-0.14.3.tar.gz", hash = "sha256:6834948ec9ac1256f713a8c7071da9c48255831a17580afa888adcfba186d91e"},
 ]
 
 [package.dependencies]
@@ -1338,4 +1338,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "853d57929ed3833cc76c937185553bc2a4f4ed28ebbe923c8488632412ab27d4"
+content-hash = "2c49ee9512375389a07088701c2217379b77544a14530515578def1d0a761cb4"
