@@ -85,7 +85,12 @@ export CHAIN_BACKEND=kupo
 If you want to host the node on your local computer, follow the steps in [Local Setup](#Local-Setup)
 
 ## How to Follow the Pioneer Lectures and Code
-Here's a rough mapping of the lecture videos and what parts of this repository you can work on for each week.
+
+As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program.
+All covered contracts are (to be) implemented in OpShin in this repository.
+The repository contains presented contracts and empty files for homework in the main branch and a correct solution for homework in the solution branch.
+
+Here's a rough mapping of the original lecture videos and what parts of this repository you can work on for each week.
 Some files may not be documented thoroughly so try to infer the purpose by referring the structure of the lectures.
 
 ### [Lecture 1](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3xFHJJKdyfo9eB0Iw-OQDd)
