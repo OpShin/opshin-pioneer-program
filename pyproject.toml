@@ -21,7 +21,7 @@ pre-commit = "^3.3.3"
 pytest = "^7.3.2"
 hypothesis = "^6.78.2"
 pytest-xdist = "^3.3.1"
-pytest-mock = "^3.10.0"
+pytest-mock = "^3.11.1"
 
 [tool.poetry.extras]
 pyaiken = ["pyaiken"]
