@@ -647,13 +647,13 @@ files = [
 
 [[package]]
 name = "hypothesis"
-version = "6.78.2"
+version = "6.79.2"
 description = "A library for property-based testing"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "hypothesis-6.78.2-py3-none-any.whl", hash = "sha256:2a62951846ca2efa928e02c132b64f7fb8f114663409552482fa740f923d1959"},
-    {file = "hypothesis-6.78.2.tar.gz", hash = "sha256:117a46fb50f4a388eb43fedae1403ba495bcf92adc891422d4a7977357ae3bb2"},
+    {file = "hypothesis-6.79.2-py3-none-any.whl", hash = "sha256:564d9860ed5e09b0434b7bafea392b0da8f67131190202c6002e58c2c96b7596"},
+    {file = "hypothesis-6.79.2.tar.gz", hash = "sha256:51fb2259489dc446d3edc04cbc8ebd5848d7d3f238121183bee5449b91f7a8d8"},
 ]
 
 [package.dependencies]
@@ -1278,4 +1278,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "056606402e190aea8202cd10eaa3a19ed684f992fb8f282ab96cee6794a8d565"
+content-hash = "7fbcd033f43089f6aaa2bc0635efd849b2fb301b1e3e20238e8cb95b1b63e0e3"
