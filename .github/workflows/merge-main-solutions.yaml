@@ -15,7 +15,7 @@ jobs:
       # check-out repo and merge main into solutions
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Merge main -> solutions
         uses: devmasx/merge-branch@1.4.0
         with:
