@@ -643,6 +643,17 @@ files = [
 ]
 
 [[package]]
+name = "frozenlist2"
+version = "1.0.0"
+description = "An immutable list"
+optional = false
+python-versions = "*"
+files = [
+    {file = "frozenlist2-1.0.0-py3-none-any.whl", hash = "sha256:caffe66813e42de320b10d08b8c0604c7eb3f142a8482ad3130243e084f37a2f"},
+    {file = "frozenlist2-1.0.0.tar.gz", hash = "sha256:33f6c6bb2c7d38524ec3c2d6f2d8a3ee2625a9e13096d8bc64db012b516a95e0"},
+]
+
+[[package]]
 name = "hypothesis"
 version = "6.87.3"
 description = "A library for property-based testing"
@@ -748,20 +759,34 @@ setuptools = "*"
 
 [[package]]
 name = "opshin"
-version = "0.14.3"
+version = "0.18.1"
 description = "A simple pythonic programming language for Smart Contracts on Cardano"
 optional = false
 python-versions = ">=3.8,<3.12"
 files = [
-    {file = "opshin-0.14.3-py3-none-any.whl", hash = "sha256:2415fa5700f6383df453ef2bc883fa65e84e9b796a253397df7cec106de2c9b3"},
-    {file = "opshin-0.14.3.tar.gz", hash = "sha256:6834948ec9ac1256f713a8c7071da9c48255831a17580afa888adcfba186d91e"},
+    {file = "opshin-0.18.1-py3-none-any.whl", hash = "sha256:837f48f66c916fc41c3f53a946ccbce501943498612d7d59f598a1ca8015a026"},
+    {file = "opshin-0.18.1.tar.gz", hash = "sha256:734cc1e4b12f26ed916d2f97ca48603fff1513144d49b719662a7db7593cb4d2"},
 ]
 
 [package.dependencies]
-frozenlist = ">=1.3.3,<2.0.0"
-pluthon = ">=0.3.6,<0.4.0"
+frozenlist2 = ">=1.0.0,<2.0.0"
+pluthon = ">=0.4.1,<0.5.0"
 pycardano = ">=0.9.0,<0.10.0"
 uplc = ">=0.6.6,<0.7.0"
+
+[[package]]
+name = "ordered-set"
+version = "4.1.0"
+description = "An OrderedSet is a custom MutableSet that remembers its order, so that every"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "ordered-set-4.1.0.tar.gz", hash = "sha256:694a8e44c87657c59292ede72891eb91d34131f6531463aab3009191c77364a8"},
+    {file = "ordered_set-4.1.0-py3-none-any.whl", hash = "sha256:046e1132c71fcf3330438a539928932caf51ddbc582496833e23de611de14562"},
+]
+
+[package.extras]
+dev = ["black", "mypy", "pytest"]
 
 [[package]]
 name = "oscrypto"
@@ -831,16 +856,17 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pluthon"
-version = "0.3.7"
+version = "0.4.2"
 description = "Pluto-like programming language for Cardano Smart Contracts in Python"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "pluthon-0.3.7-py3-none-any.whl", hash = "sha256:ea57cf06733582be0e52a9ed884afcdbf2d8b342ec81e1c105e3a351fbaa890a"},
-    {file = "pluthon-0.3.7.tar.gz", hash = "sha256:014066fc5deaf799c124a624d93504d01716183de2b85de367fa256af8729421"},
+    {file = "pluthon-0.4.2-py3-none-any.whl", hash = "sha256:c6b51a78a634b6cfe59023009ac4048892db1faae0d50d65e8cf4629490ca056"},
+    {file = "pluthon-0.4.2.tar.gz", hash = "sha256:d7383163bee7bf32c2ce6a30a130ef46a6312ac99b04861e96e821f1dd1cdd2c"},
 ]
 
 [package.dependencies]
+ordered-set = ">=4.1.0,<5.0.0"
 uplc = ">=0.6.2,<0.7.0"
 
 [[package]]
@@ -1275,4 +1301,4 @@ pyaiken = ["pyaiken"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "2462f7b3da6f8bc7b38cb8fcd3ca0a5b814c411d9a28834e124dab0407146f36"
+content-hash = "a37208fd11b4bb2b13dc2af20486213674c57a2412fbbe21b0884a7b24245708"
