@@ -1,3 +1,10 @@
+*.cbor
+*.script
+*.addr
+*.addr_testnet
+*.plutus
+*.policy_id
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm+all
 
