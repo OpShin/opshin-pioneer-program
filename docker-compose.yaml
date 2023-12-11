@@ -11,7 +11,7 @@ services:
       "--topology", "/config/cardano-node/topology.json"
     ]
     volumes:
-      - ./cardano-configurations/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preprod}:/config
       - node-db:/data
       - node-ipc:/ipc
     logging:
@@ -23,7 +23,7 @@ services:
   ogmios:
     depends_on:
       - cardano-node
-    image: cardanosolutions/ogmios:v5.6.0-${NETWORK:-preview}
+    image: cardanosolutions/ogmios:v5.6.0-${NETWORK:-preprod}
     platform: linux/amd64
     command: [
       "--host", "0.0.0.0",
@@ -31,7 +31,7 @@ services:
       "--node-config", "/config/cardano-node/config.json",
     ]
     volumes:
-      - ./cardano-configurations/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preprod}:/config
       - node-ipc:/ipc
     ports:
       - ${OGMIOS_PORT:-1337}:1337
@@ -52,7 +52,7 @@ services:
       "--workdir", "/db",
     ]
     volumes:
-      - ./cardano-configurations/network/${NETWORK:-preview}:/config
+      - ./cardano-configurations/network/${NETWORK:-preprod}:/config
       - node-ipc:/ipc
       - kupo-db:/db
     ports:
