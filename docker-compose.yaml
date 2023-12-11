@@ -49,6 +49,7 @@ services:
       "--port", "${KUPO_PORT:-1442}",
       "--since", "origin",
       "--prune-utxo",
+      "--match", "*",
       "--workdir", "/db",
     ]
     volumes:
