@@ -60,24 +60,24 @@ poetry run python <script-path>
 ### Cardano Node and Ogmios
 
 #### Quick setup
-<a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
-  <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
+<a href="https://d.ogmios-api.iohk-preprod.dandelion.link/">
+  <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fd.ogmios-api.iohk-preprod.dandelion.link%2Fhealth&color=purple"/>
 </a>
 <a href="https://cardanosolutions.github.io/kupo/">
-  <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
+  <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fd.kupo-api.iohk-preprod.dandelion.link%2Fhealth"/>
 </a>
   
-Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
+Simply run the following to use some publicly available nodes hosted by [dandelion.link](https://dandelion.link).
 These nodes are already fully synced and ready to use. Note that as public endpoints, these nodes may be slow to respond and occasionally fail.
 
 Note also that production environments should *always* host their own node in order to guard themselves from failures.
 
 ```bash
 export OGMIOS_API_PROTOCOL=wss
-export OGMIOS_API_HOST=ogmios-preview-api-public-e79b24.us1.demeter.run
+export OGMIOS_API_HOST=d.ogmios-api.iohk-preprod.dandelion.link
 export OGMIOS_API_PORT=443
 export KUPO_API_PROTOCOL=https
-export KUPO_API_HOST=kupo-preview-api-public-e79b24.us1.demeter.run
+export KUPO_API_HOST=d.kupo-api.iohk-preprod.dandelion.link
 export KUPO_API_PORT=443
 export CHAIN_BACKEND=kupo
 ```
