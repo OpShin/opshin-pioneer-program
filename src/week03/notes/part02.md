@@ -1,6 +1,10 @@
+<!-- [NOTES TO PRESENTER]
+For the first "thoery" part, one can show the [time chapter of OpShin Book](https://book.opshin.dev/smart_contract_tour/handling_time.html) as it has some pictures for time ranges.
+-->
+
 # Handling Time
 
-This lecture addresses the challenge of integrating time into the deterministic validation process of Cardano's Extended UTXO model, emphasizing the importance of handling time without sacrificing the advantages of validation occurring within the wallet.
+In a lot of contracts, it is essential to have consider time for determining whether the transaction whould be valid or not. This lecture addresses the challenge of integrating time into the deterministic validation process of Cardano's Extended UTXO model, emphasizing the importance of handling time without sacrificing the advantages of validation occurring within the wallet.
 
 ## The Dilemma of Time
 
@@ -24,8 +28,37 @@ This lecture addresses the challenge of integrating time into the deterministic 
 - An interval in Plutus scripts is defined by its lower and upper bounds, which can be inclusive or exclusive, finite, or infinite. This flexibility allows scripts to define precise conditions based on time.
 - The lecture provided examples of working with intervals using integers for simplicity, showcasing operations like membership tests, intersections, and containment checks.
 
-## TODO: Hands-on Example
+<!-- [NOTES TO PRESENTER]
+Open a terminal and walk viewers through the following example.
+-->
 
-The lecture concluded with a practical example (not detailed in the transcript) demonstrating the use of time ranges in transaction validation, highlighting the utility and versatility of this approach in real-world smart contract development.
+## Hands-on Example
 
-TODO: go through and do example calls of the *Useful Methods* in [Opshin Book](https://book.opshin.dev/smart_contract_tour/handling_time.html).
+Let's see a hands-on example of working with time intervals in OpShin. For this, we open the Python shell in a terminal and import the `interval` package from `opshin.ledger` as follows:
+```poetry
+poetry shell
+python
+```
+
+```python
+from opshin.ledger import interval
+```
+
+Now, suppose our transaction is valid for the interval `[-3, 2]`. We can create this interval as follows:
+```python
+tx_valid = make_range(-3, 2)
+```
+If we now for example want to ensure that this transaction can only ever be valid before a certain deadline, say at time `4`, we can check this as follows:
+```python
+time_until_deadline = make_to(4)
+contains(time_until_deadline, tx_valid)
+```
+whereas if the deadline was at time `1`, the `contains` would evaluate to `False`:
+```python
+time_until_deadline = make_to(1)
+contains(time_until_deadline, tx_valid)
+```
+
+## Conclusion
+
+Now that we know how to handle time in OpShin, we can write some more interesting contracts! In the next session we will apply our knowledge to a real-world example of a vesting contract.

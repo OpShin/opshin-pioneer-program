@@ -1,6 +1,10 @@
+<!-- [NOTES TO PRESENTER]
+This lecture is mostly about having a look at the `ScriptContext` and `TxInfo` types. Probably best to open the [OpShin docs](https://opshin.opshin.dev/opshin/ledger/api_v2.html#opshin.ledger.api_v2.ScriptContext) and click around there while going through the content.
+-->
+
 # Script Contexts
 
-This lecture delves into the third component a validator script receives: the **script context**, which plays a critical role in the functioning of smart contracts within the Cardano's eUTxO model.
+This lecture delves into the third component that validator script receives: the **script context**, which plays a critical role in the functioning of smart contracts within the Cardano's eUTxO model.
 
 ## Overview of `ScriptContext`
 

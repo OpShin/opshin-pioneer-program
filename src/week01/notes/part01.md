@@ -1,18 +1,22 @@
+<!-- [NOTES TO PRESENTER]
+This is just a short intro lecture, nothing needs to be shown on screen.
+-->
+
 # Welcome & Introduction
 
-Welcome to the OpShin Pioneer Program, an introductory lecture series into writing Cardano Smart Contracts using OpShin, an alternative smart contract language based on Python. This program is inspired by Lars Brünjes' Plutus Pioneer Program and funded by Project Catalyst Fund 9. Led by OpShin creator Niels, this course is designed to equip you with all the knowledge needed to develop your own smart contracts on Cardano using OpShin.
+Welcome to the OpShin Pioneer Program, an introductory lecture series into writing Cardano Smart Contracts using OpShin. OpShin is a smart contract language based on Python that offers an alternative to the Haskell-based Plutus. Our OpShin Pioneer Program is inspired by Lars Brünjes' Plutus Pioneer Program and was funded by Project Catalyst Fund 9. Led by OpShin creator Niels himself, this course is designed to equip you with all the knowledge needed to develop your own Cardano smart contracts using OpShin.
 
 # Lectures
 
 - All lectures are pre-recorded and published on the OpShin YouTube channel.
-- The lecures' structure closely follow the Plutus Pioneer Program. Whenever, the covered content is independent of the smart contract language, instead of providing a duplicate lecture, a link to the corresponding Plutus Pioneer lecture will be given. Otherwise, we recreate the content in the context of OpShin.
+- The lecures' structure closely follow the Plutus Pioneer Program. Whenever the covered content is independent of the smart contract language, instead of providing a duplicate lecture, a link to the corresponding Plutus Pioneer lecture will be given. Otherwise, we recreate the content in the context of OpShin.
 - All code examples and homework assignments, including solutions, are available via the opshin-pioneer-program repository on GitHub.
 
 # EUTxO Model
 
-- One major goal of the program is to understand the Extended Unspent Transaction Output (EUTxO) model, which is the underlying model for Cardano smart contracts.
+- One major goal (of the original Plutus Pioneer Program, as well as of our OpShin version) is to understand the Extended Unspent Transaction Output (EUTxO) model, which is the underlying model for how Cardano operates.
 - Understanding the EUTxO model is crucial for successfully developing in Cardano, and often requires taking a different approach from what is done in account-based models like Ethereum's.
-- The EUTxO model provides security and deterministic transactions, enabling more predictable and secure contract designs.
+- As we will see, the EUTxO model comes with various advantages, e.g. it provides deterministic transactions for which fees can be computed in advance, enabling more predictable and secure contract designs.
 
 # OpShin
 
