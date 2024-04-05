@@ -1,24 +1,43 @@
-# Offchain Code (for the vesting example) with `pycardano` (TODO: adjust)
+# Offchain Code with `pycardano`
 
-This lecture introduces the use of Lucid, a JavaScript-based library for interacting with the Cardano blockchain, to handle off-chain code—activities related to querying the blockchain and constructing and submitting transactions. Lucid simplifies these processes, allowing developers to work with smart contracts and blockchain data more efficiently.
+In this lecture, we will show the `pycardano` off-chain code for interacting with the vesting (and parameterized vesting) example contract that we wrote using OpShin in the previous session. This will involve two steps: First, we show how to construct and submit a transaction for depositing funds into the vesting contract. Second, we show how to construct and submit the transaction for claiming the funds from the vesting contract that were locked in the previous step (after the deadline has passed).
 
-### Key Concepts and Steps:
+## Building the Contracts
 
-- **Off-chain Code**: Refers to interactions with the blockchain that don't occur on the blockchain itself, such as constructing transactions or querying blockchain data.
-- **Lucid**: A tool that enables writing off-chain code in JavaScript or TypeScript, facilitating interactions with the Cardano blockchain without the need for manual labor involved in using command-line interfaces like the Cardano CLI.
-- **Vesting Contract DApp**: The lecture demonstrates building a DApp (Decentralized Application) to interact with a vesting contract using Lucid. The contract allows locking ADA until a certain deadline, after which a specified beneficiary can unlock it.
-- **Setting Up Lucid**: The process involves installing the Lucid package via npm, initializing it, and linking it with a Cardano wallet (e.g., Nami wallet) to interact with the blockchain.
-- **Constructing Transactions with Lucid**: Lucid's API provides functions for constructing transactions, including specifying the recipient, amount, datum, and validity interval. It automatically handles aspects like coin selection and change outputs.
-- **Querying the Blockchain**: Lucid allows querying the blockchain for specific UTXOs (Unspent Transaction Outputs) at a script address, filtering by criteria such as datum content to identify relevant UTXOs for the DApp.
-- **Handling Time in Transactions**: The lecture emphasizes the importance of specifying validity intervals in transactions to ensure they are processed at the appropriate time, particularly when interacting with time-sensitive contracts like vesting contracts.
-- **Example DApp**: The provided DApp demonstrates creating and claiming vestings. It showcases how to construct transactions to lock ADA in a vesting contract and how beneficiaries can claim the ADA after the vesting period has ended, all facilitated through Lucid.
+First, if we haven't done so already, we need to build our OpShin contract. We can do this by simply running:
+```bash
+cd src/week03/lecture
+python scripts/build.py
+```
+<!-- [NOTES TO PRESENTER]
+Briefly open the `build.py` script and show that it simply runs opshin on the contract. Also show the build directory and the generated files.
+-->
+Building the parameterized vesting contract actually additionally requires us to pass in the parameter, i.e., the `VestingParams`. We will see how to do this in a moment.
 
-### Benefits of Using Lucid:
+## Depositing Funds
 
-- **Simplified Interaction**: Lucid abstracts away the complexity of directly interacting with the blockchain, providing a higher-level interface for common tasks.
-- **Flexible and Powerful**: Supports constructing complex transactions, querying blockchain data, and integrating with Cardano wallets.
-- **Broad Accessibility**: By leveraging JavaScript, Lucid makes blockchain development accessible to a wider range of developers familiar with web development.
+Let's start by depositing funds into the vesting contract. This is done in `scripts/make_vest.py`.
+<!-- [NOTES TO PRESENTER]
+Go through the construction an submission of the vesting tx. Also mention here how the parameterized version is compiled by passing the `VestingParams` as an argument to `opshin`.
+-->
+Let's see this in action. Run
+```bash
+python scripts/make_vest.py
+```
+and inspect the generated transaction on CExplorer.
 
-### Conclusion:
+## Claiming Funds
 
-The lecture effectively demonstrates the power and flexibility of using Lucid for off-chain Cardano blockchain interactions. By building a DApp to interact with a vesting contract, it showcases how developers can create user-friendly blockchain applications with reduced complexity and increased efficiency.
+The next step is of course to claim the funds. After we've waited for the deadline to pass, we can do so via `scripts/claim_vest.py`. It involves the following steps which we now go through in the code:
+ - loading the script
+ - finding the UTxO to spend
+ - parsing the datum
+ - adding a collateral input
+ - constructing the transaction (using an empty redeemer)
+ - signing and submitting the transaction
+Let's run the script and inspect the resulting transaction on CExplorer.
+
+
+## Conclusion:
+
+In this lecture we have seen a practical example of how to both send funds to and claim funds from a contract using `pycardano`. This is an important step towards understanding the off-chain part of smart contract development on Cardano.
