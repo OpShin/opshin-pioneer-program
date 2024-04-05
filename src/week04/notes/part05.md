@@ -7,3 +7,10 @@ For this week's homework, you are tasked with working on two validators provided
 2. **Write Off-Chain Code**: Once you have a clear understanding of the validator's purpose and functionality, you are to write the necessary off-chain code to interact with the validator. This code should enable all possible interactions with the validator. You have the freedom to use any tool of your choice for this task.
 
 The key difference between the two validators you will be working with is that one is parameterized, and the other is not. This distinction influences how you approach writing the off-chain code for each validator but the fundamental task remains the same for both.
+
+## Testing
+
+As in last week's homework, you can run some tests to check the logic of your validator implementations by running
+```bash
+pytest tests/test_homework.py
+```
