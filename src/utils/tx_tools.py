@@ -8,11 +8,14 @@ from opshin.prelude import *
 from pycardano import (
     ScriptHash,
     RedeemerTag,
+    Address,
+    ChainContext,
     plutus_script_hash,
     datum_hash,
     PlutusV2Script,
     UTxO,
 )
+from src.utils import network
 
 
 def to_staking_credential(
@@ -378,3 +381,11 @@ def evaluate_script(script_invocation: ScriptInvocation):
         ),
         logs,
     )
+
+
+def get_ref_utxo(contract: PlutusV2Script, context: ChainContext):
+    script_address = Address(payment_part=plutus_script_hash(contract), network=network)
+    for utxo in context.utxos(script_address):
+        if utxo.output.script == contract:
+            return utxo
+    return None

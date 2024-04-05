@@ -9,17 +9,9 @@ from pycardano import (
     Value,
     min_lovelace,
 )
-from src.utils import get_address, get_signing_info, network, get_chain_context
+from src.utils import get_address, get_signing_info, network, get_chain_context, get_ref_utxo
 from src.week03 import assets_dir
 from src.week03.tests.test_lecture import script_paths
-
-
-def get_ref_utxo(contract: PlutusV2Script, context: ChainContext):
-    script_address = Address(payment_part=plutus_script_hash(contract), network=network)
-    for utxo in context.utxos(script_address):
-        if utxo.output.script == contract:
-            return utxo
-    return None
 
 
 def main():
@@ -31,6 +23,7 @@ def main():
 
     assets_dir.mkdir(exist_ok=True)
     for script in script_paths:
+        print("SCRIPT", script)
         build_dir = assets_dir.joinpath(Path(script).stem)
 
         with open(build_dir.joinpath("script.cbor")) as f:
