@@ -65,8 +65,9 @@ def main(
         # Build script
         script_path = lecture_dir.joinpath("signed.py")
         pkh = bytes(get_address(wallet_name).payment_part)
+        pkh2 = bytes(get_address("alice").payment_part)
         signatures.append(VerificationKeyHash(pkh))
-        plutus_script = build(script_path, pkh)
+        plutus_script = build(script_path, pkh2)
     else:
         cbor_path = assets_dir.joinpath(script, "script.cbor")
         with open(cbor_path, "r") as f:
@@ -114,7 +115,7 @@ def main(
     context.submit_tx(signed_tx)
 
     print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preview.cardanoscan.io/transaction/{signed_tx.id}")
+    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
 
 
 if __name__ == "__main__":

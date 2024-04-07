@@ -8,8 +8,8 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-opshin = "^0.14.3"
-pycardano = "^0.9.0"
+opshin = "^0.20.0"
+pycardano = "^0.10.0"
 click = "^8.1.7"
 pyaiken = {version = "^0.5.1"}
 uplc = "^0.6.7"

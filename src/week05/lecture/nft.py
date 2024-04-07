@@ -1,37 +1,36 @@
 from opshin.prelude import *
 
 
-def assert_minting_purpose(context: ScriptContext) -> None:
+def get_minting_purpose(context: ScriptContext) -> Minting:
     purpose = context.purpose
     if isinstance(purpose, Minting):
         is_minting = True
     else:
         is_minting = False
-    assert is_minting, "not minting purpose"
+    assert is_minting, "Not minting purpose"
+    minting_purpose: Minting = purpose
+    return minting_purpose
+
+
+def check_mint_exactly_one_with_name(
+    token: Token,
+    mint: Value,
+) -> None:
+    assert (
+        mint[token.policy_id][token.token_name] == 1
+    ), "Exactly 1 token must be minted"
+    assert len(mint[token.policy_id]) == 1, "No other token must be minted"
 
 
 def has_utxo(context: ScriptContext, oref: TxOutRef) -> bool:
     return any([oref == i.out_ref for i in context.tx_info.inputs])
 
 
-def check_minted_amount(tn: TokenName, context: ScriptContext) -> bool:
-    mint_value = context.tx_info.mint
-    valid = False
-    count = 0
-    for policy_id in mint_value.keys():
-        v = mint_value.get(policy_id, {b"": 0})
-        if len(v.keys()) == 1:
-            for token_name in v.keys():
-                amount = v.get(token_name, 0)
-                valid = token_name == tn and amount == 1
-                if amount != 0:
-                    count += 1
-    return valid and count == 1
-
-
 def validator(
     oref: TxOutRef, tn: TokenName, redeemer: None, context: ScriptContext
 ) -> None:
-    assert_minting_purpose(context)
+    minting_purpose = get_minting_purpose(context)
+    check_mint_exactly_one_with_name(
+        Token(minting_purpose.policy_id, tn), context.tx_info.mint
+    )
     assert has_utxo(context, oref), "UTxO not consumed"
-    assert check_minted_amount(tn, context), "wrong amount minted"

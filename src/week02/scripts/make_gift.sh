@@ -60,4 +60,4 @@ $cardano_cli transaction submit \
 
 tid=$($cardano_cli transaction txid --tx-file "$tx_path")
 echo "transaction id: $tid"
-echo "Cardanoscan: https://preview.cardanoscan.io/transaction/$tid"
+echo "Cardanoscan: https://preprod.cexplorer.io/tx/$tid"
