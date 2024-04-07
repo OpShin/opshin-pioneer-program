@@ -110,13 +110,6 @@ def to_payment_credential(
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
 
-def to_address(a: pycardano.Address):
-    return Address(
-        to_payment_credential(a.payment_part),
-        to_staking_credential(a.staking_part),
-    )
-
-
 def to_tx_out(o: pycardano.TransactionOutput):
     if o.datum is not None:
         output_datum = SomeOutputDatum(o.datum)
@@ -129,7 +122,7 @@ def to_tx_out(o: pycardano.TransactionOutput):
     else:
         script = SomeScriptHash(pycardano.script_hash(o.script).payload)
     return TxOut(
-        to_address(o.address),
+        o.address,
         value_to_value(o.amount),
         output_datum,
         script,
