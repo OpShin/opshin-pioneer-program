@@ -133,7 +133,7 @@ def run(deadline_slot: int, redeemer_data: int):
     context = lock(context, u1, deadline_slot)
 
     # wait for a bit
-    context.wait(1000)
+    context.wait(30)
 
     # user 2 takes "val" from validator - fees
     unlock(context, u2, redeemer_data)
