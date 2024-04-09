@@ -1,0 +1,3 @@
+# Testing OpShin Smart Contracts
+
+This week is all about testig smart contracts written in OpShin. We'll explore how to design and run both ...
