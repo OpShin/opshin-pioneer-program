@@ -1,6 +1,15 @@
 import os
 
+from dotenv import load_dotenv
 from pycardano import Network, OgmiosChainContext, ChainContext, BlockFrostChainContext
+
+load_dotenv(
+    dotenv_path=os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+
+blockfrost_project_id = os.getenv("BLOCKFROST_PROJECT_ID", None)
 
 ogmios_protocol = os.getenv("OGMIOS_API_PROTOCOL", "ws")
 ogmios_host = os.getenv("OGMIOS_API_HOST", "localhost")
@@ -12,9 +21,7 @@ kupo_host = os.getenv("KUPO_API_HOST", "localhost")
 kupo_port = os.getenv("KUPO_API_PORT", "1442")
 kupo_url = f"{kupo_protocol}://{kupo_host}:{kupo_port}"
 
-blockfrost_project_id = os.getenv("BLOCKFROST_PROJECT_ID", None)
-
-network_name = os.getenv("NETWORK", "preview")
+network_name = os.getenv("NETWORK", "preprod")
 if network_name == "mainnet":
     network = Network.MAINNET
 else:
@@ -22,12 +29,12 @@ else:
 
 
 def get_chain_context() -> ChainContext:
+    if blockfrost_project_id is not None:
+        return BlockFrostChainContext(blockfrost_project_id)
     chain_backend = os.getenv("CHAIN_BACKEND", "ogmios")
     if chain_backend == "ogmios":
         return OgmiosChainContext(ws_url=ogmios_url, network=network)
     elif chain_backend == "kupo":
         return OgmiosChainContext(ws_url=ogmios_url, network=network, kupo_url=kupo_url)
-    elif chain_backend == "blockfrost":
-        return BlockFrostChainContext(blockfrost_project_id, network=network)
     else:
         raise ValueError(f"Chain backend not found: {chain_backend}")

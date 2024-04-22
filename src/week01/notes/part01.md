@@ -28,13 +28,8 @@ Welcome to the OpShin Pioneer Program, an introductory lecture series into writi
     - **Efficient & Secure**: With static type inference, OpShin ensures strict typing and optimized code, enhancing both performance and security.
 - For this program, familiarity with Python is recommended but not stricly required. We will start with simple examples and since Python syntax is often straightforward and intuitive, you should be able to follow along even if you are new to Python.
 
-# Setup (TODO: Update)
-
-Setting up for OpShin development has been made straightforward with two primary options:
-
-1. A browser-based environment, enabling you to start developing with just one click, without worrying about local dependencies.
-2. A Dev container for Visual Studio Code, for those who prefer working locally, designed to simplify setup and align with existing Python development practices.
-
 # Conclusion
 
-The OpShin Pioneer Program offers an exciting opportunity to explore and innovate on the Cardano blockchain using Python. Despite the challenges associated with learning a new smart contract model, the program aims to simplify the learning process and setup. This series sets the stage for you to contribute to the growing ecosystem of Cardano smart contracts, fostering innovation and development in this emerging field.
+The OpShin Pioneer Program offers an exciting opportunity to explore and innovate on the Cardano blockchain using Python. Despite the challenges associated with learning a new smart contract model, the program aims to simplify the learning process and setup. This series sets the stage for you to contribute to the growing ecosystem of Cardano smart contracts, helping to innovate and develop in an ecosystem that is only just getting started!
+
+In the next lecture, we will dive into setting up our development environment for OpShin -- looking forward to having you all join us again!
