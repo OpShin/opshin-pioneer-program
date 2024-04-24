@@ -1,6 +1,10 @@
+<!-- [NOTES TO PRESENTER]
+This is just a summary of parts 1-3. So it can also be quite short.
+-->
+
 # Summary of Typed and Untyped Validators
 
-In this lecture, we have explored various examples of validators, both untyped and typed, ranging from a very simple "always-succeed" script to a slightly more complex validator that involves checking the redeemer's value. We hope this exploration has served as a foundation for understanding the mechanisms of smart contract validation in the Cardano's eUTxO model using OpShin on-chain code.
+This week, we have explored various examples of validators, both untyped and typed, ranging from a very simple "always-succeed" script to a slightly more complex validator that involves checking the redeemer's value. We hope this exploration has served as a foundation for understanding the mechanisms of smart contract validation in the Cardano's eUTxO model using OpShin on-chain code.
 
 ## Key Points
 
@@ -11,5 +15,7 @@ In this lecture, we have explored various examples of validators, both untyped a
     - **Built-in Data Types**: Initially, the focus was on leveraging Cardano's `BuiltinData` type to enforce type-specific validation logic.
     - **Custom Data Types**: Expanding further, the lecture demonstrated how to incorporate custom data types into validators.
 - **Realistic Use Cases**: While the examples provided primarily focused on the Redeemer, real-world applications often necessitate examining the Datum and the Context to implement comprehensive validation logic. Future lectures will delve into these aspects in detail.
-- **Interaction with Cardano CLI**: An overview of utilizing the Cardano CLI to engage with the validators was also provided, showing the off-chain aspects of interacting and testing Cardano smart contracts.
-- **Interaction with `pycardno`**: TODO
+- **Interaction with Cardano CLI**: An overview of utilizing the Cardano CLI to engage with the validators was already provided in the original Plutus Pioneer Program. The lessons learned there apply directly to OpShin smart contracts.
+- **Interaction with `pycardno`**: We have written our first small `pycardano` off-chain script that lets us interact with our simple gift contract. The interaction involved two transactions: First sending funds to the gift contract and then collecting them back by spending the script UTxO.
+
+Exciting content is to come next week as we will dive into building more complex validators and exploring the interaction between on-chain and off-chain components in greater detail. But first, we encourage you to take a look at this weeks homework assignment which is presented in the next and lest section of week 2.

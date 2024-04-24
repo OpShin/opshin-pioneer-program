@@ -10,7 +10,7 @@ This lecture focuses on the on-chain part of smart contracts, specifically the v
 
 Smart contracts on Cardano consist of two main components:
 - **On-Chain**: Involves validation scripts that determine the legitimacy of transactions.
-- **Off-Chain**: Runs on the user's side, crafting and submitting transactions.
+- **Off-Chain**: Runs on the user's side, constructing and submitting transactions.
 Both elements are crucial for the development and execution of smart contracts.
 
 ## Extended UTXO Model
