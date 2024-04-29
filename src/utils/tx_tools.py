@@ -8,11 +8,14 @@ from opshin.prelude import *
 from pycardano import (
     ScriptHash,
     RedeemerTag,
+    Address,
+    ChainContext,
     plutus_script_hash,
     datum_hash,
     PlutusV2Script,
     UTxO,
 )
+from src.utils import network
 
 
 def to_staking_credential(
@@ -107,13 +110,6 @@ def to_payment_credential(
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
 
-def to_address(a: pycardano.Address):
-    return Address(
-        to_payment_credential(a.payment_part),
-        to_staking_credential(a.staking_part),
-    )
-
-
 def to_tx_out(o: pycardano.TransactionOutput):
     if o.datum is not None:
         output_datum = SomeOutputDatum(o.datum)
@@ -126,7 +122,7 @@ def to_tx_out(o: pycardano.TransactionOutput):
     else:
         script = SomeScriptHash(pycardano.script_hash(o.script).payload)
     return TxOut(
-        to_address(o.address),
+        o.address,
         value_to_value(o.amount),
         output_datum,
         script,
@@ -378,3 +374,11 @@ def evaluate_script(script_invocation: ScriptInvocation):
         ),
         logs,
     )
+
+
+def get_ref_utxo(contract: PlutusV2Script, context: ChainContext):
+    script_address = Address(payment_part=plutus_script_hash(contract), network=network)
+    for utxo in context.utxos(script_address):
+        if utxo.output.script == contract:
+            return utxo
+    return None

@@ -8,23 +8,20 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-opshin = "^0.14.3"
-pycardano = "^0.9.0"
+opshin = "^0.20.0"
+pycardano = "^0.10.0"
 click = "^8.1.7"
-pyaiken = {version = "^0.5.1", optional = true}
+pyaiken = {version = "^0.5.1"}
 uplc = "^0.6.7"
-
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
+black = "^23.9.1"
 pre-commit = "^3.3.3"
-pytest = "^7.4.0"
-hypothesis = "^6.81.2"
+pytest = "^7.4.2"
+hypothesis = "^6.87.3"
 pytest-xdist = "^3.3.1"
 pytest-mock = "^3.11.1"
-
-[tool.poetry.extras]
-pyaiken = ["pyaiken"]
 
 [build-system]
 requires = ["poetry-core"]

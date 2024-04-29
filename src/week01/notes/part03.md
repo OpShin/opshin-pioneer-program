@@ -1,0 +1,2 @@
+- referring to [PPP 040103 - Kuber Marketplace Demo](https://www.youtube.com/watch?v=ZaB-7ZYBi3g)
+- general introduction into how Cardano dApps look like and how to interact with them using browser-based wallets
