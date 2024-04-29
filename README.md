@@ -47,7 +47,7 @@ The entire playlist for the OpShin Pioneer Program can be found [here](https://w
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
 - [Homework](https://youtu.be/9XwBk6IsNuM)
 
-Additional Reading: [A Python Language Tour focusing on OpShin](https://book.opshin.dev/language_tour/index.html)
+Recommended Reading: [A Python Language Tour focusing on OpShin](https://book.opshin.dev/language_tour/index.html)
 
 ### Week 2
 
@@ -57,29 +57,24 @@ Additional Reading: [A Python Language Tour focusing on OpShin](https://book.ops
 - [High-Level, Typed Validation Scripts](https://youtu.be/7XVeDXAgRPg)
 - [Summary](https://youtu.be/MLfbaBZ10qE)
 - [Homework](https://youtu.be/KFJMhNcMAuU)
-  - Complete the following homework files:
-    - [`src/week02/homework/homework1.py`](src/week02/homework/homework1.py)
-    - [`src/week02/homework/homework2.py`](src/week02/homework/homework2.py)
-  - You can test your solution with `pytest src/week02/tests/test_homework.py`
-  - The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch
+
+Complete the homework files in [`src/week02/homework/`](src/week02/homework/).
+You can test your solution with `pytest src/week02/tests/test_homework.py`.
+The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch.
 
 ### Week 3
 
 - [Script Contexts](https://youtu.be/HJt_Oli7e10)
 - [Handling Time](https://youtu.be/gObATD-dzrA)
 - [A Vesting Example](https://youtu.be/L3NPepcqTWE)
-  - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
 - [Parameterized Contracts](https://youtu.be/1cBkQIufjTA)
-  - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
 - [Offchain Code with PyCardano](https://youtu.be/ILJ_mlOwuUQ)
   - If you want to look at an example in Lucid, check out the original PPP video: [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
 - [Reference Scripts](https://youtu.be/b45MMtuby-U)
 - [Homework](https://youtu.be/NQIqCozYkss)
-  - Complete the following homework files:
-    - [`src/week03/homework/homework1.py`](src/week03/homework/homework1.py)
-    - [`src/week03/homework/homework2.py`](src/week03/homework/homework2.py)
-  - Like before, you can run tests with `pytest src/week03/tests`
 - [Summary](https://youtu.be/g28zeIRExeg)
+
+Complete the homework files in [`src/week03/homework/`](src/week03/homework/). Like before, you can run tests with `pytest src/week03/tests`.
 
 ### Week 4
 This week is about alternative offchain solutions.
