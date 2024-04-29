@@ -5,16 +5,6 @@ import pyaiken
 import pycardano
 import uplc
 from opshin.prelude import *
-from pycardano import (
-    ScriptHash,
-    RedeemerTag,
-    Address,
-    ChainContext,
-    plutus_script_hash,
-    datum_hash,
-    PlutusV2Script,
-    UTxO,
-)
 from src.utils import network
 
 
@@ -110,6 +100,13 @@ def to_payment_credential(
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
 
+def to_address(address: pycardano.Address):
+    return Address(
+        to_payment_credential(address.payment_part),
+        to_staking_credential(address.staking_part),
+    )
+
+
 def to_tx_out(o: pycardano.TransactionOutput):
     if o.datum is not None:
         output_datum = SomeOutputDatum(o.datum)
@@ -122,7 +119,7 @@ def to_tx_out(o: pycardano.TransactionOutput):
     else:
         script = SomeScriptHash(pycardano.script_hash(o.script).payload)
     return TxOut(
-        o.address,
+        to_address(o.address),
         value_to_value(o.amount),
         output_datum,
         script,
@@ -226,21 +223,24 @@ def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
     #     for utxo in tx_builder.inputs + tx_builder.reference_inputs
     # }
     resolved_inputs = [
-        UTxO(i, input_to_resolved_output[i]) for i in tx.transaction_body.inputs
+        pycardano.UTxO(i, input_to_resolved_output[i])
+        for i in tx.transaction_body.inputs
     ]
     resolved_reference_inputs = [
-        UTxO(i, input_to_resolved_output[i])
+        pycardano.UTxO(i, input_to_resolved_output[i])
         for i in tx.transaction_body.reference_inputs
     ]
     return generate_script_contexts_resolved(
-        tx, resolved_inputs, resolved_reference_inputs
+        tx,
+        resolved_inputs,
+        resolved_reference_inputs,
     )
 
 
 def generate_script_contexts_resolved(
     tx: pycardano.Transaction,
-    resolved_inputs: List[UTxO],
-    resolved_reference_inputs: List[UTxO],
+    resolved_inputs: List[pycardano.UTxO],
+    resolved_reference_inputs: List[pycardano.UTxO],
     posix_from_slot,
 ):
     tx_info = to_tx_info(
@@ -252,13 +252,15 @@ def generate_script_contexts_resolved(
     datum = None
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
-        if not isinstance(spending_input.output.address.payment_part, ScriptHash):
+        if not isinstance(
+            spending_input.output.address.payment_part, pycardano.ScriptHash
+        ):
             continue
         try:
             spending_redeemer = next(
                 r
                 for r in tx.transaction_witness_set.redeemer
-                if r.index == i and r.tag == RedeemerTag.SPEND
+                if r.index == i and r.tag == pycardano.RedeemerTag.SPEND
             )
         except (StopIteration, TypeError):
             raise ValueError(
@@ -272,7 +274,7 @@ def generate_script_contexts_resolved(
             spending_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(PlutusV2Script(s))
+                if pycardano.plutus_script_hash(pycardano.PlutusV2Script(s))
                 == spending_input.output.address.payment_part
             )
         except (StopIteration, TypeError):
@@ -287,7 +289,7 @@ def generate_script_contexts_resolved(
                 datum = next(
                     d
                     for d in tx.transaction_witness_set.plutus_data or []
-                    if datum_hash(d) == datum_h
+                    if pycardano.datum_hash(d) == datum_h
                 )
             except StopIteration:
                 raise ValueError(
@@ -310,7 +312,7 @@ def generate_script_contexts_resolved(
             minting_redeemer = next(
                 r
                 for r in tx.transaction_witness_set.redeemer
-                if r.index == i and r.tag == RedeemerTag.MINT
+                if r.index == i and r.tag == pycardano.RedeemerTag.MINT
             )
         except StopIteration:
             raise ValueError(
@@ -320,7 +322,8 @@ def generate_script_contexts_resolved(
             minting_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(PlutusV2Script(s)) == minting_script_hash
+                if pycardano.plutus_script_hash(pycardano.PlutusV2Script(s))
+                == minting_script_hash
             )
         except StopIteration:
             raise NotImplementedError(
@@ -376,8 +379,10 @@ def evaluate_script(script_invocation: ScriptInvocation):
     )
 
 
-def get_ref_utxo(contract: PlutusV2Script, context: ChainContext):
-    script_address = Address(payment_part=plutus_script_hash(contract), network=network)
+def get_ref_utxo(contract: pycardano.PlutusV2Script, context: pycardano.ChainContext):
+    script_address = Address(
+        payment_part=pycardano.plutus_script_hash(contract), network=network
+    )
     for utxo in context.utxos(script_address):
         if utxo.output.script == contract:
             return utxo
