@@ -47,6 +47,8 @@ The entire playlist for the OpShin Pioneer Program can be found [here](https://w
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
 - [Homework](https://youtu.be/9XwBk6IsNuM)
 
+Additional Reading: [A Python Language Tour focusing on OpShin](https://book.opshin.dev/language_tour/index.html)
+
 ### Week 2
 
 - [Low-Level, Untyped Validation Scripts](https://youtu.be/8oBZeOcJUTk)
