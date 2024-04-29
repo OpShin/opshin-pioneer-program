@@ -10,6 +10,7 @@ from pycardano import (
     Redeemer,
     VerificationKeyHash,
     RawPlutusData,
+    RawCBOR,
 )
 
 from src.utils import get_address, get_signing_info, network, get_chain_context
@@ -57,6 +58,11 @@ def main(name: str, parameterized):
                 if isinstance(utxo.output.datum, RawPlutusData):
                     try:
                         params = VestingParams.from_cbor(utxo.output.datum.to_cbor())
+                    except Exception:
+                        continue
+                elif isinstance(utxo.output.datum, RawCBOR):
+                    try:
+                        params = VestingParams.from_cbor(utxo.output.datum.cbor)
                     except Exception:
                         continue
                 elif isinstance(utxo.output.datum, VestingParams):
@@ -109,7 +115,7 @@ def main(name: str, parameterized):
 
     # context.submit_tx(signed_tx.to_cbor())
     print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
 
 
 if __name__ == "__main__":

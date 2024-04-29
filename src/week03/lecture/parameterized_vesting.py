@@ -3,6 +3,7 @@ from opshin.ledger.interval import *
 
 @dataclass()
 class VestingParams(PlutusData):
+    CONSTR_ID = 0
     beneficiary: PubKeyHash
     deadline: POSIXTime
 

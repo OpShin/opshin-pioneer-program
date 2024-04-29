@@ -1,4 +1,6 @@
 from pathlib import Path
+
+import click
 from pycardano import (
     Address,
     PlutusV2Script,
@@ -20,8 +22,9 @@ from src.week03 import assets_dir
 from src.week03.tests.test_lecture import script_paths
 
 
-def main():
-    owner = "scripts"
+@click.command()
+@click.argument("owner")
+def main(owner):
     payment_vkey, payment_skey, payment_address = get_signing_info(owner)
 
     # Load chain context
@@ -43,7 +46,7 @@ def main():
         ref_utxo = get_ref_utxo(contract_plutus_script, context)
         if ref_utxo:
             print(f"reference script UTXO for {script} already exists")
-            break
+            continue
 
         txbuilder = TransactionBuilder(context)
         output = TransactionOutput(
@@ -52,15 +55,21 @@ def main():
         output.amount = Value(min_lovelace(context, output))
         txbuilder.add_output(output)
         txbuilder.add_input_address(payment_address)
-        signed_tx = txbuilder.build_and_sign(
-            signing_keys=[payment_skey], change_address=payment_address
-        )
-        context.submit_tx(signed_tx)
-        print(
-            f"creating {script} reference script UTXO; transaction id: {signed_tx.id}"
-        )
-        print(f"transaction id: {signed_tx.id}")
-        print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+        while True:
+            try:
+                signed_tx = txbuilder.build_and_sign(
+                    signing_keys=[payment_skey], change_address=payment_address
+                )
+                context.submit_tx(signed_tx)
+                print(
+                    f"creating {script} reference script UTXO; transaction id: {signed_tx.id}"
+                )
+                print(f"transaction id: {signed_tx.id}")
+                print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
+                break
+            except Exception as e:
+                print(f"error: {e}")
+                pass
 
 
 if __name__ == "__main__":
