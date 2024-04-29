@@ -67,20 +67,19 @@ Additional Reading: [A Python Language Tour focusing on OpShin](https://book.ops
 
 - [Script Contexts](https://youtu.be/HJt_Oli7e10)
 - [Handling Time](https://youtu.be/gObATD-dzrA)
-- [A Vesting Example](https://youtu.be/5D0O7q9UPJA)
+- [A Vesting Example](https://youtu.be/L3NPepcqTWE)
   - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
-- [Parameterized Contracts](https://youtu.be/ZSKVu32c5eA)
+- [Parameterized Contracts](https://youtu.be/1cBkQIufjTA)
   - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
-- [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
-  - We implement the same in pycardano instead in [`src/week03/scripts`](src/week03/scripts).
-- [Reference Scripts](https://youtu.be/Rnyc5YXVXew)
-  - To be implemented...
-- [Homework](https://youtu.be/hdt4XqFeEyg)
+- [Offchain Code with PyCardano](https://youtu.be/ILJ_mlOwuUQ)
+  - If you want to look at an example in Lucid, check out the original PPP video: [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
+- [Reference Scripts](https://youtu.be/b45MMtuby-U)
+- [Homework](https://youtu.be/NQIqCozYkss)
   - Complete the following homework files:
     - [`src/week03/homework/homework1.py`](src/week03/homework/homework1.py)
     - [`src/week03/homework/homework2.py`](src/week03/homework/homework2.py)
   - Like before, you can run tests with `pytest src/week03/tests`
-- [Summary](https://youtu.be/gxan_u2pStE)
+- [Summary](https://youtu.be/g28zeIRExeg)
 
 ### Week 4
 This week is about alternative offchain solutions.
