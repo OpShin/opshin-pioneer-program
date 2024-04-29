@@ -1,5 +1,5 @@
 import click
-from pycardano import Address, TransactionBuilder, TransactionOutput, PlutusData
+from pycardano import Address, TransactionBuilder, TransactionOutput, PlutusData, Unit
 
 from src.utils import get_address, get_signing_info, get_chain_context
 from src.week02 import assets_dir
@@ -35,7 +35,7 @@ def main(name: str, amount: int, script: str):
     # Build the transaction
     builder = TransactionBuilder(context)
     builder.add_input_address(payment_address)
-    datum = PlutusData()  # Plutus Unit type
+    datum = Unit()
     builder.add_output(
         TransactionOutput(address=script_address, amount=amount, datum=datum)
     )
@@ -51,7 +51,7 @@ def main(name: str, amount: int, script: str):
     context.submit_tx(signed_tx)
 
     print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
 
 
 if __name__ == "__main__":
