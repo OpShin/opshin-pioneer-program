@@ -34,7 +34,11 @@ def get_chain_context() -> ChainContext:
             blockfrost_project_id,
             base_url=blockfrost.ApiUrls.preview.value
             if blockfrost_project_id.startswith("preview")
-            else blockfrost.ApiUrls.mainnet.value,
+            else (
+                blockfrost.ApiUrls.preprod.value
+                if blockfrost_project_id.startswith("preprod")
+                else blockfrost.ApiUrls.mainnet.value
+            ),
         )
     chain_backend = os.getenv("CHAIN_BACKEND", "ogmios")
     if chain_backend == "ogmios":
