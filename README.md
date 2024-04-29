@@ -45,37 +45,14 @@ Feel free to follow along in your own pace.
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
 - [Homework](https://youtu.be/9XwBk6IsNuM)
 
-### [Lecture 2](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x1-oF7NDy0MhXxG7k5O6ZOA)
+### [Lecture 2](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM)
 
-- [Low-Level, Untyped Validation Scripts](https://youtu.be/3tcWCZV6L_w)
-  - Study and compare the gift contract in opshin to plutus.
-    - [`src/week02/lecture/gift.py`](src/week02/lecture/gift.py)
-- [Using the Cardano CLI to Interact with Plutus](https://youtu.be/2MbzKzoBiak)
-  - We use PyCardano to create off-chain scripts for our opshin contracts.
-    Run the following python scripts with `poetry run python <script-path>`.
-    The bash scripts using the dockerized Cardano CLI are also provided for reference.
-  - Create your test wallets with `poetry run python scripts/create_key_pair.py --help`
-    - The wallets are generated in the `keys/` directory.
-    - Fund your wallets with the address in `keys/<name>.addr` at the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)
-    - Use the name of your key as arguments for the offchain scripts below.
-  - Look here for offchain code: [`src/week02/scripts/`](src/week02/scripts/). PyCardano examples:
-    - Build the lecture scripts `poetry run python -m src/week02/scripts/build.py`.
-      The output is saved in the `src/week02/assets` folder.
-    - Send ada `poetry run python src/week02/scripts/send.py`
-    - Make gift `poetry run python src/week02/scripts/make_gift.py`
-    - Collect gift `poetry run python src/week02/scripts/collect_gift.py`
-    - You can reference `make_gift.sh` and `collect_gift.sh` for the equivalent using the Cardano CLI,
-      but going forward we will use pycardano to get a consistent and holistic Python experience.
-  - Look here for helper scripts (such as creating a test wallet): `scripts/`
-- [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
-  - Review the rest of the opshin scripts.
-    - [`src/week02/lecture/fourty_two.py`](src/week02/lecture/fourty_two.py)
-    - [`src/week02/lecture/fourty_two_typed.py`](src/week02/lecture/fourty_two_typed.py)
-    - [`src/week02/lecture/custom_types.py`](src/week02/lecture/custom_types.py)
-    - [`src/week02/lecture/burn.py`](src/week02/lecture/burn.py)
-  - You can choose which lecture script to use in `make_gift.py` and `collect_gift.py` with the argument `--script <script-name>`
-- [Summary](https://youtu.be/F5ewN65Mn4I)
-- [Homework](https://youtu.be/OR2IfD4oDjw)
+- [Low-Level, Untyped Validation Scripts](https://youtu.be/8oBZeOcJUTk)
+- [Using the PyCardano to Interact with Smart Contracts](https://youtu.be/TQ8VZvhivEs)
+  - [Using the Cardano CLI to Interact with Smart Contracts](https://youtu.be/2MbzKzoBiak)
+- [High-Level, Typed Validation Scripts](https://youtu.be/7XVeDXAgRPg)
+- [Summary](https://youtu.be/MLfbaBZ10qE)
+- [Homework](https://youtu.be/KFJMhNcMAuU)
   - Complete the following homework files:
     - [`src/week02/homework/homework1.py`](src/week02/homework/homework1.py)
     - [`src/week02/homework/homework2.py`](src/week02/homework/homework2.py)
