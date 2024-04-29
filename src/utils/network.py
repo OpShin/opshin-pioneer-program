@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from pycardano import Network, OgmiosChainContext, ChainContext, BlockFrostChainContext
 import pathlib
 
-if not load_dotenv(
-    dotenv_path=pathlib.Path(__file__).parent.parent.parent / ".env"
-):
-    print("Failed to load .env file. If you are getting errors, please copy .env.example to .env and fill in the values.")
+if not load_dotenv(dotenv_path=pathlib.Path(__file__).parent.parent.parent / ".env"):
+    print(
+        "Failed to load .env file. If you are getting errors, please copy .env.example to .env and fill in the values."
+    )
 
 blockfrost_project_id = os.getenv("BLOCKFROST_PROJECT_ID", None)
 
