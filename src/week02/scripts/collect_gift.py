@@ -60,15 +60,6 @@ def main(name: str, script: str):
             break
     assert isinstance(utxo_to_spend, UTxO), "No script UTxOs found!"
 
-    # Find a collateral UTxO
-    non_nft_utxo = None
-    for utxo in context.utxos(payment_address):
-        # multi_asset should be empty for collateral utxo
-        if not utxo.output.amount.multi_asset:
-            non_nft_utxo = utxo
-            break
-    assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
-
     # Build the transaction
     # no output is specified since everything minus fees is sent to change address
     if script in ["fourty_two", "fourty_two_typed"]:
@@ -81,7 +72,6 @@ def main(name: str, script: str):
         redeemer = Redeemer(0)
     builder = TransactionBuilder(context)
     builder.add_script_input(utxo_to_spend, script=plutus_script, redeemer=redeemer)
-    builder.collaterals.append(non_nft_utxo)
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(name)
@@ -95,7 +85,7 @@ def main(name: str, script: str):
 
     # context.submit_tx(signed_tx.to_cbor())
     print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
 
 
 if __name__ == "__main__":
