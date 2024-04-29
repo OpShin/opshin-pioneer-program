@@ -1,5 +1,6 @@
 import os
 
+import blockfrost
 from dotenv import load_dotenv
 from pycardano import Network, OgmiosChainContext, ChainContext, BlockFrostChainContext
 import pathlib
@@ -29,7 +30,12 @@ else:
 
 def get_chain_context() -> ChainContext:
     if blockfrost_project_id is not None:
-        return BlockFrostChainContext(blockfrost_project_id)
+        return BlockFrostChainContext(
+            blockfrost_project_id,
+            base_url=blockfrost.ApiUrls.preview.value
+            if blockfrost_project_id.startswith("preview")
+            else blockfrost.ApiUrls.mainnet.value,
+        )
     chain_backend = os.getenv("CHAIN_BACKEND", "ogmios")
     if chain_backend == "ogmios":
         return OgmiosChainContext(ws_url=ogmios_url, network=network)

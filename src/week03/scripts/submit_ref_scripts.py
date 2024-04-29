@@ -9,7 +9,13 @@ from pycardano import (
     Value,
     min_lovelace,
 )
-from src.utils import get_address, get_signing_info, network, get_chain_context, get_ref_utxo
+from src.utils import (
+    get_address,
+    get_signing_info,
+    network,
+    get_chain_context,
+    get_ref_utxo,
+)
 from src.week03 import assets_dir
 from src.week03.tests.test_lecture import script_paths
 
