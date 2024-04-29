@@ -36,16 +36,14 @@ The repository contains presented contracts and empty files for homework in the 
 Here's a mapping of the lecture videos on each week and what parts of this repository you can work on for each week.
 Feel free to follow along in your own pace.
 
-### [Lecture 1](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3xFHJJKdyfo9eB0Iw-OQDd)
+### [Lecture 1](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM)
 
-- [Welcome and Introduction](https://youtu.be/g4fBo4QPir0)
-- [Setting up Our Development Environment](https://youtu.be/-cmIqKCzzOU)
+- [Welcome and Introduction](https://youtu.be/vMTi1TS8jec)
+- [Setting up Our Development Environment](https://youtu.be/gETaVhZz0Mw)
 - [Kuber Marketplace Demo](https://youtu.be/ZaB-7ZYBi3g)
 - [Hashing & Digital Signatures](https://youtu.be/f-WKPWbk9Jg)
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
-- [Homework](https://youtu.be/Ey903I-R1KY)
-  - Follow the above installation instructions and get this repository set up locally.
-  - Test your node synchronization with `scripts/query_tip.sh`
+- [Homework](https://youtu.be/9XwBk6IsNuM)
 
 ### [Lecture 2](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x1-oF7NDy0MhXxG7k5O6ZOA)
 
@@ -240,7 +238,7 @@ poetry run python <script-path>
 <a href="https://cardanosolutions.github.io/kupo/">
   <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
 </a>
-  
+
 Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
 These nodes are already fully synced and ready to use. Note that as public endpoints, these nodes may be slow to respond and occasionally fail.
 
