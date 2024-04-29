@@ -65,8 +65,8 @@ Additional Reading: [A Python Language Tour focusing on OpShin](https://book.ops
 
 ### Week 3
 
-- [Script Contexts](https://youtu.be/dcoYrIyEI4o)
-- [Handling Time](https://youtu.be/LPzwMqOnWvk)
+- [Script Contexts](https://youtu.be/HJt_Oli7e10)
+- [Handling Time](https://youtu.be/gObATD-dzrA)
 - [A Vesting Example](https://youtu.be/5D0O7q9UPJA)
   - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
 - [Parameterized Contracts](https://youtu.be/ZSKVu32c5eA)
