@@ -36,7 +36,9 @@ The repository contains presented contracts and empty files for homework in the 
 Here's a mapping of the lecture videos on each week and what parts of this repository you can work on for each week.
 Feel free to follow along in your own pace.
 
-### [Lecture 1](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM)
+The entire playlist for the OpShin Pioneer Program can be found [here](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM).
+
+### Week 1
 
 - [Welcome and Introduction](https://youtu.be/vMTi1TS8jec)
 - [Setting up Our Development Environment](https://youtu.be/gETaVhZz0Mw)
@@ -45,7 +47,7 @@ Feel free to follow along in your own pace.
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
 - [Homework](https://youtu.be/9XwBk6IsNuM)
 
-### [Lecture 2](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM)
+### Week 2
 
 - [Low-Level, Untyped Validation Scripts](https://youtu.be/8oBZeOcJUTk)
 - [Using the PyCardano to Interact with Smart Contracts](https://youtu.be/TQ8VZvhivEs)
@@ -59,7 +61,7 @@ Feel free to follow along in your own pace.
   - You can test your solution with `pytest src/week02/tests/test_homework.py`
   - The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch
 
-### [Lecture 3](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2zXSjHRKLSc5Jn9vJFA3_O)
+### Week 3
 
 - [Script Contexts](https://youtu.be/dcoYrIyEI4o)
 - [Handling Time](https://youtu.be/LPzwMqOnWvk)
@@ -78,8 +80,8 @@ Feel free to follow along in your own pace.
   - Like before, you can run tests with `pytest src/week03/tests`
 - [Summary](https://youtu.be/gxan_u2pStE)
 
-### [Lecture 4](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2j587Ox_nwEzmCO-elk8BG)
-This lecture is about alternative offchain solutions.
+### Week 4
+This week is about alternative offchain solutions.
 We use pycardano, but you can compare and contrast alternatives.
 
 - [On-chain VS Off-chain](https://youtu.be/pTc_BJby5GU)
@@ -94,7 +96,7 @@ We use pycardano, but you can compare and contrast alternatives.
   - Feel free to submit your solution by making a PR to the `solutions` branch!
   - We will continue to implement off-chain code in pycardano for this repository.
 
-### [Lecture 5](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2T1lIR4XnDILKukj3rPapi)
+### Week 5
 
 - [Introduction](https://youtu.be/HgXYsMFqnb4)
 - [Values](https://youtu.be/ThYByMLC0EI)
@@ -111,7 +113,7 @@ We use pycardano, but you can compare and contrast alternatives.
   - Complete the minting policies in [`src/week05/homework`](src/week05/homework).
   - Test your solution with `pytest src/week05/tests`
 
-### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
+### Week 6
 
 - [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
   - You can skip this for opshin.
@@ -134,7 +136,7 @@ We use pycardano, but you can compare and contrast alternatives.
   - Use your completed test to implement a fix to the swap script: [`src/week06/homework/fixed_swap.py`](src/week06/homework/fixed_swap.py)
 
 
-### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
+### Week 7
 This week introduces Marlowe. There won't be any relevant opshin code for this week.
 
 - [Introduction](https://youtu.be/KCWuj2DXEY4)
@@ -148,7 +150,7 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Marlowe Starter Kit: Escrow using the Marlowe Runtime's REST API](https://youtu.be/E8m-PKbS9TI)
 - [Marlowe Starter Kit: Swap contract using the Marlowe Runtime's REST API](https://youtu.be/sSrVCRNoytU)
 
-### [Lecture 8](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x09VdtQTw_UpxUa0bRcrVPI)
+### Week 8
 
 - [Introduction](https://youtu.be/07ATzubeHjo)
 - [The Private Testnet](https://youtu.be/BBqOZAuMx1c)
@@ -156,7 +158,7 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Trying it on the Testnet](https://youtu.be/fzYXwdrfu44)
 - [Homework](https://youtu.be/rO3FVGsuzUg)
 
-### [Lecture 9](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3ZWTpR5lhoVs_DHkebiBcU)
+### Week 9
 
 - [Creating our own Stablecoin Dapp](https://youtu.be/KDzyMy0WN9M)
 - [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
@@ -167,7 +169,7 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
 - [Homework](https://youtu.be/yfmLaLcDjtc)
 
-### [Lecture 10](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1)
+### Week 10
 
 - [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
 - [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
