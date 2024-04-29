@@ -2,12 +2,11 @@ import os
 
 from dotenv import load_dotenv
 from pycardano import Network, OgmiosChainContext, ChainContext, BlockFrostChainContext
+import pathlib
 
-load_dotenv(
-    dotenv_path=os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    )
-)
+assert load_dotenv(
+    dotenv_path=pathlib.Path(__file__).parent.parent.parent / ".env"
+), "Failed to load .env file"
 
 blockfrost_project_id = os.getenv("BLOCKFROST_PROJECT_ID", None)
 
