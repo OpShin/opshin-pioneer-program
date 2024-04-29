@@ -3,6 +3,7 @@ from opshin.prelude import *
 
 @dataclass()
 class MySillyRedeemer(PlutusData):
+    CONSTR_ID = 1
     r: int
 
 
