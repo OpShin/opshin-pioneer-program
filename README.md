@@ -27,71 +27,14 @@ It also comes with off-chain code using [PyCardano](https://github.com/Python-Ca
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
 Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A and interact with other opshin pioneers!
 
-## Installation
-
-1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
-Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
-
-2. Install python poetry.
-Follow the official documentation [here](https://python-poetry.org/docs/#installation).
-
-3. Install a python virtual environment with poetry:
-```bash
-# clone the repository including the config submodule necessary for running the node
-git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
-cd opshin-pioneer-program
-
-# Optional. Use a specific python version
-# replace <version> with 3.8, 3.9, 3.10, or 3.11
-# for this to work, python<version> must be accessible in your command line
-# alternatively provide the path to your python executable
-poetry env use <version>
-
-# install python dependencies
-poetry install
-
-# run a shell with the virtual environment activated
-poetry shell
-
-# If you're not in a shell, you can run python scripts with `poetry run`
-poetry run python <script-path>
-```
-
-### Cardano Node and Ogmios
-
-#### Quick setup
-<a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
-  <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
-</a>
-<a href="https://cardanosolutions.github.io/kupo/">
-  <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
-</a>
-  
-Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
-These nodes are already fully synced and ready to use. Note that as public endpoints, these nodes may be slow to respond and occasionally fail.
-
-Note also that production environments should *always* host their own node in order to guard themselves from failures.
-
-```bash
-export OGMIOS_API_PROTOCOL=wss
-export OGMIOS_API_HOST=ogmios-preview-api-public-e79b24.us1.demeter.run
-export OGMIOS_API_PORT=443
-export KUPO_API_PROTOCOL=https
-export KUPO_API_HOST=kupo-preview-api-public-e79b24.us1.demeter.run
-export KUPO_API_PORT=443
-export CHAIN_BACKEND=kupo
-```
-
-If you want to host the node on your local computer, follow the steps in [Local Setup](#Local-Setup)
-
 ## How to Follow the Pioneer Lectures and Code
 
-As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program.
+As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program, but we have recorded custom versions for sessions that rely on writing code and provide a version that focuses on OpShin for them.
 All covered contracts are (to be) implemented in OpShin in this repository.
 The repository contains presented contracts and empty files for homework in the main branch and a correct solution for homework in the solution branch.
 
-Here's a rough mapping of the original lecture videos and what parts of this repository you can work on for each week.
-Some files may not be documented thoroughly so try to infer the purpose by referring the structure of the lectures.
+Here's a mapping of the lecture videos on each week and what parts of this repository you can work on for each week.
+Feel free to follow along in your own pace.
 
 ### [Lecture 1](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3xFHJJKdyfo9eB0Iw-OQDd)
 
@@ -257,6 +200,63 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Developing smart contracts with OpShin and PyCardano (Python)](https://www.youtube.com/watch?v=Ale01hnxZEg&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=3)
 - [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
 - [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
+
+## Installation
+
+1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
+Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
+
+2. Install python poetry.
+Follow the official documentation [here](https://python-poetry.org/docs/#installation).
+
+3. Install a python virtual environment with poetry:
+```bash
+# clone the repository including the config submodule necessary for running the node
+git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
+cd opshin-pioneer-program
+
+# Optional. Use a specific python version
+# replace <version> with 3.8, 3.9, 3.10, or 3.11
+# for this to work, python<version> must be accessible in your command line
+# alternatively provide the path to your python executable
+poetry env use <version>
+
+# install python dependencies
+poetry install
+
+# run a shell with the virtual environment activated
+poetry shell
+
+# If you're not in a shell, you can run python scripts with `poetry run`
+poetry run python <script-path>
+```
+
+### Cardano Node and Ogmios
+
+#### Quick setup
+<a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
+  <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
+</a>
+<a href="https://cardanosolutions.github.io/kupo/">
+  <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
+</a>
+  
+Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
+These nodes are already fully synced and ready to use. Note that as public endpoints, these nodes may be slow to respond and occasionally fail.
+
+Note also that production environments should *always* host their own node in order to guard themselves from failures.
+
+```bash
+export OGMIOS_API_PROTOCOL=wss
+export OGMIOS_API_HOST=ogmios-preview-api-public-e79b24.us1.demeter.run
+export OGMIOS_API_PORT=443
+export KUPO_API_PROTOCOL=https
+export KUPO_API_HOST=kupo-preview-api-public-e79b24.us1.demeter.run
+export KUPO_API_PORT=443
+export CHAIN_BACKEND=kupo
+```
+
+If you want to host the node on your local computer, follow the steps in [Local Setup](#Local-Setup)
 
 ### Additional Material
 
