@@ -2,17 +2,16 @@
 name = "opshin-pioneer-program"
 version = "0.1.0"
 description = ""
-authors = ["Julius Frost <33183774+juliusfrost@users.noreply.github.com>"]
+authors = ["Julius Frost <33183774+juliusfrost@users.noreply.github.com>", "Niels Mündler <nielstron@opshin.dev>"]
 readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-opshin = "^0.20.0"
-pycardano = "^0.10.0"
+opshin = "^0.23.0"
+pycardano = "^0.12.0"
 click = "^8.1.7"
 pyaiken = {version = "^0.5.1"}
-uplc = "^0.6.7"
 python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
