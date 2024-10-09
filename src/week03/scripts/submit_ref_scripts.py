@@ -1,4 +1,5 @@
 from pathlib import Path
+from time import sleep
 
 import click
 from pycardano import (
@@ -18,6 +19,7 @@ from src.utils import (
     get_chain_context,
     get_ref_utxo,
 )
+from src.utils.network import show_tx
 from src.week03 import assets_dir
 from src.week03.tests.test_lecture import script_paths
 
@@ -48,15 +50,15 @@ def main(owner):
             print(f"reference script UTXO for {script} already exists")
             continue
 
-        txbuilder = TransactionBuilder(context)
-        output = TransactionOutput(
-            contract_script_address, amount=1_000_000, script=contract_plutus_script
-        )
-        output.amount = Value(min_lovelace(context, output))
-        txbuilder.add_output(output)
-        txbuilder.add_input_address(payment_address)
         while True:
             try:
+                txbuilder = TransactionBuilder(context)
+                output = TransactionOutput(
+                    contract_script_address, amount=1_000_000, script=contract_plutus_script
+                )
+                output.amount = Value(min_lovelace(context, output))
+                txbuilder.add_output(output)
+                txbuilder.add_input_address(payment_address)
                 signed_tx = txbuilder.build_and_sign(
                     signing_keys=[payment_skey], change_address=payment_address
                 )
@@ -64,12 +66,11 @@ def main(owner):
                 print(
                     f"creating {script} reference script UTXO; transaction id: {signed_tx.id}"
                 )
-                print(f"transaction id: {signed_tx.id}")
-                print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
+                show_tx(signed_tx)
                 break
             except Exception as e:
-                print(f"error: {e}")
-                pass
+                print(f"error: {e}, waiting for 30s, then retrying")
+                sleep(30)
 
 
 if __name__ == "__main__":

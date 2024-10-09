@@ -380,7 +380,7 @@ def evaluate_script(script_invocation: ScriptInvocation):
 
 
 def get_ref_utxo(contract: pycardano.PlutusV2Script, context: pycardano.ChainContext):
-    script_address = Address(
+    script_address = pycardano.Address(
         payment_part=pycardano.plutus_script_hash(contract), network=network
     )
     for utxo in context.utxos(script_address):

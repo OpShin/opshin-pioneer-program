@@ -14,6 +14,7 @@ from pycardano import (
 )
 
 from src.utils import get_address, get_signing_info, network, get_chain_context
+from src.utils.network import show_tx
 from src.week03 import assets_dir
 from src.week03.lecture.vesting import VestingParams
 
@@ -113,9 +114,7 @@ def main(name: str, parameterized):
     # Submit the transaction
     context.submit_tx(signed_tx)
 
-    # context.submit_tx(signed_tx.to_cbor())
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":
