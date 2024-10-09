@@ -27,6 +27,88 @@ It also comes with off-chain code using [PyCardano](https://github.com/Python-Ca
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
 Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A and interact with other opshin pioneers!
 
+## Installation
+
+1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
+   Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
+
+2. Install python poetry.
+   Follow the official documentation [here](https://python-poetry.org/docs/#installation).
+
+3. Install a python virtual environment with poetry:
+```bash
+# clone the repository including the config submodule necessary for running the node
+git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
+cd opshin-pioneer-program
+
+# Optional. Use a specific python version
+# replace <version> with 3.8, 3.9, 3.10, or 3.11
+# for this to work, python<version> must be accessible in your command line
+# alternatively provide the path to your python executable
+poetry env use <version>
+
+# install python dependencies
+poetry install
+
+# run a shell with the virtual environment activated
+poetry shell
+
+# If you're not in a shell, you can run python scripts with `poetry run`
+poetry run python <script-path>
+```
+
+### Cardano Node and Ogmios
+
+#### Quick setup
+
+> TBD: If you would like to contribute a hosted Ogmios endpoint, please feel free to contribute!
+
+#### Local setup
+
+Minimum Specs for Preview Network:
+- 2 Core CPU
+- 4GB memory
+- 16GB free storage
+
+First install Docker.
+Follow the official documentation [here](https://docs.docker.com/get-docker/).
+
+
+To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
+
+```bash
+# make sure your node configurations are up to date
+git submodule update --init
+# starts a cardano node and ogmios api on the preview testnet
+docker compose up
+```
+
+You can then access the `cardano-cli` using the docker image:
+```bash
+docker run --rm -it \
+  --entrypoint cardano-cli \
+  -e CARDANO_NODE_SOCKET_PATH=/ipc/node.socket \
+  -v opshin-pioneer-program_node-db:/data \
+  -v opshin-pioneer-program_node-ipc:/ipc \
+  inputoutput/cardano-node
+```
+
+#### Kupo (Optional)
+Kupo is a database that supports fast queries to the Cardano blockchain.
+Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
+This adds ~2GB storage and ~2GB memory on the preview network.
+
+```bash
+# starts the cardano node and ogmios with kupo (disabled by default)
+docker compose --profile kupo up
+
+# set the environment variable to use the ogmios + kupo backend
+export CHAIN_BACKEND=kupo
+```
+
+You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
+to ogmios at http://localhost:1337/
+
 ## How to Follow the Pioneer Lectures and Code
 
 As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program, but we have recorded custom versions for sessions that rely on writing code and provide a version that focuses on OpShin for them.
@@ -174,84 +256,3 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
 - [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
 
-## Installation
-
-1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
-Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
-
-2. Install python poetry.
-Follow the official documentation [here](https://python-poetry.org/docs/#installation).
-
-3. Install a python virtual environment with poetry:
-```bash
-# clone the repository including the config submodule necessary for running the node
-git clone --recurse-submodules -j8 https://github.com/OpShin/opshin-pioneer-program.git
-cd opshin-pioneer-program
-
-# Optional. Use a specific python version
-# replace <version> with 3.8, 3.9, 3.10, or 3.11
-# for this to work, python<version> must be accessible in your command line
-# alternatively provide the path to your python executable
-poetry env use <version>
-
-# install python dependencies
-poetry install
-
-# run a shell with the virtual environment activated
-poetry shell
-
-# If you're not in a shell, you can run python scripts with `poetry run`
-poetry run python <script-path>
-```
-
-### Cardano Node and Ogmios
-
-#### Quick setup
-
-> TBD: If you would like to contribute a hosted Ogmios endpoint, please feel free to contribute!
-
-#### Local setup
-
-Minimum Specs for Preview Network:
-- 2 Core CPU
-- 4GB memory
-- 16GB free storage
-
-First install Docker.
-Follow the official documentation [here](https://docs.docker.com/get-docker/).
-
-
-To start a [Cardano Node](https://github.com/input-output-hk/cardano-node) and [Ogmios API](https://ogmios.dev/) use [docker-compose](https://docs.docker.com/get-started/08_using_compose/) in your terminal:
-
-```bash
-# make sure your node configurations are up to date
-git submodule update --init
-# starts a cardano node and ogmios api on the preview testnet
-docker compose up
-```
-
-You can then access the `cardano-cli` using the docker image:
-```bash
-docker run --rm -it \
-  --entrypoint cardano-cli \
-  -e CARDANO_NODE_SOCKET_PATH=/ipc/node.socket \
-  -v opshin-pioneer-program_node-db:/data \
-  -v opshin-pioneer-program_node-ipc:/ipc \
-  inputoutput/cardano-node
-```
-
-#### Kupo (Optional)
-Kupo is a database that supports fast queries to the Cardano blockchain.
-Although not needed for simple use cases, it can offer more speed in exchange for more storage and memory usage.
-This adds ~2GB storage and ~2GB memory on the preview network.
-
-```bash
-# starts the cardano node and ogmios with kupo (disabled by default)
-docker compose --profile kupo up
-
-# set the environment variable to use the ogmios + kupo backend
-export CHAIN_BACKEND=kupo
-```
-
-You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
-to ogmios at http://localhost:1337/
