@@ -46,10 +46,13 @@ def main(name: str, amount: int, script: str):
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(name)
-    signed_tx = builder.build_and_sign(
-        signing_keys=[payment_skey],
-        change_address=payment_address,
-    )
+    try:
+        signed_tx = builder.build_and_sign(
+            signing_keys=[payment_skey],
+            change_address=payment_address,
+        )
+    except Exception as e:
+        print(f"Transaction building failed: {e}. A likely cause is missing funds at address {name} / {payment_address}, did you request funds from the cardano testnet faucet?")
 
     # Submit the transaction
     context.submit_tx(signed_tx)

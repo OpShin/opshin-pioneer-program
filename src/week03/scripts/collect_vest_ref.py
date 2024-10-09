@@ -76,7 +76,7 @@ def main(name: str, parameterized):
                 ):
                     utxo_to_spend = utxo
                     break
-    assert isinstance(utxo_to_spend, UTxO), "No script UTxOs found!"
+    assert isinstance(utxo_to_spend, UTxO), f"No script UTxOs found! Make a vest to the vesting contract with beneficiary {payment_address} to resolve this."
 
     # Find a collateral UTxO
     non_nft_utxo = None
@@ -85,7 +85,7 @@ def main(name: str, parameterized):
         if not utxo.output.amount.multi_asset and utxo.output.amount.coin >= 5000000:
             non_nft_utxo = utxo
             break
-    assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
+    assert isinstance(non_nft_utxo, UTxO), f"No collateral UTxOs found! Send some funds to {payment_address} to resolve this."
 
     # Make redeemer
     redeemer = Redeemer(0)
