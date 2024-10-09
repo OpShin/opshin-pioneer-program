@@ -2,6 +2,7 @@ import click
 from pycardano import TransactionBuilder, TransactionOutput
 
 from src.utils import get_address, get_signing_info, get_chain_context
+from src.utils.network import show_tx
 
 
 @click.command()
@@ -9,6 +10,9 @@ from src.utils import get_address, get_signing_info, get_chain_context
 @click.argument("recipient")
 @click.option("--amount", type=int, default=5000000)
 def main(name, recipient, amount):
+    """
+    Send funds (AMOUNT lovelace) from NAME to RECIPIENT.
+    """
     context = get_chain_context()
 
     payment_address = get_address(name)
@@ -26,8 +30,7 @@ def main(name, recipient, amount):
     )
 
     context.submit_tx(signed_tx)
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":
