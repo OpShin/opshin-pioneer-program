@@ -15,6 +15,7 @@ from pycardano import (
 )
 
 from src.utils import get_address, get_signing_info, get_chain_context
+from src.utils.network import show_tx
 from src.week05 import assets_dir, lecture_dir
 
 
@@ -114,8 +115,7 @@ def main(
     # Submit the transaction
     context.submit_tx(signed_tx)
 
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":
