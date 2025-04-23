@@ -1,11 +1,10 @@
 services:
   ogmios:
-    image: cardanosolutions/cardano-node-ogmios:v6.7.1_9.1.1-${NETWORK:-preview}
+    image: cardanosolutions/cardano-node-ogmios:latest-${NETWORK:-preview}
     platform: linux/amd64
     command: [
     ]
     volumes:
-      # - ./cardano-configurations/network/${NETWORK:-preview}:/config
       - node-ipc-${NETWORK:-preview}:/ipc
       - node-db-${NETWORK:-preview}:/db
     ports:
