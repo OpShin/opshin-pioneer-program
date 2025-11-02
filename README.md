@@ -162,11 +162,11 @@ Complete the homework files in [`src/week03/homework/`](src/week03/homework/). L
 This week is about alternative offchain solutions.
 We use pycardano, but you can compare and contrast alternatives.
 
-- [On-chain VS Off-chain](https://youtu.be/pTc_BJby5GU)
+- [On-chain VS Off-chain](https://youtu.be/VOi3V-Hhh4M)
 - [Off-chain Code with Cardano CLI and GUI](https://youtu.be/gsgQ-xmzbpA)
 - [Off-chain Code with Kuber](https://youtu.be/fzib9ALlL2M)
 - [Off-chain Code with Lucid](https://youtu.be/BXz5V2rjbiE)
-- [Homework](https://youtu.be/2Qm2xgmtbk4)
+- [Homework](https://youtu.be/oDs5pamPtdk)
   - Implement the offchain code for the files in [`src/week04/homework`](src/week04/homework).
   - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
   - There is no correct solution for this week as solutions can very widely.
@@ -176,40 +176,39 @@ We use pycardano, but you can compare and contrast alternatives.
 
 ### Week 5
 
-- [Introduction](https://youtu.be/HgXYsMFqnb4)
-- [Values](https://youtu.be/ThYByMLC0EI)
-- [A Simple Minting Policy](https://youtu.be/g_VoKPK-tk0)
+- [Introduction](https://youtu.be/oO24ymjqGNM)
+- [Values](https://youtu.be/h12DDxu1YC8)
+- [A Simple Minting Policy](https://youtu.be/KD-trbQCGNA)
   - [`src/week05/lecture/free.py`](src/week05/lecture/free.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=free WALLET_NAME TOKEN_NAME`
-- [A More Realistic Minting Policy](https://youtu.be/Faru8_Br2Xg)
+- [A More Realistic Minting Policy](https://youtu.be/rW4txCwfJ5k)
   - [`src/week05/lecture/signed.py`](src/week05/lecture/signed.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=signed WALLET_NAME TOKEN_NAME`
-- [NFT's](https://youtu.be/9kW-z_RuwEY)
+- [NFT's](https://youtu.be/bUDkAjb18M4)
   - [`src/week05/lecture/nft.py`](src/week05/lecture/nft.py)
   - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
-- [Homework](https://youtu.be/nQC_GNPIRT8)
+- [Homework](https://youtu.be/tVXLQCXfcf4)
   - Complete the minting policies in [`src/week05/homework`](src/week05/homework).
   - Test your solution with `pytest src/week05/tests`
 
 ### Week 6
 
-- [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
-  - You can skip this for opshin.
-- [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
+- [Introduction](https://youtu.be/41MDqzBDhSU)
+- [Mock Environment](https://youtu.be/S9cRbs0w01Y)
   - We implement `MockChainContext` and `MockUser` in [`src/utils/mock.py`](src/utils/mock.py).
     These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
   - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
     - `poetry install --sync --extras=pyaiken`
   - We implement a simple test in [`src/week06/tests/test_mock.py`](src/week06/tests/test_mock.py) with simulated spending and multiple users.
-- [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
+- [Unit Testing a Smart Contract](https://youtu.be/wsXT-NOalQk)
   - Unit tests located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
-- [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
+- [Property Testing a Smart Contract](https://youtu.be/NJAQZmPZhck)
   - Property tests also located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
   - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
     to get familiar with property testing in Python.
 - [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
   - N/A.
-- [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
+- [Homework](https://youtu.be/8io2wbyQ6dw)
   - Complete the following test [`src/week06/homework/test_exploitable_swap.py`](src/week06/homework/test_exploitable_swap.py)
   - Use your completed test to implement a fix to the swap script: [`src/week06/homework/fixed_swap.py`](src/week06/homework/fixed_swap.py)
 
