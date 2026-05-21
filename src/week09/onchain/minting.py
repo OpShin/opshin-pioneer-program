@@ -1,4 +1,4 @@
-from src.week09.on_chain.common import *
+from src.week09.onchain.common import *
 
 
 @dataclass()
@@ -59,17 +59,19 @@ class CollateralOutput(PlutusData):
     value: Value
 
 
+def is_collateral_addr(addr: Address, collateral_validator: ValidatorHash) -> bool:
+    """True iff `addr` is the script address controlled by `collateral_validator`."""
+    staking_cred = addr.staking_credential
+    result = False
+    if isinstance(staking_cred, NoStakingCredential):
+        payment_cred = addr.payment_credential
+        if payment_cred.credential_hash == collateral_validator:
+            result = True
+    return result
+
+
 def collateral_output(mp: MintParams, context: ScriptContext) -> CollateralOutput:
     """Get the collateral's output datum and value"""
-
-    def correct_addr(addr: Address) -> bool:
-        staking_cred = addr.staking_credential
-        result = False
-        if isinstance(staking_cred, NoStakingCredential):
-            payment_cred = addr.payment_credential
-            if payment_cred.credential_hash == mp.collateral_validator:
-                result = True
-        return result
 
     def get_collateral_output(output: TxOut) -> CollateralOutput:
         datum = parse_collateral_datum_unsafe(output, context.tx_info)
@@ -78,7 +80,7 @@ def collateral_output(mp: MintParams, context: ScriptContext) -> CollateralOutpu
     outputs = [
         get_collateral_output(output)
         for output in context.tx_info.outputs
-        if correct_addr(output.address)
+        if is_collateral_addr(output.address, mp.collateral_validator)
     ]
     assert len(outputs) == 1, "expected exactly one collateral output"
     return outputs[0]

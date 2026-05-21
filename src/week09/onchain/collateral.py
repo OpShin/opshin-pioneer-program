@@ -1,6 +1,6 @@
 from opshin.prelude import *
 
-from src.week09.on_chain.common import *
+from src.week09.onchain.common import *
 
 
 @dataclass()

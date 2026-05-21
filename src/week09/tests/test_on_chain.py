@@ -1,7 +1,7 @@
 import pytest
 from opshin import compiler
 
-from src.week09 import on_chain_dir
+from src.week09 import onchain_dir
 
 python_files = [
     "collateral.py",
@@ -9,7 +9,7 @@ python_files = [
     "nft.py",
     "oracle.py",
 ]
-script_paths = [str(on_chain_dir.joinpath(f)) for f in python_files]
+script_paths = [str(onchain_dir.joinpath(f)) for f in python_files]
 
 
 @pytest.mark.parametrize("path", script_paths)
