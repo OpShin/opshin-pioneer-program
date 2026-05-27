@@ -1,83 +1,42 @@
-#!/usr/bin/env bash
-#
-# Withdraw all rewards accumulated at the script-controlled stake address,
-# paying at least half of the withdrawn amount back to the address the
-# staking validator was parameterised with (`--address` of build.py).
-#
-# Mirrors `withdraw-user1-script.sh` from Plutus Pioneer Program Week 8.
-#
-# Usage:
-#     src/week08/scripts/withdraw.sh <WALLET_NAME> <TXIN> <BECH32_PAYOUT_ADDR>
-#
-# `TXIN` pays fees and acts as collateral. `BECH32_PAYOUT_ADDR` is the
-# address that will receive half (rounded up) of the withdrawn rewards —
-# it must match the address `build.py` was parameterised with, otherwise
-# the validator will reject the withdrawal.
+#!/bin/bash
 
-set -euo pipefail
-
-if [ $# -ne 3 ]; then
-    echo "usage: $0 <WALLET_NAME> <TXIN> <BECH32_PAYOUT_ADDR>" >&2
-    exit 1
-fi
-
-wallet=$1
-txin=$2
-payout_addr=$3
-
-testnet_magic=${TESTNET_MAGIC:-2}
-root=$(git rev-parse --show-toplevel)
-week=$root/src/week08
-tmp=$week/tmp
-mkdir -p "$tmp"
-
-script_plutus=$week/assets/staking/script.plutus
-stake_addr=$tmp/script-stake.addr
-payment_addr=$tmp/script-payment.addr
+txin=$1
+tmp=/workspace/src/week08/tmp
+amt1=$(/workspace/src/week08/scripts/query-stake-address-info-user1-script.sh | jq .[0].rewardAccountBalance)
+amt2=$(expr $amt1 / 2 + 1)
 pp=$tmp/protocol-params.json
 body=$tmp/tx.txbody
 signed=$tmp/tx.tx
 
-[ -f "$script_plutus" ] || {
-    echo "Missing $script_plutus. Run register-and-delegate.sh first." >&2
-    exit 1
-}
-[ -f "$stake_addr" ] || {
-    echo "Missing $stake_addr. Run register-and-delegate.sh first." >&2
-    exit 1
-}
+echo "txin = $1"
+echo "amt1 = $amt1"
+echo "amt2 = $amt2"
 
-# Query reward balance.
-amt1=$(cardano-cli query stake-address-info \
-    --testnet-magic "$testnet_magic" \
-    --address "$(cat "$stake_addr")" | jq '.[0].rewardAccountBalance')
-amt2=$(( amt1 / 2 + 1 ))
-echo "rewards available : $amt1"
-echo "paying to address : $amt2"
+export CARDANO_NODE_SOCKET_PATH=/workspace/cardano-private-testnet-setup/private-testnet/node-spo1/node.sock
 
 cardano-cli query protocol-parameters \
-    --testnet-magic "$testnet_magic" \
-    --out-file "$pp"
+    --testnet-magic 42 \
+    --out-file $pp
 
 cardano-cli transaction build \
     --babbage-era \
-    --testnet-magic "$testnet_magic" \
-    --change-address "$(cat "$payment_addr")" \
-    --out-file "$body" \
-    --tx-in "$txin" \
-    --tx-in-collateral "$txin" \
-    --tx-out "$payout_addr+$amt2 lovelace" \
-    --withdrawal "$(cat "$stake_addr")+$amt1" \
-    --withdrawal-script-file "$script_plutus" \
-    --withdrawal-redeemer-file "$week/assets/unit.json" \
-    --protocol-params-file "$pp"
+    --testnet-magic 42 \
+    --change-address $(cat $tmp/user1-script.addr) \
+    --out-file $body \
+    --tx-in $txin \
+    --tx-out "$(cat /workspace/cardano-private-testnet-setup/private-testnet/addresses/payment2.addr)+$amt2 lovelace" \
+    --tx-in-collateral $txin \
+    --withdrawal "$(cat $tmp/user1-script-stake.addr)+$amt1" \
+    --withdrawal-script-file /workspace/src/week08/assets/staking/script.plutus \
+    --withdrawal-redeemer-file /workspace/src/week08/assets/unit.json \
+    --protocol-params-file $pp
 
 cardano-cli transaction sign \
-    --testnet-magic "$testnet_magic" \
-    --tx-body-file "$body" \
-    --out-file "$signed" \
-    --signing-key-file "$root/keys/$wallet.skey"
+    --testnet-magic 42 \
+    --tx-body-file $body \
+    --out-file $signed \
+    --signing-key-file /workspace/cardano-private-testnet-setup/private-testnet/stake-delegator-keys/payment1.skey
 
 cardano-cli transaction submit \
-    --testnet-magic "$testnet_magic" \
-    --tx-file "$signed"
+    --testnet-magic 42 \
+    --tx-file $signed

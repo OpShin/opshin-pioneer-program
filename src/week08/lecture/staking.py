@@ -32,10 +32,6 @@ def lovelace_paid_to(addr: Address, outputs: List[TxOut]) -> int:
 
 
 def validator(addr: Address, redeemer: None, context: ScriptContext) -> None:
-
-# def validator(redeemer: None, context: ScriptContext) -> None:
-#     pass
-
     purpose = context.purpose
     if isinstance(purpose, Certifying):
         # Anything goes for registration / de-registration / delegation.
