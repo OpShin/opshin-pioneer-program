@@ -124,6 +124,7 @@ The entire playlist for the OpShin Pioneer Program can be found [here](https://w
 
 - [Welcome and Introduction](https://youtu.be/vMTi1TS8jec)
 - [Setting up Our Development Environment](https://youtu.be/gETaVhZz0Mw)
+  - Check your local Cardano connection with `poetry run python src/week01/scripts/check_setup.py`.
 - [Kuber Marketplace Demo](https://youtu.be/ZaB-7ZYBi3g)
 - [Hashing & Digital Signatures](https://youtu.be/f-WKPWbk9Jg)
 - [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
@@ -135,6 +136,10 @@ Recommended Reading: [A Python Language Tour focusing on OpShin](https://book.op
 
 - [Low-Level, Untyped Validation Scripts](https://youtu.be/8oBZeOcJUTk)
 - [Using the PyCardano to Interact with Smart Contracts](https://youtu.be/TQ8VZvhivEs)
+  - Build the lecture scripts with `poetry run python src/week02/scripts/build.py`.
+  - Send funds between known wallets with `poetry run python src/week02/scripts/send.py NAME RECIPIENT --amount LOVELACE`.
+  - Lock funds at a lecture script with `poetry run python src/week02/scripts/make_gift.py NAME --script=gift`.
+  - Collect them again with `poetry run python src/week02/scripts/collect_gift.py NAME --script=gift`.
   - [Using the Cardano CLI to Interact with Smart Contracts](https://youtu.be/2MbzKzoBiak)
 - [High-Level, Typed Validation Scripts](https://youtu.be/7XVeDXAgRPg)
 - [Summary](https://youtu.be/MLfbaBZ10qE)
@@ -149,10 +154,18 @@ The solutions are available at on the [`solutions`](https://github.com/OpShin/op
 - [Script Contexts](https://youtu.be/HJt_Oli7e10)
 - [Handling Time](https://youtu.be/gObATD-dzrA)
 - [A Vesting Example](https://youtu.be/L3NPepcqTWE)
+  - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
+  - Build the lecture scripts with `poetry run python src/week03/scripts/build.py`.
+  - Lock funds until a deadline with `poetry run python src/week03/scripts/make_vest.py NAME BENEFICIARY --wait_time SECONDS`.
+  - Collect matured funds with `poetry run python src/week03/scripts/collect_vest.py BENEFICIARY`.
 - [Parameterized Contracts](https://youtu.be/1cBkQIufjTA)
+  - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
+  - Add `--parameterized` to `make_vest.py` and `collect_vest.py` to use the parameterized validator.
 - [Offchain Code with PyCardano](https://youtu.be/ILJ_mlOwuUQ)
   - If you want to look at an example in Lucid, check out the original PPP video: [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
 - [Reference Scripts](https://youtu.be/b45MMtuby-U)
+  - Submit reference scripts with `poetry run python src/week03/scripts/submit_ref_scripts.py OWNER`.
+  - Spend using a reference script with `poetry run python src/week03/scripts/collect_vest_ref.py BENEFICIARY`.
 - [Homework](https://youtu.be/NQIqCozYkss)
 - [Summary](https://youtu.be/g28zeIRExeg)
 
@@ -214,7 +227,7 @@ We use pycardano, but you can compare and contrast alternatives.
 
 
 ### Week 7
-This week introduces Marlowe. There won't be any relevant opshin code for this week.
+This week introduces Marlowe in a guest lecture by IOG Academy. There won't be any relevant OpShin code for this week.
 
 - [Introduction](https://youtu.be/KCWuj2DXEY4)
 - [Marlowe Playground Demo](https://youtu.be/fldaBHmYfqk)
@@ -232,18 +245,32 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Introduction](https://youtu.be/0b8bsvEc0CQ)
 - [The Private Testnet](https://youtu.be/TJfEDOUIYIw)
 - [Plutus & Staking](https://youtu.be/2uOfkyQY9BI)
+  - [`src/week08/lecture/staking.py`](src/week08/lecture/staking.py)
+  - Build the staking validator with `poetry run python src/week08/scripts/build.py --address BECH32_ADDRESS`.
 - [Trying it on the Testnet](https://youtu.be/9XvXsXCEvag)
+  - The shell scripts in [`src/week08/scripts/`](src/week08/scripts/) expect the private testnet container paths.
+  - Query the node with `src/week08/scripts/query-tip.sh` and list pools with `src/week08/scripts/query-stake-pools.sh`.
+  - Register and delegate the script stake credential with `src/week08/scripts/register-and-delegate.sh TXIN`.
+  - Inspect rewards with `src/week08/scripts/query-stake-address-info-user1-script.sh` and withdraw with `src/week08/scripts/withdraw.sh TXIN`.
 - [Homework](https://youtu.be/6nLPgIS8opY)
+  - Complete the staking validator in [`src/week08/homework/homework.py`](src/week08/homework/homework.py).
 
 ### Week 9
 
 - [Creating our own Stablecoin Dapp](https://youtu.be/UErA55ke65w)
 - [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
+  - The frontend lives in [`src/week09/offchain/frontend/`](src/week09/offchain/frontend/).
+  - Run it with `cd src/week09/offchain/frontend && npm install && npm run dev`.
 - [Stablecoin's Oracle](https://youtu.be/e5HCblt7glM)
+  - [`src/week09/onchain/oracle.py`](src/week09/onchain/oracle.py)
+  - [`src/week09/onchain/nft.py`](src/week09/onchain/nft.py)
 - [Deploying Stablecoin's Reference scripts](https://youtu.be/AokRj-upwlY)
+  - [`src/week09/onchain/collateral.py`](src/week09/onchain/collateral.py)
+  - [`src/week09/onchain/minting.py`](src/week09/onchain/minting.py)
 - [Minting Stablecoins](https://youtu.be/pM0JV2uZpjE)
 - [Burning Stablecoins and Liquidating positions](https://youtu.be/8f00hE_pN90)
 - [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
+  - Test the on-chain scripts with `pytest src/week09/tests/test_on_chain.py`.
 - [Homework](https://youtu.be/1OQiRovbt3w)
 
 ### Week 10
@@ -252,5 +279,8 @@ This week introduces Marlowe. There won't be any relevant opshin code for this w
 - [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
 - [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
 - [Developing smart contracts with Plutus (Haskell)](https://youtu.be/pj6RkOxQygY)
+  - Compare the PlutusTx vesting validator in [`src/week10/lecture/Vesting.hs`](src/week10/lecture/Vesting.hs) with the opshin version from week 3.
+  - Build the PlutusTx validator with `src/week10/scripts/build.sh`.
+  - The generated script is copied to `src/week10/assets/vesting.plutus`.
 - [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
 - [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
