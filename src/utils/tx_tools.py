@@ -1,11 +1,11 @@
 from functools import cache
 from typing import Optional
 
-import pyaiken
 import pycardano
 import uplc
 from opshin.prelude import *
 from src.utils import network
+from uplc.cost_model import Budget
 
 
 def to_staking_credential(
@@ -158,6 +158,20 @@ def to_redeemer_purpose(r: pycardano.Redeemer, tx_body: pycardano.TransactionBod
         raise NotImplementedError()
 
 
+def iter_redeemers(redeemers: pycardano.Redeemers) -> List[pycardano.Redeemer]:
+    if redeemers is None:
+        return []
+    if isinstance(redeemers, pycardano.RedeemerMap):
+        ret = []
+        for key, value in redeemers.items():
+            redeemer = pycardano.Redeemer(value.data, value.ex_units)
+            redeemer.tag = key.tag
+            redeemer.index = key.index
+            ret.append(redeemer)
+        return ret
+    return redeemers
+
+
 def to_tx_info(
     tx: pycardano.Transaction,
     resolved_inputs: List[pycardano.TransactionOutput],
@@ -172,11 +186,7 @@ def to_tx_info(
     ]
     if tx.transaction_witness_set.plutus_data:
         datums += tx.transaction_witness_set.plutus_data
-    redeemers = (
-        tx.transaction_witness_set.redeemer
-        if tx.transaction_witness_set.redeemer
-        else []
-    )
+    redeemers = iter_redeemers(tx.transaction_witness_set.redeemer)
     return TxInfo(
         [to_tx_in_info(i, o) for i, o in zip(tx_body.inputs, resolved_inputs)],
         [
@@ -259,7 +269,7 @@ def generate_script_contexts_resolved(
         try:
             spending_redeemer = next(
                 r
-                for r in tx.transaction_witness_set.redeemer
+                for r in iter_redeemers(tx.transaction_witness_set.redeemer)
                 if r.index == i and r.tag == pycardano.RedeemerTag.SPEND
             )
         except (StopIteration, TypeError):
@@ -311,7 +321,7 @@ def generate_script_contexts_resolved(
         try:
             minting_redeemer = next(
                 r
-                for r in tx.transaction_witness_set.redeemer
+                for r in iter_redeemers(tx.transaction_witness_set.redeemer)
                 if r.index == i and r.tag == pycardano.RedeemerTag.MINT
             )
         except StopIteration:
@@ -349,33 +359,31 @@ def uplc_unflat(hex: str):
 
 
 def evaluate_script(script_invocation: ScriptInvocation):
-    uplc_program = uplc_unflat(script_invocation.script.hex()).dumps(
-        dialect=uplc.UPLCDialect.Aiken
-    )
+    uplc_program = uplc_unflat(script_invocation.script.hex())
     args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
-    program_args = []
-    for a in args:
-        data = f"(con data #{PlutusData.to_cbor(a).hex()})"
-        program_args.append(data)
+    program_args = [uplc.ast.data_from_cbor(PlutusData.to_cbor(a)) for a in args]
     allowed_cpu_steps = script_invocation.redeemer.ex_units.steps
     allowed_mem_steps = script_invocation.redeemer.ex_units.mem
-    ((suc, err), logs, (remaining_cpu_steps, remaining_mem_steps)) = pyaiken.uplc.eval(
-        uplc_program, program_args, allowed_cpu_steps, allowed_mem_steps
+    result = uplc.eval(
+        uplc_program,
+        *program_args,
+        budget=Budget(allowed_cpu_steps, allowed_mem_steps),
     )
-    if logs:
+    err = result.result if isinstance(result.result, Exception) else None
+    if result.logs:
         print("Script debug logs:")
         print("==================")
-        print("\n".join(logs))
+        print("\n".join(result.logs))
         print("==================")
     return (
-        (suc, err),
+        (err is None, err),
         (
-            remaining_cpu_steps,
-            remaining_mem_steps,
+            result.cost.cpu,
+            result.cost.memory,
         ),
-        logs,
+        result.logs,
     )
 
 

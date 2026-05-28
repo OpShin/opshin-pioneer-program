@@ -210,8 +210,8 @@ We use pycardano, but you can compare and contrast alternatives.
 - [Mock Environment](https://youtu.be/S9cRbs0w01Y)
   - We implement `MockChainContext` and `MockUser` in [`src/utils/mock.py`](src/utils/mock.py).
     These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
-  - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
-    - `poetry install --sync --extras=pyaiken`
+  - Make sure you have the latest dependencies installed; we use `uplc` to evaluate transactions without the node.
+    - `poetry install --sync`
   - We implement a simple test in [`src/week06/tests/test_mock.py`](src/week06/tests/test_mock.py) with simulated spending and multiple users.
 - [Unit Testing a Smart Contract](https://youtu.be/wsXT-NOalQk)
   - Unit tests located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
