@@ -37,9 +37,7 @@ def validator(addr: Address, redeemer: None, context: ScriptContext) -> None:
         # Anything goes for registration / de-registration / delegation.
         pass
     elif isinstance(purpose, Rewarding):
-        amount = withdrawal_amount(
-            purpose.staking_credential, context.tx_info.wdrl
-        )
+        amount = withdrawal_amount(purpose.staking_credential, context.tx_info.wdrl)
         paid = lovelace_paid_to(addr, context.tx_info.outputs)
         assert 2 * paid >= amount, "insufficient reward sharing"
     else:

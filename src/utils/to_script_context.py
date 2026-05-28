@@ -25,6 +25,7 @@ def to_payment_credential(
         return ScriptCredential(ValidatorHash(c.payload))
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
+
 def to_staking_credential(
     sk: Union[
         pycardano.VerificationKeyHash,

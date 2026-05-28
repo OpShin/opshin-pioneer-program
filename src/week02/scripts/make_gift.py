@@ -52,7 +52,9 @@ def main(name: str, amount: int, script: str):
             change_address=payment_address,
         )
     except Exception as e:
-        print(f"Transaction building failed: {e}. A likely cause is missing funds at address {name} / {payment_address}, did you request funds from the cardano testnet faucet?")
+        print(
+            f"Transaction building failed: {e}. A likely cause is missing funds at address {name} / {payment_address}, did you request funds from the cardano testnet faucet?"
+        )
 
     # Submit the transaction
     context.submit_tx(signed_tx)

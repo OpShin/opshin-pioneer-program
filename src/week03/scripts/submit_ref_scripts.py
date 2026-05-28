@@ -54,7 +54,9 @@ def main(owner):
             try:
                 txbuilder = TransactionBuilder(context)
                 output = TransactionOutput(
-                    contract_script_address, amount=1_000_000, script=contract_plutus_script
+                    contract_script_address,
+                    amount=1_000_000,
+                    script=contract_plutus_script,
                 )
                 output.amount = Value(min_lovelace(context, output))
                 txbuilder.add_output(output)

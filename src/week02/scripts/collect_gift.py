@@ -62,7 +62,9 @@ def main(name: str, script: str):
         if utxo.output.datum:
             utxo_to_spend = utxo
             break
-    assert isinstance(utxo_to_spend, UTxO), f"No script UTxOs found! Execute make gift with --script {script} to deposit funds at the address."
+    assert isinstance(
+        utxo_to_spend, UTxO
+    ), f"No script UTxOs found! Execute make gift with --script {script} to deposit funds at the address."
 
     # Build the transaction
     # no output is specified since everything minus fees is sent to change address

@@ -22,7 +22,6 @@ from src.utils import to_address
 from src.week08 import assets_dir, lecture_dir
 
 
-
 @click.command()
 @click.option(
     "--address",
@@ -39,7 +38,7 @@ def main(addr: str):
     out_dir = assets_dir.joinpath("staking")
     out_dir.mkdir(exist_ok=True)
     args = (to_address(address).to_json(),)
-#    args = ()
+    #    args = ()
 
     script = Path(script_path)
     command = [

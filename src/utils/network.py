@@ -4,8 +4,14 @@ import sys
 import blockfrost
 from dotenv import load_dotenv
 from opshin.ledger.api_v2 import TxOut
-from pycardano import Network, OgmiosChainContext, ChainContext, BlockFrostChainContext, KupoOgmiosV6ChainContext, \
-    Transaction
+from pycardano import (
+    Network,
+    OgmiosChainContext,
+    ChainContext,
+    BlockFrostChainContext,
+    KupoOgmiosV6ChainContext,
+    Transaction,
+)
 import pathlib
 
 if not load_dotenv(dotenv_path=pathlib.Path(__file__).parent.parent.parent / ".env"):
@@ -48,11 +54,23 @@ def get_chain_context() -> ChainContext:
         )
     chain_backend = os.getenv("CHAIN_BACKEND", "ogmios")
     if chain_backend == "ogmios":
-        return OgmiosChainContext(host=ogmios_host, port=ogmios_port, secure=ogmios_protocol=="wss", network=network)
+        return OgmiosChainContext(
+            host=ogmios_host,
+            port=ogmios_port,
+            secure=ogmios_protocol == "wss",
+            network=network,
+        )
     elif chain_backend == "kupo":
-        return KupoOgmiosV6ChainContext(host=ogmios_host, port=ogmios_port, secure=ogmios_protocol=="wss", network=network, kupo_url=kupo_url)
+        return KupoOgmiosV6ChainContext(
+            host=ogmios_host,
+            port=ogmios_port,
+            secure=ogmios_protocol == "wss",
+            network=network,
+            kupo_url=kupo_url,
+        )
     else:
         raise ValueError(f"Chain backend not found: {chain_backend}")
+
 
 def show_tx(tx: Transaction):
     print(f"transaction id: {tx.id}")
