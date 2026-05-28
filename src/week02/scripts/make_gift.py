@@ -2,6 +2,7 @@ import click
 from pycardano import Address, TransactionBuilder, TransactionOutput, PlutusData, Unit
 
 from src.utils import get_address, get_signing_info, get_chain_context
+from src.utils.network import show_tx
 from src.week02 import assets_dir
 
 
@@ -22,6 +23,9 @@ from src.week02 import assets_dir
     help="Which lecture script address to send funds to.",
 )
 def main(name: str, amount: int, script: str):
+    """
+    Send (AMOUNT lovelace) from NAME to a smart contract with the correct attached datum.
+    """
     # Load chain context
     context = get_chain_context()
 
@@ -42,16 +46,20 @@ def main(name: str, amount: int, script: str):
 
     # Sign the transaction
     payment_vkey, payment_skey, payment_address = get_signing_info(name)
-    signed_tx = builder.build_and_sign(
-        signing_keys=[payment_skey],
-        change_address=payment_address,
-    )
+    try:
+        signed_tx = builder.build_and_sign(
+            signing_keys=[payment_skey],
+            change_address=payment_address,
+        )
+    except Exception as e:
+        print(
+            f"Transaction building failed: {e}. A likely cause is missing funds at address {name} / {payment_address}, did you request funds from the cardano testnet faucet?"
+        )
 
     # Submit the transaction
     context.submit_tx(signed_tx)
 
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preview.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":

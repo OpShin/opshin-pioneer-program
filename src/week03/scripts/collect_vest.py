@@ -10,9 +10,11 @@ from pycardano import (
     Redeemer,
     VerificationKeyHash,
     RawPlutusData,
+    RawCBOR,
 )
 
 from src.utils import get_address, get_signing_info, network, get_chain_context
+from src.utils.network import show_tx
 from src.week03 import assets_dir
 from src.week03.lecture.vesting import VestingParams
 
@@ -59,6 +61,11 @@ def main(name: str, parameterized):
                         params = VestingParams.from_cbor(utxo.output.datum.to_cbor())
                     except Exception:
                         continue
+                elif isinstance(utxo.output.datum, RawCBOR):
+                    try:
+                        params = VestingParams.from_cbor(utxo.output.datum.cbor)
+                    except Exception:
+                        continue
                 elif isinstance(utxo.output.datum, VestingParams):
                     params = utxo.output.datum
                 else:
@@ -69,7 +76,9 @@ def main(name: str, parameterized):
                 ):
                     utxo_to_spend = utxo
                     break
-    assert isinstance(utxo_to_spend, UTxO), "No script UTxOs found!"
+    assert isinstance(
+        utxo_to_spend, UTxO
+    ), f"No script UTxOs found! Make a vest to the vesting contract with beneficiary {payment_address} to resolve this."
 
     # Find a collateral UTxO
     non_nft_utxo = None
@@ -78,7 +87,9 @@ def main(name: str, parameterized):
         if not utxo.output.amount.multi_asset and utxo.output.amount.coin >= 5000000:
             non_nft_utxo = utxo
             break
-    assert isinstance(non_nft_utxo, UTxO), "No collateral UTxOs found!"
+    assert isinstance(
+        non_nft_utxo, UTxO
+    ), f"No collateral UTxOs found! Send some funds to {payment_address} to resolve this."
 
     # Make redeemer
     redeemer = Redeemer(0)
@@ -107,9 +118,7 @@ def main(name: str, parameterized):
     # Submit the transaction
     context.submit_tx(signed_tx)
 
-    # context.submit_tx(signed_tx.to_cbor())
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":

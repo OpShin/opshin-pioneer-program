@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import time
 
 import click
@@ -11,6 +12,7 @@ from pycardano import (
 )
 
 from src.utils import get_address, get_signing_info, get_chain_context
+from src.utils.network import show_tx
 from src.week03 import assets_dir, lecture_dir
 from src.week03.lecture.vesting import VestingParams
 
@@ -56,6 +58,8 @@ def main(name: str, beneficiary: str, amount: int, wait_time: int, parameterized
         script_path = lecture_dir.joinpath("parameterized_vesting.py")
         subprocess.run(
             [
+                sys.executable,
+                "-m",
                 "opshin",
                 "-o",
                 str(save_path),
@@ -97,8 +101,7 @@ def main(name: str, beneficiary: str, amount: int, wait_time: int, parameterized
     # Submit the transaction
     context.submit_tx(signed_tx)
 
-    print(f"transaction id: {signed_tx.id}")
-    print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+    show_tx(signed_tx)
 
 
 if __name__ == "__main__":

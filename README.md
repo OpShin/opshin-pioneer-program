@@ -27,185 +27,13 @@ It also comes with off-chain code using [PyCardano](https://github.com/Python-Ca
 Most of the code is in a similar format to the [plutus-pioneer-program](https://github.com/input-output-hk/plutus-pioneer-program).
 Join the opshin [discord server](https://discord.com/invite/umR3A2g4uw) for Q/A and interact with other opshin pioneers!
 
-## How to Follow the Pioneer Lectures and Code
-
-As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program, but we have recorded custom versions for sessions that rely on writing code and provide a version that focuses on OpShin for them.
-All covered contracts are (to be) implemented in OpShin in this repository.
-The repository contains presented contracts and empty files for homework in the main branch and a correct solution for homework in the solution branch.
-
-Here's a mapping of the lecture videos on each week and what parts of this repository you can work on for each week.
-Feel free to follow along in your own pace.
-
-### [Lecture 1](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM)
-
-- [Welcome and Introduction](https://youtu.be/vMTi1TS8jec)
-- [Setting up Our Development Environment](https://youtu.be/gETaVhZz0Mw)
-- [Kuber Marketplace Demo](https://youtu.be/ZaB-7ZYBi3g)
-- [Hashing & Digital Signatures](https://youtu.be/f-WKPWbk9Jg)
-- [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
-- [Homework](https://youtu.be/9XwBk6IsNuM)
-
-### [Lecture 2](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x1-oF7NDy0MhXxG7k5O6ZOA)
-
-- [Low-Level, Untyped Validation Scripts](https://youtu.be/3tcWCZV6L_w)
-  - Study and compare the gift contract in opshin to plutus.
-    - [`src/week02/lecture/gift.py`](src/week02/lecture/gift.py)
-- [Using the Cardano CLI to Interact with Plutus](https://youtu.be/2MbzKzoBiak)
-  - We use PyCardano to create off-chain scripts for our opshin contracts.
-    Run the following python scripts with `poetry run python <script-path>`.
-    The bash scripts using the dockerized Cardano CLI are also provided for reference.
-  - Create your test wallets with `poetry run python scripts/create_key_pair.py --help`
-    - The wallets are generated in the `keys/` directory.
-    - Fund your wallets with the address in `keys/<name>.addr` at the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)
-    - Use the name of your key as arguments for the offchain scripts below.
-  - Look here for offchain code: [`src/week02/scripts/`](src/week02/scripts/). PyCardano examples:
-    - Build the lecture scripts `poetry run python -m src/week02/scripts/build.py`.
-      The output is saved in the `src/week02/assets` folder.
-    - Send ada `poetry run python src/week02/scripts/send.py`
-    - Make gift `poetry run python src/week02/scripts/make_gift.py`
-    - Collect gift `poetry run python src/week02/scripts/collect_gift.py`
-    - You can reference `make_gift.sh` and `collect_gift.sh` for the equivalent using the Cardano CLI,
-      but going forward we will use pycardano to get a consistent and holistic Python experience.
-  - Look here for helper scripts (such as creating a test wallet): `scripts/`
-- [High-Level, Typed Validation Scripts](https://youtu.be/GT8OjOzsOb4)
-  - Review the rest of the opshin scripts.
-    - [`src/week02/lecture/fourty_two.py`](src/week02/lecture/fourty_two.py)
-    - [`src/week02/lecture/fourty_two_typed.py`](src/week02/lecture/fourty_two_typed.py)
-    - [`src/week02/lecture/custom_types.py`](src/week02/lecture/custom_types.py)
-    - [`src/week02/lecture/burn.py`](src/week02/lecture/burn.py)
-  - You can choose which lecture script to use in `make_gift.py` and `collect_gift.py` with the argument `--script <script-name>`
-- [Summary](https://youtu.be/F5ewN65Mn4I)
-- [Homework](https://youtu.be/OR2IfD4oDjw)
-  - Complete the following homework files:
-    - [`src/week02/homework/homework1.py`](src/week02/homework/homework1.py)
-    - [`src/week02/homework/homework2.py`](src/week02/homework/homework2.py)
-  - You can test your solution with `pytest src/week02/tests/test_homework.py`
-  - The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch
-
-### [Lecture 3](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2zXSjHRKLSc5Jn9vJFA3_O)
-
-- [Script Contexts](https://youtu.be/dcoYrIyEI4o)
-- [Handling Time](https://youtu.be/LPzwMqOnWvk)
-- [A Vesting Example](https://youtu.be/5D0O7q9UPJA)
-  - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
-- [Parameterized Contracts](https://youtu.be/ZSKVu32c5eA)
-  - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
-- [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
-  - We implement the same in pycardano instead in [`src/week03/scripts`](src/week03/scripts).
-- [Reference Scripts](https://youtu.be/Rnyc5YXVXew)
-  - To be implemented...
-- [Homework](https://youtu.be/hdt4XqFeEyg)
-  - Complete the following homework files:
-    - [`src/week03/homework/homework1.py`](src/week03/homework/homework1.py)
-    - [`src/week03/homework/homework2.py`](src/week03/homework/homework2.py)
-  - Like before, you can run tests with `pytest src/week03/tests`
-- [Summary](https://youtu.be/gxan_u2pStE)
-
-### [Lecture 4](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2j587Ox_nwEzmCO-elk8BG)
-This lecture is about alternative offchain solutions.
-We use pycardano, but you can compare and contrast alternatives.
-
-- [On-chain VS Off-chain](https://youtu.be/pTc_BJby5GU)
-- [Off-chain Code with Cardano CLI and GUI](https://youtu.be/gsgQ-xmzbpA)
-- [Off-chain Code with Kuber](https://youtu.be/fzib9ALlL2M)
-- [Off-chain Code with Lucid](https://youtu.be/BXz5V2rjbiE)
-- [Homework](https://youtu.be/2Qm2xgmtbk4)
-  - Implement the offchain code for the files in [`src/week04/homework`](src/week04/homework).
-  - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
-  - There is no correct solution for this week as solutions can very widely.
-    So make sure to test your code!
-  - Feel free to submit your solution by making a PR to the `solutions` branch!
-  - We will continue to implement off-chain code in pycardano for this repository.
-
-### [Lecture 5](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x2T1lIR4XnDILKukj3rPapi)
-
-- [Introduction](https://youtu.be/HgXYsMFqnb4)
-- [Values](https://youtu.be/ThYByMLC0EI)
-- [A Simple Minting Policy](https://youtu.be/g_VoKPK-tk0)
-  - [`src/week05/lecture/free.py`](src/week05/lecture/free.py)
-  - Off-chain minting script: `python src\week05\scripts\mint.py --script=free WALLET_NAME TOKEN_NAME`
-- [A More Realistic Minting Policy](https://youtu.be/Faru8_Br2Xg)
-  - [`src/week05/lecture/signed.py`](src/week05/lecture/signed.py)
-  - Off-chain minting script: `python src\week05\scripts\mint.py --script=signed WALLET_NAME TOKEN_NAME`
-- [NFT's](https://youtu.be/9kW-z_RuwEY)
-  - [`src/week05/lecture/nft.py`](src/week05/lecture/nft.py)
-  - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
-- [Homework](https://youtu.be/nQC_GNPIRT8)
-  - Complete the minting policies in [`src/week05/homework`](src/week05/homework).
-  - Test your solution with `pytest src/week05/tests`
-
-### [Lecture 6](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh)
-
-- [The State Monad in practice](https://www.youtube.com/watch?v=8tWzG0ML6Z4&list=PLNEK_Ejlx3x08fHgl_ZTlowVO8bjqITEh&index=1)
-  - You can skip this for opshin.
-- [Introduction to the Plutus Simple Model library](https://youtu.be/Sft02LeXA_U)
-  - We implement `MockChainContext` and `MockUser` in [`src/utils/mock.py`](src/utils/mock.py).
-    These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
-  - Make sure you have the latest dependencies installed and pyaiken which we use to evaluate transactions without the node.
-    - `poetry install --sync --extras=pyaiken`
-  - We implement a simple test in [`src/week06/tests/test_mock.py`](src/week06/tests/test_mock.py) with simulated spending and multiple users.
-- [Unit Testing a Smart Contract](https://youtu.be/vB8hyVq3HVo)
-  - Unit tests located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
-- [Property Testing a Smart Contract](https://youtu.be/pF8HpKmaQi4)
-  - Property tests also located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
-  - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
-    to get familiar with property testing in Python.
-- [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
-  - N/A.
-- [Double Spending and Homework](https://youtu.be/AZVpkwRhEaY)
-  - Complete the following test [`src/week06/homework/test_exploitable_swap.py`](src/week06/homework/test_exploitable_swap.py)
-  - Use your completed test to implement a fix to the swap script: [`src/week06/homework/fixed_swap.py`](src/week06/homework/fixed_swap.py)
-
-
-### [Lecture 7](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0wH_y1lQp4xtrkuaYSWi6V)
-This week introduces Marlowe. There won't be any relevant opshin code for this week.
-
-- [Introduction](https://youtu.be/KCWuj2DXEY4)
-- [Marlowe Playground Demo](https://youtu.be/fldaBHmYfqk)
-- [Homework](https://youtu.be/C4WWnQZOAAM)
-- [Marlowe Starter Kit: Docker](https://youtu.be/wgSvPlWUrf8)
-- [Marlowe Starter Kit: Preliminaries](https://youtu.be/hGBmj9ZrYHs)
-- [Marlowe Starter Kit: ZCB using the Marlowe Runtime command-line client](https://youtu.be/pjDtuD5rimI)
-- [Marlowe Starter Kit: ZCB using the Marlowe Runtime REST API](https://youtu.be/wgJVdkM2pBY)
-- [Marlowe Starter Kit: ZCB using the Marlowe Runtime CLI](https://youtu.be/ELc72BKf7ec)
-- [Marlowe Starter Kit: Escrow using the Marlowe Runtime's REST API](https://youtu.be/E8m-PKbS9TI)
-- [Marlowe Starter Kit: Swap contract using the Marlowe Runtime's REST API](https://youtu.be/sSrVCRNoytU)
-
-### [Lecture 8](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x09VdtQTw_UpxUa0bRcrVPI)
-
-- [Introduction](https://youtu.be/07ATzubeHjo)
-- [The Private Testnet](https://youtu.be/BBqOZAuMx1c)
-- [Plutus & Staking](https://youtu.be/1Hs6bU9pXi4)
-- [Trying it on the Testnet](https://youtu.be/fzYXwdrfu44)
-- [Homework](https://youtu.be/rO3FVGsuzUg)
-
-### [Lecture 9](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x3ZWTpR5lhoVs_DHkebiBcU)
-
-- [Creating our own Stablecoin Dapp](https://youtu.be/KDzyMy0WN9M)
-- [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
-- [Stablecoin's Oracle](https://youtu.be/XfbEsFPbzCI)
-- [Deploying Stablecoin's Reference scripts](https://youtu.be/AokRj-upwlY)
-- [Minting Stablecoins](https://youtu.be/mUa9sztfPKs)
-- [Burning Stablecoins and Liquidating positions](https://youtu.be/u2cUeD72MrQ)
-- [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
-- [Homework](https://youtu.be/yfmLaLcDjtc)
-
-### [Lecture 10](https://www.youtube.com/playlist?list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1)
-
-- [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
-- [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
-- [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
-- [Developing smart contracts with OpShin and PyCardano (Python)](https://www.youtube.com/watch?v=Ale01hnxZEg&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=3)
-- [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
-- [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
-
 ## Installation
 
 1. Install Python 3.9, 3.10 or 3.11 (if it not already installed on your operating system).
-Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
+   Python3.11 Installer [download](https://www.python.org/downloads/release/python-3112/).
 
 2. Install python poetry.
-Follow the official documentation [here](https://python-poetry.org/docs/#installation).
+   Follow the official documentation [here](https://python-poetry.org/docs/#installation).
 
 3. Install a python virtual environment with poetry:
 ```bash
@@ -232,31 +60,8 @@ poetry run python <script-path>
 ### Cardano Node and Ogmios
 
 #### Quick setup
-<a href="https://ogmios-preview-api-public-e79b24.us1.demeter.run/">
-  <img src="https://img.shields.io/badge/dynamic/json?label=ogmios&query=$.connectionStatus&url=https%3A%2F%2Fogmios-preview-api-public-e79b24.us1.demeter.run%2Fhealth&color=purple"/>
-</a>
-<a href="https://cardanosolutions.github.io/kupo/">
-  <img src="https://img.shields.io/badge/dynamic/json?color=yellow&label=kupo&query=%24.connection_status&url=https%3A%2F%2Fkupo-preview-api-public-e79b24.us1.demeter.run%2Fhealth"/>
-</a>
 
-Simply run the following to use some publicly available nodes hosted by [demeter.run](https://demeter.run).
-These nodes are already fully synced and ready to use. Note that as public endpoints, these nodes may be slow to respond and occasionally fail.
-
-Note also that production environments should *always* host their own node in order to guard themselves from failures.
-
-```bash
-export OGMIOS_API_PROTOCOL=wss
-export OGMIOS_API_HOST=ogmios-preview-api-public-e79b24.us1.demeter.run
-export OGMIOS_API_PORT=443
-export KUPO_API_PROTOCOL=https
-export KUPO_API_HOST=kupo-preview-api-public-e79b24.us1.demeter.run
-export KUPO_API_PORT=443
-export CHAIN_BACKEND=kupo
-```
-
-If you want to host the node on your local computer, follow the steps in [Local Setup](#Local-Setup)
-
-### Additional Material
+> TBD: If you would like to contribute a hosted Ogmios endpoint, please feel free to contribute!
 
 #### Local setup
 
@@ -303,3 +108,179 @@ export CHAIN_BACKEND=kupo
 
 You can check kupo synchronization by checking comparing the last slot number in http://localhost:1442/checkpoints
 to ogmios at http://localhost:1337/
+
+## How to Follow the Pioneer Lectures and Code
+
+As mentioned before, this repository follows the official Plutus Pioneer Program. The lectures/videos are the same as in the Plutus Pioneer Program, but we have recorded custom versions for sessions that rely on writing code and provide a version that focuses on OpShin for them.
+All covered contracts are (to be) implemented in OpShin in this repository.
+The repository contains presented contracts and empty files for homework in the main branch and a correct solution for homework in the solution branch.
+
+Here's a mapping of the lecture videos on each week and what parts of this repository you can work on for each week.
+Feel free to follow along in your own pace.
+
+The entire playlist for the OpShin Pioneer Program can be found [here](https://www.youtube.com/playlist?list=PLTh2dOp0i8OKn3H45KH7EqdI4wmkOjeCM).
+
+### Week 1
+
+- [Welcome and Introduction](https://youtu.be/vMTi1TS8jec)
+- [Setting up Our Development Environment](https://youtu.be/gETaVhZz0Mw)
+  - Check your local Cardano connection with `poetry run python src/week01/scripts/check_setup.py`.
+- [Kuber Marketplace Demo](https://youtu.be/ZaB-7ZYBi3g)
+- [Hashing & Digital Signatures](https://youtu.be/f-WKPWbk9Jg)
+- [The EUTxO-Model](https://youtu.be/ulYDNaEKf4g)
+- [Homework](https://youtu.be/9XwBk6IsNuM)
+
+Recommended Reading: [A Python Language Tour focusing on OpShin](https://book.opshin.dev/language_tour/index.html)
+
+### Week 2
+
+- [Low-Level, Untyped Validation Scripts](https://youtu.be/8oBZeOcJUTk)
+- [Using the PyCardano to Interact with Smart Contracts](https://youtu.be/TQ8VZvhivEs)
+  - Build the lecture scripts with `poetry run python src/week02/scripts/build.py`.
+  - Send funds between known wallets with `poetry run python src/week02/scripts/send.py NAME RECIPIENT --amount LOVELACE`.
+  - Lock funds at a lecture script with `poetry run python src/week02/scripts/make_gift.py NAME --script=gift`.
+  - Collect them again with `poetry run python src/week02/scripts/collect_gift.py NAME --script=gift`.
+  - [Using the Cardano CLI to Interact with Smart Contracts](https://youtu.be/2MbzKzoBiak)
+- [High-Level, Typed Validation Scripts](https://youtu.be/7XVeDXAgRPg)
+- [Summary](https://youtu.be/MLfbaBZ10qE)
+- [Homework](https://youtu.be/KFJMhNcMAuU)
+
+Complete the homework files in [`src/week02/homework/`](src/week02/homework/).
+You can test your solution with `pytest src/week02/tests/test_homework.py`.
+The solutions are available at on the [`solutions`](https://github.com/OpShin/opshin-pioneer-program/tree/solutions) branch.
+
+### Week 3
+
+- [Script Contexts](https://youtu.be/HJt_Oli7e10)
+- [Handling Time](https://youtu.be/gObATD-dzrA)
+- [A Vesting Example](https://youtu.be/L3NPepcqTWE)
+  - [`src/week03/lecture/vesting.py`](src/week03/lecture/vesting.py)
+  - Build the lecture scripts with `poetry run python src/week03/scripts/build.py`.
+  - Lock funds until a deadline with `poetry run python src/week03/scripts/make_vest.py NAME BENEFICIARY --wait_time SECONDS`.
+  - Collect matured funds with `poetry run python src/week03/scripts/collect_vest.py BENEFICIARY`.
+- [Parameterized Contracts](https://youtu.be/1cBkQIufjTA)
+  - [`src/week03/lecture/parameterized_vesting.py`](src/week03/lecture/parameterized_vesting.py)
+  - Add `--parameterized` to `make_vest.py` and `collect_vest.py` to use the parameterized validator.
+- [Offchain Code with PyCardano](https://youtu.be/ILJ_mlOwuUQ)
+  - If you want to look at an example in Lucid, check out the original PPP video: [Offchain Code with Lucid](https://youtu.be/C8TuGSzhqXU)
+- [Reference Scripts](https://youtu.be/b45MMtuby-U)
+  - Submit reference scripts with `poetry run python src/week03/scripts/submit_ref_scripts.py OWNER`.
+  - Spend using a reference script with `poetry run python src/week03/scripts/collect_vest_ref.py BENEFICIARY`.
+- [Homework](https://youtu.be/NQIqCozYkss)
+- [Summary](https://youtu.be/g28zeIRExeg)
+
+Complete the homework files in [`src/week03/homework/`](src/week03/homework/). Like before, you can run tests with `pytest src/week03/tests`.
+
+### Week 4
+This week is about alternative offchain solutions.
+We use pycardano, but you can compare and contrast alternatives.
+
+- [On-chain VS Off-chain](https://youtu.be/VOi3V-Hhh4M)
+- [Off-chain Code with Cardano CLI and GUI](https://youtu.be/gsgQ-xmzbpA)
+- [Off-chain Code with Kuber](https://youtu.be/fzib9ALlL2M)
+- [Off-chain Code with Lucid](https://youtu.be/BXz5V2rjbiE)
+- [Homework](https://youtu.be/oDs5pamPtdk)
+  - Implement the offchain code for the files in [`src/week04/homework`](src/week04/homework).
+  - Although the contracts are implemented in opshin, you can use offchain code other than pycardano to complete this.
+  - There is no correct solution for this week as solutions can very widely.
+    So make sure to test your code!
+  - Feel free to submit your solution by making a PR to the `solutions` branch!
+  - We will continue to implement off-chain code in pycardano for this repository.
+
+### Week 5
+
+- [Introduction](https://youtu.be/oO24ymjqGNM)
+- [Values](https://youtu.be/h12DDxu1YC8)
+- [A Simple Minting Policy](https://youtu.be/KD-trbQCGNA)
+  - [`src/week05/lecture/free.py`](src/week05/lecture/free.py)
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=free WALLET_NAME TOKEN_NAME`
+- [A More Realistic Minting Policy](https://youtu.be/rW4txCwfJ5k)
+  - [`src/week05/lecture/signed.py`](src/week05/lecture/signed.py)
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=signed WALLET_NAME TOKEN_NAME`
+- [NFT's](https://youtu.be/bUDkAjb18M4)
+  - [`src/week05/lecture/nft.py`](src/week05/lecture/nft.py)
+  - Off-chain minting script: `python src\week05\scripts\mint.py --script=nft WALLET_NAME TOKEN_NAME`
+- [Homework](https://youtu.be/tVXLQCXfcf4)
+  - Complete the minting policies in [`src/week05/homework`](src/week05/homework).
+  - Test your solution with `pytest src/week05/tests`
+
+### Week 6
+
+- [Introduction](https://youtu.be/41MDqzBDhSU)
+- [Mock Environment](https://youtu.be/S9cRbs0w01Y)
+  - We implement `MockChainContext` and `MockUser` in [`src/utils/mock.py`](src/utils/mock.py).
+    These classes allow us to easily test and evaluate our opshin contracts without the Cardano Node!
+  - Make sure you have the latest dependencies installed; we use `uplc` to evaluate transactions without the node.
+    - `poetry install --sync`
+  - We implement a simple test in [`src/week06/tests/test_mock.py`](src/week06/tests/test_mock.py) with simulated spending and multiple users.
+- [Unit Testing a Smart Contract](https://youtu.be/wsXT-NOalQk)
+  - Unit tests located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
+- [Property Testing a Smart Contract](https://youtu.be/NJAQZmPZhck)
+  - Property tests also located in [`src/week06/tests/test_negative_r_timed.py`](src/week06/tests/test_negative_r_timed.py)
+  - Read the documentation on [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
+    to get familiar with property testing in Python.
+- [Testing Smart Contracts with Lucid](https://youtu.be/aUrIuDQgg5c)
+  - N/A.
+- [Homework](https://youtu.be/8io2wbyQ6dw)
+  - Complete the following test [`src/week06/homework/test_exploitable_swap.py`](src/week06/homework/test_exploitable_swap.py)
+  - Use your completed test to implement a fix to the swap script: [`src/week06/homework/fixed_swap.py`](src/week06/homework/fixed_swap.py)
+
+
+### Week 7
+This week introduces Marlowe in a guest lecture by IOG Academy. There won't be any relevant OpShin code for this week.
+
+- [Introduction](https://youtu.be/KCWuj2DXEY4)
+- [Marlowe Playground Demo](https://youtu.be/fldaBHmYfqk)
+- [Homework](https://youtu.be/C4WWnQZOAAM)
+- [Marlowe Starter Kit: Docker](https://youtu.be/wgSvPlWUrf8)
+- [Marlowe Starter Kit: Preliminaries](https://youtu.be/hGBmj9ZrYHs)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime command-line client](https://youtu.be/pjDtuD5rimI)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime REST API](https://youtu.be/wgJVdkM2pBY)
+- [Marlowe Starter Kit: ZCB using the Marlowe Runtime CLI](https://youtu.be/ELc72BKf7ec)
+- [Marlowe Starter Kit: Escrow using the Marlowe Runtime's REST API](https://youtu.be/E8m-PKbS9TI)
+- [Marlowe Starter Kit: Swap contract using the Marlowe Runtime's REST API](https://youtu.be/sSrVCRNoytU)
+
+### Week 8
+
+- [Introduction](https://youtu.be/0b8bsvEc0CQ)
+- [The Private Testnet](https://youtu.be/TJfEDOUIYIw)
+- [Plutus & Staking](https://youtu.be/2uOfkyQY9BI)
+  - [`src/week08/lecture/staking.py`](src/week08/lecture/staking.py)
+  - Build the staking validator with `poetry run python src/week08/scripts/build.py --address BECH32_ADDRESS`.
+- [Trying it on the Testnet](https://youtu.be/9XvXsXCEvag)
+  - The shell scripts in [`src/week08/scripts/`](src/week08/scripts/) expect the private testnet container paths.
+  - Query the node with `src/week08/scripts/query-tip.sh` and list pools with `src/week08/scripts/query-stake-pools.sh`.
+  - Register and delegate the script stake credential with `src/week08/scripts/register-and-delegate.sh TXIN`.
+  - Inspect rewards with `src/week08/scripts/query-stake-address-info-user1-script.sh` and withdraw with `src/week08/scripts/withdraw.sh TXIN`.
+- [Homework](https://youtu.be/6nLPgIS8opY)
+  - Complete the staking validator in [`src/week08/homework/homework.py`](src/week08/homework/homework.py).
+
+### Week 9
+
+- [Creating our own Stablecoin Dapp](https://youtu.be/UErA55ke65w)
+- [Using our Stablecoin UI](https://youtu.be/MVq51lZkutA)
+  - The frontend lives in [`src/week09/offchain/frontend/`](src/week09/offchain/frontend/).
+  - Run it with `cd src/week09/offchain/frontend && npm install && npm run dev`.
+- [Stablecoin's Oracle](https://youtu.be/e5HCblt7glM)
+  - [`src/week09/onchain/oracle.py`](src/week09/onchain/oracle.py)
+  - [`src/week09/onchain/nft.py`](src/week09/onchain/nft.py)
+- [Deploying Stablecoin's Reference scripts](https://youtu.be/AokRj-upwlY)
+  - [`src/week09/onchain/collateral.py`](src/week09/onchain/collateral.py)
+  - [`src/week09/onchain/minting.py`](src/week09/onchain/minting.py)
+- [Minting Stablecoins](https://youtu.be/pM0JV2uZpjE)
+- [Burning Stablecoins and Liquidating positions](https://youtu.be/8f00hE_pN90)
+- [Testing our Stablecoin's scripts](https://youtu.be/-MBebK33FOU)
+  - Test the on-chain scripts with `pytest src/week09/tests/test_on_chain.py`.
+- [Homework](https://youtu.be/1OQiRovbt3w)
+
+### Week 10
+
+- [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
+- [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
+- [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
+- [Developing smart contracts with Plutus (Haskell)](https://youtu.be/pj6RkOxQygY)
+  - Compare the PlutusTx vesting validator in [`src/week10/lecture/Vesting.hs`](src/week10/lecture/Vesting.hs) with the opshin version from week 3.
+  - Build the PlutusTx validator with `src/week10/scripts/build.sh`.
+  - The generated script is copied to `src/week10/assets/vesting.plutus`.
+- [Developing smart contracts with Plutarch (Haskell)](https://www.youtube.com/watch?v=2PNTJLzcP2k&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=4)
+- [Developing smart contracts with Aiken](https://www.youtube.com/watch?v=Y6x46s60bks&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)

@@ -16,6 +16,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Set up python
+        id: setup-python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -66,4 +67,4 @@ jobs:
       #----------------------------------------------
       - name: Run pytest
         run: |
-          poetry run pytest -n auto
+          poetry run pytest

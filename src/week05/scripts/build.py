@@ -1,4 +1,5 @@
 import subprocess
+import sys
 from pathlib import Path
 
 from src.week05 import assets_dir
@@ -11,7 +12,17 @@ def main():
         build_dir = assets_dir.joinpath(Path(script).stem)
         if not build_dir.exists():
             subprocess.run(
-                f"opshin build any {script} -o {build_dir}".split(), check=True
+                [
+                    sys.executable,
+                    "-m",
+                    "opshin",
+                    "build",
+                    "any",
+                    script,
+                    "-o",
+                    build_dir,
+                ],
+                check=True,
             )
 
 

@@ -1,4 +1,7 @@
 from pathlib import Path
+from time import sleep
+
+import click
 from pycardano import (
     Address,
     PlutusV2Script,
@@ -16,12 +19,14 @@ from src.utils import (
     get_chain_context,
     get_ref_utxo,
 )
+from src.utils.network import show_tx
 from src.week03 import assets_dir
 from src.week03.tests.test_lecture import script_paths
 
 
-def main():
-    owner = "scripts"
+@click.command()
+@click.argument("owner")
+def main(owner):
     payment_vkey, payment_skey, payment_address = get_signing_info(owner)
 
     # Load chain context
@@ -43,24 +48,31 @@ def main():
         ref_utxo = get_ref_utxo(contract_plutus_script, context)
         if ref_utxo:
             print(f"reference script UTXO for {script} already exists")
-            break
+            continue
 
-        txbuilder = TransactionBuilder(context)
-        output = TransactionOutput(
-            contract_script_address, amount=1_000_000, script=contract_plutus_script
-        )
-        output.amount = Value(min_lovelace(context, output))
-        txbuilder.add_output(output)
-        txbuilder.add_input_address(payment_address)
-        signed_tx = txbuilder.build_and_sign(
-            signing_keys=[payment_skey], change_address=payment_address
-        )
-        context.submit_tx(signed_tx)
-        print(
-            f"creating {script} reference script UTXO; transaction id: {signed_tx.id}"
-        )
-        print(f"transaction id: {signed_tx.id}")
-        print(f"Cardanoscan: https://preprod.cexplorer.io/tx/{signed_tx.id}")
+        while True:
+            try:
+                txbuilder = TransactionBuilder(context)
+                output = TransactionOutput(
+                    contract_script_address,
+                    amount=1_000_000,
+                    script=contract_plutus_script,
+                )
+                output.amount = Value(min_lovelace(context, output))
+                txbuilder.add_output(output)
+                txbuilder.add_input_address(payment_address)
+                signed_tx = txbuilder.build_and_sign(
+                    signing_keys=[payment_skey], change_address=payment_address
+                )
+                context.submit_tx(signed_tx)
+                print(
+                    f"creating {script} reference script UTXO; transaction id: {signed_tx.id}"
+                )
+                show_tx(signed_tx)
+                break
+            except Exception as e:
+                print(f"error: {e}, waiting for 30s, then retrying")
+                sleep(30)
 
 
 if __name__ == "__main__":

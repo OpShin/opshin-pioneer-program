@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 path=$(readlink -f "$0")
 week_dir=$(dirname "$(dirname "$path")")
 scripts=(
@@ -13,5 +15,5 @@ assets_dir="$week_dir/assets"
 mkdir -p "$assets_dir"
 
 for script in "${scripts[@]}"; do
-  opshin build spending "$week_dir/lecture/$script" -o "$assets_dir/${script%.*}"
+  opshin build any "$week_dir/lecture/$script" -o "$assets_dir/${script%.*}"
 done

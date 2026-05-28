@@ -1,21 +1,11 @@
 from functools import cache
 from typing import Optional
 
-import pyaiken
 import pycardano
 import uplc
 from opshin.prelude import *
-from pycardano import (
-    ScriptHash,
-    RedeemerTag,
-    Address,
-    ChainContext,
-    plutus_script_hash,
-    datum_hash,
-    PlutusV2Script,
-    UTxO,
-)
 from src.utils import network
+from uplc.cost_model import Budget
 
 
 def to_staking_credential(
@@ -110,6 +100,13 @@ def to_payment_credential(
     raise NotImplementedError(f"Unknown payment key type {type(c)}")
 
 
+def to_address(address: pycardano.Address):
+    return Address(
+        to_payment_credential(address.payment_part),
+        to_staking_credential(address.staking_part),
+    )
+
+
 def to_tx_out(o: pycardano.TransactionOutput):
     if o.datum is not None:
         output_datum = SomeOutputDatum(o.datum)
@@ -122,7 +119,7 @@ def to_tx_out(o: pycardano.TransactionOutput):
     else:
         script = SomeScriptHash(pycardano.script_hash(o.script).payload)
     return TxOut(
-        o.address,
+        to_address(o.address),
         value_to_value(o.amount),
         output_datum,
         script,
@@ -161,6 +158,20 @@ def to_redeemer_purpose(r: pycardano.Redeemer, tx_body: pycardano.TransactionBod
         raise NotImplementedError()
 
 
+def iter_redeemers(redeemers: pycardano.Redeemers) -> List[pycardano.Redeemer]:
+    if redeemers is None:
+        return []
+    if isinstance(redeemers, pycardano.RedeemerMap):
+        ret = []
+        for key, value in redeemers.items():
+            redeemer = pycardano.Redeemer(value.data, value.ex_units)
+            redeemer.tag = key.tag
+            redeemer.index = key.index
+            ret.append(redeemer)
+        return ret
+    return redeemers
+
+
 def to_tx_info(
     tx: pycardano.Transaction,
     resolved_inputs: List[pycardano.TransactionOutput],
@@ -175,11 +186,7 @@ def to_tx_info(
     ]
     if tx.transaction_witness_set.plutus_data:
         datums += tx.transaction_witness_set.plutus_data
-    redeemers = (
-        tx.transaction_witness_set.redeemer
-        if tx.transaction_witness_set.redeemer
-        else []
-    )
+    redeemers = iter_redeemers(tx.transaction_witness_set.redeemer)
     return TxInfo(
         [to_tx_in_info(i, o) for i, o in zip(tx_body.inputs, resolved_inputs)],
         [
@@ -226,21 +233,24 @@ def generate_script_contexts(tx_builder: pycardano.TransactionBuilder):
     #     for utxo in tx_builder.inputs + tx_builder.reference_inputs
     # }
     resolved_inputs = [
-        UTxO(i, input_to_resolved_output[i]) for i in tx.transaction_body.inputs
+        pycardano.UTxO(i, input_to_resolved_output[i])
+        for i in tx.transaction_body.inputs
     ]
     resolved_reference_inputs = [
-        UTxO(i, input_to_resolved_output[i])
+        pycardano.UTxO(i, input_to_resolved_output[i])
         for i in tx.transaction_body.reference_inputs
     ]
     return generate_script_contexts_resolved(
-        tx, resolved_inputs, resolved_reference_inputs
+        tx,
+        resolved_inputs,
+        resolved_reference_inputs,
     )
 
 
 def generate_script_contexts_resolved(
     tx: pycardano.Transaction,
-    resolved_inputs: List[UTxO],
-    resolved_reference_inputs: List[UTxO],
+    resolved_inputs: List[pycardano.UTxO],
+    resolved_reference_inputs: List[pycardano.UTxO],
     posix_from_slot,
 ):
     tx_info = to_tx_info(
@@ -252,13 +262,15 @@ def generate_script_contexts_resolved(
     datum = None
     script_contexts = []
     for i, spending_input in enumerate(resolved_inputs):
-        if not isinstance(spending_input.output.address.payment_part, ScriptHash):
+        if not isinstance(
+            spending_input.output.address.payment_part, pycardano.ScriptHash
+        ):
             continue
         try:
             spending_redeemer = next(
                 r
-                for r in tx.transaction_witness_set.redeemer
-                if r.index == i and r.tag == RedeemerTag.SPEND
+                for r in iter_redeemers(tx.transaction_witness_set.redeemer)
+                if r.index == i and r.tag == pycardano.RedeemerTag.SPEND
             )
         except (StopIteration, TypeError):
             raise ValueError(
@@ -272,7 +284,7 @@ def generate_script_contexts_resolved(
             spending_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(PlutusV2Script(s))
+                if pycardano.plutus_script_hash(pycardano.PlutusV2Script(s))
                 == spending_input.output.address.payment_part
             )
         except (StopIteration, TypeError):
@@ -287,7 +299,7 @@ def generate_script_contexts_resolved(
                 datum = next(
                     d
                     for d in tx.transaction_witness_set.plutus_data or []
-                    if datum_hash(d) == datum_h
+                    if pycardano.datum_hash(d) == datum_h
                 )
             except StopIteration:
                 raise ValueError(
@@ -309,8 +321,8 @@ def generate_script_contexts_resolved(
         try:
             minting_redeemer = next(
                 r
-                for r in tx.transaction_witness_set.redeemer
-                if r.index == i and r.tag == RedeemerTag.MINT
+                for r in iter_redeemers(tx.transaction_witness_set.redeemer)
+                if r.index == i and r.tag == pycardano.RedeemerTag.MINT
             )
         except StopIteration:
             raise ValueError(
@@ -320,7 +332,8 @@ def generate_script_contexts_resolved(
             minting_script = next(
                 s
                 for s in tx.transaction_witness_set.plutus_v2_script
-                if plutus_script_hash(PlutusV2Script(s)) == minting_script_hash
+                if pycardano.plutus_script_hash(pycardano.PlutusV2Script(s))
+                == minting_script_hash
             )
         except StopIteration:
             raise NotImplementedError(
@@ -346,38 +359,38 @@ def uplc_unflat(hex: str):
 
 
 def evaluate_script(script_invocation: ScriptInvocation):
-    uplc_program = uplc_unflat(script_invocation.script.hex()).dumps(
-        dialect=uplc.UPLCDialect.Aiken
-    )
+    uplc_program = uplc_unflat(script_invocation.script.hex())
     args = [script_invocation.redeemer.data, script_invocation.script_context]
     if script_invocation.datum is not None:
         args.insert(0, script_invocation.datum)
-    program_args = []
-    for a in args:
-        data = f"(con data #{PlutusData.to_cbor(a).hex()})"
-        program_args.append(data)
+    program_args = [uplc.ast.data_from_cbor(PlutusData.to_cbor(a)) for a in args]
     allowed_cpu_steps = script_invocation.redeemer.ex_units.steps
     allowed_mem_steps = script_invocation.redeemer.ex_units.mem
-    ((suc, err), logs, (remaining_cpu_steps, remaining_mem_steps)) = pyaiken.uplc.eval(
-        uplc_program, program_args, allowed_cpu_steps, allowed_mem_steps
+    result = uplc.eval(
+        uplc_program,
+        *program_args,
+        budget=Budget(allowed_cpu_steps, allowed_mem_steps),
     )
-    if logs:
+    err = result.result if isinstance(result.result, Exception) else None
+    if result.logs:
         print("Script debug logs:")
         print("==================")
-        print("\n".join(logs))
+        print("\n".join(result.logs))
         print("==================")
     return (
-        (suc, err),
+        (err is None, err),
         (
-            remaining_cpu_steps,
-            remaining_mem_steps,
+            result.cost.cpu,
+            result.cost.memory,
         ),
-        logs,
+        result.logs,
     )
 
 
-def get_ref_utxo(contract: PlutusV2Script, context: ChainContext):
-    script_address = Address(payment_part=plutus_script_hash(contract), network=network)
+def get_ref_utxo(contract: pycardano.PlutusV2Script, context: pycardano.ChainContext):
+    script_address = pycardano.Address(
+        payment_part=pycardano.plutus_script_hash(contract), network=network
+    )
     for utxo in context.utxos(script_address):
         if utxo.output.script == contract:
             return utxo

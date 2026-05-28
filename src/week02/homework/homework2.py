@@ -3,6 +3,7 @@ from opshin.prelude import *
 
 @dataclass()
 class MyRedeemer(PlutusData):
+    CONSTR_ID = 0
     flag1: bool
     flag2: bool
 

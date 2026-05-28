@@ -10,7 +10,7 @@ keys_dir = Path(__file__).parent.parent.joinpath("keys")
 @click.argument("name")
 def main(name):
     """
-    Creates a testnet signing key, verification key, and address.
+    Creates a signing key, verification key, and address with NAME - refer to this name for other scripts.
     """
     keys_dir.mkdir(exist_ok=True)
     skey_path = keys_dir.joinpath(f"{name}.skey")
@@ -38,6 +38,7 @@ def main(name):
     print(f"wrote signing key to: {skey_path}")
     print(f"wrote verification key to: {vkey_path}")
     print(f"wrote address to: {addr_path}")
+    print(f"To initialize this wallet, send funds to {address}")
 
 
 if __name__ == "__main__":
