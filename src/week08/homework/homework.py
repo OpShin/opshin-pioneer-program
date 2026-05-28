@@ -8,11 +8,22 @@ Homework: a staking validator with two parameters, a `PubKeyHash` and an
 
 This is the OpShin equivalent of
 `plutus-pioneer-program/code/Week08/homework/Homework.hs`.
-
-Replace the body of `validator` with your solution.
 """
 
 from opshin.prelude import *
+
+
+def total_withdrawn(wdrl: Dict[StakingCredential, int]) -> int:
+    total = 0
+    for _, amount in wdrl.items():
+        total += amount
+    return total
+
+
+def lovelace_paid_to(addr: Address, outputs: List[TxOut]) -> int:
+    return sum(
+        [o.value.get(b"", {b"": 0}).get(b"", 0) for o in outputs if o.address == addr]
+    )
 
 
 def validator(
@@ -21,5 +32,15 @@ def validator(
     _r: None,
     context: ScriptContext,
 ) -> None:
-    # TODO: implement
-    assert False, "not implemented"
+    tx_info = context.tx_info
+    assert pkh in tx_info.signatories, "required signature missing"
+
+    purpose = context.purpose
+    if isinstance(purpose, Rewarding):
+        withdrawn = total_withdrawn(tx_info.wdrl)
+        paid = lovelace_paid_to(addr, tx_info.outputs)
+        assert 2 * paid >= withdrawn, "insufficient reward sharing"
+    elif isinstance(purpose, Certifying):
+        pass
+    else:
+        assert False, "unexpected script purpose"
