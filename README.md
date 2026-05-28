@@ -275,6 +275,8 @@ This week introduces Marlowe in a guest lecture by IOG Academy. There won't be a
 
 ### Week 10
 
+Week 10 introduces other programming languages for Cardano smart contracts apart from OpShin by the respective developers.
+
 - [Introduction](https://www.youtube.com/watch?v=Vp4UGDUv8BM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=2)
 - [Developing a Dapp with MeshJS and PluTs (Typescript)](https://www.youtube.com/watch?v=tazyJWUL0nM&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=1)
 - [Developing smart contracts with PluTs (Typescript)](https://www.youtube.com/watch?v=WN4yxa-ISyk&list=PLNEK_Ejlx3x0ivViR3g9lAkB4Qj3iejp1&index=5)
