@@ -1,4 +1,5 @@
 .devcontainer/
+.DS_Store
 .vscode/
 **/tmp/*
 
